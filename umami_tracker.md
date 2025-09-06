@@ -1,1 +1,0 @@
-<script defer src="https://cloud.umami.is/script.js" data-website-id="19c3990a-4818-469e-a67e-0f6942e7e77d"></script>
