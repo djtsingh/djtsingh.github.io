@@ -135,7 +135,7 @@
         <p><strong>Daljeet Singh</strong></p>
         <ul>
             <li>GitHub: <a href="https://github.com/djtsingh">@djtsingh</a></li>
-            <li>LinkedIn: <a href="https://www.linkedin.com/in/your-profile-url/">daljeet-singh-profile</a> <!-- TODO: Add your LinkedIn profile URL --></li>
+            <li>LinkedIn: <a href="https://www.linkedin.com/in/djtsingh/">LinkedIn</a> <!-- TODO: Add your LinkedIn profile URL --></li>
         </ul>
         <hr>
         <h2>⭐ Show Your Support</h2>
