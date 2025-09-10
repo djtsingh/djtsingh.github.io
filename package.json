@@ -7,7 +7,9 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "build:css": "postcss src/app/globals.css -o src/app/output.css"
+    "build:css": "postcss src/app/globals.css -o src/app/output.css",
+    "deploy": "gh-pages -d out"
+
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
@@ -30,6 +32,7 @@
     "autoprefixer": "^10.4.21",
     "eslint": "^9",
     "eslint-config-next": "15.5.2",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
     "prettier": "^3.6.2",
