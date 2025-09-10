@@ -142,7 +142,7 @@
         <p>If you found this project interesting or helpful, please give it a ⭐️! It helps motivate me to create more open-source projects.</p>
         <hr>
         <h2>📄 License</h2>
-        <p>This project is licensed under the MIT License.</p>
+        <p>This project is licensed under the AGPL-3.0 license.</p>
     </main>
 </body>
 </html>
