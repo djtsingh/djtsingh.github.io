@@ -6,7 +6,7 @@
 </head>
 <body>
     <main>
-        <h1>✨ Daljeet Singh - My First Portfolio Webstie</h1>
+        <h1>✨ Daljeet Singh - My First Portfolio Website</h1>
         <p>Welcome to the source code of my personal developer portfolio! This project is a clean, modern, and fully responsive single-page application built with the latest web technologies. It's designed to showcase my skills, feature my projects, and provide an easy way for visitors to get in touch.</p>
         <p><a href="https://www.daljeetsingh.me/"><strong>➡️ View the Live Site</strong></a></p>
         <hr>
