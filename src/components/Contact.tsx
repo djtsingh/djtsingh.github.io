@@ -50,6 +50,7 @@ export default function Contact() {
         throw new Error('Form submission failed');
       }
     } catch (error) {
+      console.error('Form submission error:', error);
       setSubmissionStatus('error');
     } finally {
       setIsSubmitting(false);

@@ -31,7 +31,7 @@ export default function Hero() {
           className="text-5xl md:text-7xl font-bold text-text-accent mb-4"
           variants={itemVariants}
         >
-          Hi, I'm Daljeet Singh
+          Hey!, I&apos;m Daljeet Singh
         </motion.h1>
 
         <motion.p className="text-xl md:text-2xl text-text mb-8" variants={itemVariants}>

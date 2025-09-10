@@ -30,8 +30,8 @@ export default function About() {
 
   const sectionVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: ['easeOut'] } },
-  };
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
+  } as const;
 
   return (
     <motion.section
@@ -49,10 +49,10 @@ export default function About() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="text-lg text-text leading-relaxed">
             <p className="mb-4">
-              Hello! I'm Daljeet, a passionate developer with a love for creating clean, intuitive, and high-performance web applications. My journey into web development started with a curiosity for how things work on the internet, and it has since grown into a full-fledged passion.
+              Hello! I&apos;m Daljeet, a passionate developer with a love for creating clean, intuitive, and high-performance web applications. My journey into web development started with a curiosity for how things work on the internet, and it has since grown into a full-fledged passion.
             </p>
             <p>
-              I thrive on turning complex problems into simple, beautiful, and functional designs. I'm always eager to learn new technologies and improve my craft, and I'm currently excited about exploring the depths of serverless architecture and advanced animations.
+              I thrive on turning complex problems into simple, beautiful, and functional designs. I&apos;m always eager to learn new technologies and improve my craft, and I'm currently excited about exploring the depths of serverless architecture and advanced animations.
             </p>
           </div>
           <div>
