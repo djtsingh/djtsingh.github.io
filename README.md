@@ -138,8 +138,8 @@
             <li>LinkedIn: <a href="https://www.linkedin.com/in/djtsingh/">LinkedIn</a> <!-- TODO: Add your LinkedIn profile URL --></li>
         </ul>
         <hr>
-        <h2>⭐ Show Your Support</h2>
-        <p>If you found this project interesting or helpful, please give it a ⭐️! It helps motivate me to create more open-source projects.</p>
+
+        <p>If you found this project interesting or helpful, please give it a ⭐️!</p>
         <hr>
         <h2>📄 License</h2>
         <p>This project is licensed under the AGPL-3.0 license.</p>
