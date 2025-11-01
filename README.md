@@ -6,7 +6,7 @@
 </head>
 <body>
     <main>
-        <h1>✨ Daljeet Singh - My First Portfolio Website</h1>
+        <h1>✨My First Portfolio Website</h1>
         <p>Welcome to the source code of my personal developer portfolio! This project is a clean, modern, and fully responsive single-page application built with the latest web technologies. It's designed to showcase my skills, feature my projects, and provide an easy way for visitors to get in touch.</p>
         <p><a href="https://www.daljeetsingh.me/"><strong>➡️ View the Live Site</strong></a></p>
         <hr>
@@ -135,11 +135,10 @@
         <p><strong>Daljeet Singh</strong></p>
         <ul>
             <li>GitHub: <a href="https://github.com/djtsingh">@djtsingh</a></li>
-            <li>LinkedIn: <a href="https://www.linkedin.com/in/djtsingh/">LinkedIn</a> <!-- TODO: Add your LinkedIn profile URL --></li>
+            <li>LinkedIn: <a href="https://www.linkedin.com/in/djtsingh/">LinkedIn</a></li>
         </ul>
         <hr>
-        <h2>⭐ Show Your Support</h2>
-        <p>If you found this project interesting or helpful, please give it a ⭐️! It helps motivate me to create more open-source projects.</p>
+        <p>If you found this project interesting or helpful, please give it a ⭐️!</p>
         <hr>
         <h2>📄 License</h2>
         <p>This project is licensed under the AGPL-3.0 license.</p>
