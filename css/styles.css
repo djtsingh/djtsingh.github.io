@@ -1,0 +1,114 @@
+/* Base Font */
+body {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+}
+
+/* Catppuccin Mocha Palette */
+:root {
+  /* Text */
+  --color-text: #cdd6f4;
+  --color-subtext0: #bac2de;
+  --color-subtext1: #a6adc8;
+  
+  /* Backgrounds */
+  --color-mantle: #181825;
+  --color-base: #1e1e2e;
+  --color-surface0: #313244;
+  --color-surface1: #45475a;
+  --color-surface2: #585b70;
+  --color-crust: #11111b;
+  
+  /* Accents */
+  --color-rosewater: #f5e0dc;
+  --color-flamingo: #f2cdcd;
+  --color-pink: #e78284;
+  --color-mauve: #ca9ee6;
+  --color-red: #e78a4e;
+  --color-maroon: #eba0ac;
+  --color-peach: #ef9f76;
+  --color-yellow: #f6c177;
+  --color-green: #a6e3a1;
+  --color-teal: #94e2d5;
+  --color-sky: #89dceb;
+  --color-sapphire: #74c7ec;
+  --color-blue: #89b4fa;
+  --color-lavender: #b4befe;
+  
+  /* Overlays */
+  --color-overlay0: #6c7086;
+  --color-overlay1: #7f849c;
+  --color-overlay2: #9399b2;
+}
+
+/* Default Accent */
+:root {
+  --current-accent-color: var(--color-peach);
+  --current-accent-rgb: 239, 159, 118;
+}
+
+/* Tailwind Custom Classes */
+@layer base {
+  .bg-mantle { background-color: var(--color-mantle); }
+  .bg-base { background-color: var(--color-base); }
+  .bg-surface0 { background-color: var(--color-surface0); }
+  .bg-surface1 { background-color: var(--color-surface1); }
+  .bg-surface2 { background-color: var(--color-surface2); }
+  .bg-crust { background-color: var(--color-crust); }
+  .text-text { color: var(--color-text); }
+  .text-subtext0 { color: var(--color-subtext0); }
+  .text-subtext1 { color: var(--color-subtext1); }
+  .border-surface0 { border-color: var(--color-surface0); }
+  .border-surface1 { border-color: var(--color-surface1); }
+  .text-accent { color: var(--current-accent-color); }
+  .text-accent\/40 { color: rgba(var(--current-accent-rgb), 0.4); }
+  .text-accent\/85 { color: rgba(var(--current-accent-rgb), 0.85); }
+  .text-accent\/90 { color: rgba(var(--current-accent-rgb), 0.9); }
+  .text-overlay0 { color: var(--color-overlay0); }
+  .text-overlay1 { color: var(--color-overlay1); }
+  .ring-accent { --tw-ring-color: var(--current-accent-color); }
+  .ring-accent\/70 { --tw-ring-color: rgba(var(--current-accent-rgb), 0.7); }
+  .ring-accent\/20 { --tw-ring-color: rgba(var(--current-accent-rgb), 0.2); }
+  .ring-accent\/50 { --tw-ring-color: rgba(var(--current-accent-rgb), 0.5); }
+  .bg-accent\/80 { background-color: rgba(var(--current-accent-rgb), 0.8); }
+  .bg-accent\/90 { background-color: rgba(var(--current-accent-rgb), 0.9); }
+  .hover\:bg-accent\/80:hover { background-color: rgba(var(--current-accent-rgb), 0.8); }
+  .hover\:text-accent:hover { color: var(--current-accent-color); }
+  .decoration-accent\/30 { text-decoration-color: rgba(var(--current-accent-rgb), 0.3); }
+  .bg-accent\/30 { background-color: rgba(var(--current-accent-rgb), 0.3); }
+  .text-accent\/80 { color: rgba(var(--current-accent-rgb), 0.8); }
+  ::selection {
+    background-color: rgba(var(--current-accent-rgb), 0.3);
+    color: rgba(var(--current-accent-rgb), 0.8);
+  }
+  .caret-accent { caret-color: var(--current-accent-color); }
+}
+
+/* Subtle Effects: Animations */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+.animation-wiggle {
+  animation: wiggle 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Line Clamp Utility (for future use) */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Background Effect Placeholder (extend as needed) */
+.bg-effect-on {
+  /* Add your subtle effect here, e.g., background: linear-gradient(...); */
+}
