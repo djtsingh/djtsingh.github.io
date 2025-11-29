@@ -1,0 +1,103 @@
+<header class="sticky top-0 z-10 bg-mantle/95 backdrop-blur-md border-b border-surface0">
+  <div class="container flex items-center justify-between">
+    <nav class="flex items-center gap-0.5 select-none" style="font-size:1.1rem;">
+      <a href="/" class="text-accent hover:text-accent/40 transition-colors duration-150 animation-wiggle">~</a>
+      <span class="text-surface1" id="path-separator" style="display:none;">/</span>
+      <span class="text-text" id="current-path" style="display:none;"></span>
+      <span class="cursor-blink" style="width:10px; height:20px; display:inline-block; margin-left:4px; background-color:var(--accent);"></span>
+    </nav>
+    <nav class="hidden md:flex items-center gap-4">
+      <a href="about.html" class="text-text hover:text-accent px-3 py-2 font-medium rounded transition-colors duration-150" style="font-size:1.05rem;">About</a>
+      <a href="projects.html" class="text-text hover:text-accent px-3 py-2 font-medium rounded transition-colors duration-150" style="font-size:1.05rem;">Projects</a>
+      <a href="posts.html" class="text-text hover:text-accent px-3 py-2 font-medium rounded transition-colors duration-150" style="font-size:1.05rem;">Posts</a>
+      <a href="assets/DJ_resume.pdf" target="_blank" rel="noopener noreferrer" class="text-text hover:text-accent px-3 py-2 font-medium rounded transition-colors duration-150" style="font-size:1.05rem;">Resume</a>
+      <button id="more-btn" class="text-text hover:text-accent px-3 py-2 font-medium rounded transition-colors duration-150" style="font-size:1.05rem;">More...</button>
+    </nav>
+    <button id="mobile-menu-btn" class="md:hidden p-2 rounded hover:bg-surface0 hover:text-accent transition-colors duration-150" aria-label="Open menu">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 6h18M3 12h18M3 18h18"></path>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Sidebar (shared) -->
+<aside id="mobile-sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-mantle border-r border-surface0 shadow-2xl" style="transform: translateX(-100%); transition: transform .3s ease;">
+  <div class="sidebar-header flex items-center justify-between h-16 border-b border-surface0">
+    <span class="text-accent font-mono text-lg font-semibold">Navigation</span>
+    <button id="mobile-menu-close" class="text-subtext1 hover:text-red rounded p-1 transition-colors duration-150">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon">
+        <path d="M18 6L6 18M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+  <nav class="flex-1 overflow-y-auto p-4">
+    <ul class="space-y-2" role="list">
+      <li><a href="about.html" class="hover:bg-surface0 focus:bg-surface1 block rounded p-2 transition-colors duration-150 focus:outline-none text-text hover:text-accent">About</a></li>
+      <li><a href="projects.html" class="hover:bg-surface0 focus:bg-surface1 block rounded p-2 transition-colors duration-150 focus:outline-none text-text hover:text-accent">Projects</a></li>
+      <li><a href="posts.html" class="hover:bg-surface0 focus:bg-surface1 block rounded p-2 transition-colors duration-150 focus:outline-none text-text hover:text-accent">Posts</a></li>
+      <li><a href="assets/DJ_resume.pdf" target="_blank" rel="noopener noreferrer" class="hover:bg-surface0 focus:bg-surface1 block rounded p-2 transition-colors duration-150 focus:outline-none text-text hover:text-accent">Resume</a></li>
+    </ul>
+  </nav>
+  <div class="border-surface0 flex-shrink-0 border-t sidebar-footer">
+    <h3 class="text-text mb-4 flex items-center gap-2 text-sm font-semibold">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon text-accent">
+        <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25"></path>
+      </svg>
+      Theme
+    </h3>
+    <div class="ring-surface0 mb-4 flex flex-wrap items-center justify-center gap-1 rounded-md theme-buttons">
+      <button class="theme-btn flex-1 cursor-pointer rounded-[5px] px-2 py-1 text-center text-xs font-medium transition-all duration-300 text-subtext1 hover:text-subtext0" data-theme="latte">Latte</button>
+      <button class="theme-btn flex-1 cursor-pointer rounded-[5px] px-2 py-1 text-center text-xs font-medium transition-all duration-300 text-subtext1 hover:text-subtext0" data-theme="frappe">Frappe</button>
+      <button class="theme-btn flex-1 cursor-pointer rounded-[5px] px-2 py-1 text-center text-xs font-medium transition-all duration-300 text-subtext1 hover:text-subtext0" data-theme="macchiato">Macchiato</button>
+      <button class="theme-btn flex-1 cursor-pointer rounded-[5px] px-2 py-1 text-center text-xs font-medium transition-all duration-300 bg-base text-text ring-accent/70 shadow-sm ring-1 ring-inset" data-theme="mocha">Mocha</button>
+    </div>
+    <div class="relative grid grid-cols-7 gap-2.5">
+      <button aria-label="Select rosewater accent color" title="Rosewater" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="rosewater" style="background-color: var(--color-rosewater);"><span class="sr-only">rosewater</span></button>
+      <button aria-label="Select flamingo accent color" title="Flamingo" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="flamingo" style="background-color: var(--color-flamingo);"><span class="sr-only">flamingo</span></button>
+      <button aria-label="Select pink accent color" title="Pink" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="pink" style="background-color: var(--color-pink);"><span class="sr-only">pink</span></button>
+      <button aria-label="Select mauve accent color" title="Mauve" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="mauve" style="background-color: var(--color-mauve);"><span class="sr-only">mauve</span></button>
+      <button aria-label="Select red accent color" title="Red" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="red" style="background-color: var(--color-red);"><span class="sr-only">red</span></button>
+      <button aria-label="Select maroon accent color" title="Maroon" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="maroon" style="background-color: var(--color-maroon);"><span class="sr-only">maroon</span></button>
+      <button aria-label="Select peach accent color" title="Peach" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 scale-105" data-accent="peach" style="background-color: var(--color-peach);"><span class="sr-only">peach</span></button>
+      <button aria-label="Select yellow accent color" title="Yellow" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="yellow" style="background-color: var(--color-yellow);"><span class="sr-only">yellow</span></button>
+      <button aria-label="Select green accent color" title="Green" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="green" style="background-color: var(--color-green);"><span class="sr-only">green</span></button>
+      <button aria-label="Select teal accent color" title="Teal" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="teal" style="background-color: var(--color-teal);"><span class="sr-only">teal</span></button>
+      <button aria-label="Select sky accent color" title="Sky" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="sky" style="background-color: var(--color-sky);"><span class="sr-only">sky</span></button>
+      <button aria-label="Select sapphire accent color" title="Sapphire" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="sapphire" style="background-color: var(--color-sapphire);"><span class="sr-only">sapphire</span></button>
+      <button aria-label="Select blue accent color" title="Blue" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="blue" style="background-color: var(--color-blue);"><span class="sr-only">blue</span></button>
+      <button aria-label="Select lavender accent color" title="Lavender" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="lavender" style="background-color: var(--color-lavender);"><span class="sr-only">lavender</span></button>
+      <div class="accent-ring ring-offset-base pointer-events-none absolute aspect-square min-h-5 min-w-5 rounded-md ring-2 ring-offset-2 transition-all duration-300 ease-out" style="transform: translate(calc(6 * (100% + 0.625rem)), 0); width: calc((100% - 6 * 0.625rem) / 7); color: var(--color-peach); --tw-ring-color: currentColor;"></div>
+    </div>
+  </div>
+</aside>
+
+<!-- Overlay for sidebar -->
+<div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-30 hidden" style="display:none;"></div>
+
+<!-- More panel (shared) -->
+<aside id="more-panel" class="fixed top-0 left-0 h-full z-50 bg-mantle border-r border-surface0 shadow-xl" style="width:20%; max-width:360px; transform: translateX(-100%); transition: transform .3s ease;">
+  <div style="height:4rem; display:flex; align-items:center; justify-content:space-between; padding:0 16px; border-bottom:1px solid var(--surface0);">
+    <strong style="color:var(--text);">More</strong>
+    <button id="more-close" aria-label="Close" style="background:transparent;border:none;color:var(--subtext1);font-size:18px;cursor:pointer;padding:6px;">✕</button>
+  </div>
+  <div style="padding:16px; overflow:auto; height:calc(100% - 4rem);">
+    <h4 style="color:var(--subtext1); font-size:0.85rem; margin-bottom:8px;">Theme</h4>
+    <div class="ring-surface0 mb-4 flex flex-wrap items-center justify-start gap-1 rounded-md p-1" style="display:flex; gap:6px;">
+      <button class="theme-btn" data-theme="latte" style="padding:6px 8px; border-radius:6px; background:transparent; color:var(--subtext1); border:1px solid transparent;">Latte</button>
+      <button class="theme-btn" data-theme="frappe" style="padding:6px 8px; border-radius:6px; background:transparent; color:var(--subtext1); border:1px solid transparent;">Frappe</button>
+      <button class="theme-btn" data-theme="macchiato" style="padding:6px 8px; border-radius:6px; background:transparent; color:var(--subtext1); border:1px solid transparent;">Macchiato</button>
+      <button class="theme-btn" data-theme="mocha" style="padding:6px 8px; border-radius:6px; background:transparent; color:var(--subtext1); border:1px solid var(--accent);">Mocha</button>
+    </div>
+    <h4 style="color:var(--subtext1); font-size:0.85rem; margin-bottom:8px;">Accent</h4>
+    <div style="display:grid; grid-template-columns: repeat(7, 1fr); gap:8px;">
+      <button class="accent-btn" data-accent="rosewater" style="height:36px; border-radius:6px; background:var(--color-rosewater);"></button>
+      <button class="accent-btn" data-accent="flamingo" style="height:36px; border-radius:6px; background:var(--color-flamingo);"></button>
+      <button class="accent-btn" data-accent="pink" style="height:36px; border-radius:6px; background:var(--color-pink);"></button>
+      <button class="accent-btn" data-accent="mauve" style="height:36px; border-radius:6px; background:var(--color-mauve);"></button>
+      <button class="accent-btn" data-accent="peach" style="height:36px; border-radius:6px; background:var(--color-peach);"></button>
+      <button class="accent-btn" data-accent="green" style="height:36px; border-radius:6px; background:var(--color-green);"></button>
+      <button class="accent-btn" data-accent="blue" style="height:36px; border-radius:6px; background:var(--color-blue);"></button>
+    </div>
+  </div>
+</aside>

@@ -1,170 +1,84 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-mantle font-mono text-text min-h-screen">
+<html lang="en" class="mocha scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Portfolio</title>
-  <!-- Fonts -->
+  <title>Daljeet Singh</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-  <!-- Tailwind CDN -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Tabler Icons CDN -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  <!-- Custom CSS -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="mx-auto flex min-h-screen max-w-[90%] flex-col md:max-w-[80%]">
-  <!-- Header -->
-  <header class="sticky top-0 z-10 flex h-24 items-center justify-between p-5 pb-10 select-none">
-    <nav aria-label="Breadcrumbs" class="flex items-center">
-      <ul class="flex items-center text-md">
-        <li><a href="/" class="text-accent hover:text-accent/40 animation-wiggle">~</a></li>
-        <li class="mx-0.5 inline-flex items-center" aria-hidden="true">/</li>
-        <li class="ml-1 inline-flex items-center"><span class="bg-accent h-4 w-2 cursor-blink" aria-hidden="true"></span></li>
-      </ul>
-    </nav>
-    <button id="mobile-menu" class="text-text hover:text-accent rounded p-2 md:hidden" aria-label="Open menu">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon">
-        <path d="M4 6h16M4 12h16M4 18h16"></path>
-      </svg>
-    </button>
-    <nav class="hidden items-center space-x-4 md:flex">
-      <a href="/about.html" class="text-text hover:text-accent rounded px-3 py-2 text-sm font-medium transition-colors duration-150">About</a>
-      <a href="/posts.html" class="text-text hover:text-accent rounded px-3 py-2 text-sm font-medium transition-colors duration-150">Posts</a>
-      <a href="/projects.html" class="text-text hover:text-accent rounded px-3 py-2 text-sm font-medium transition-colors duration-150">Projects</a>
-      <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" class="text-text hover:text-accent rounded px-3 py-2 text-sm font-medium transition-colors duration-150">Resume</a>
-      <button id="more-nav" class="text-text hover:text-accent cursor-pointer rounded px-3 py-2 text-sm font-medium" aria-label="Open more navigation items">More...</button>
-    </nav>
-  </header>
+<body class="bg-mantle text-text font-mono min-h-screen antialiased">
 
-  <!-- Mobile Sidebar -->
-  <aside id="sidebar" class="bg-mantle text-text border-surface0 fixed inset-y-0 right-0 z-40 flex w-64 flex-col border-l shadow-xl transition-transform duration-300 ease-in-out translate-x-full hidden">
-    <div class="border-surface0 flex h-16 flex-shrink-0 items-center justify-between border-b p-4">
-      <span class="text-accent font-mono text-lg font-semibold">Navigation</span>
-      <button id="close-sidebar" class="text-subtext1 hover:text-red rounded" aria-label="Close navigation menu">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon">
-          <path d="M18 6L6 18M6 6l12 12"></path>
-        </svg>
-      </button>
-    </div>
-    <!-- Theme Selector -->
-    <div class="border-surface0 flex-shrink-0 border-b p-4">
-      <h3 class="text-text mb-4 flex items-center gap-2 text-sm font-semibold">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon text-accent">
-          <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25"></path>
-          <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
-          <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
-          <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
-        </svg>
-        Theme
-      </h3>
-      <div class="ring-surface0 mb-4 flex flex-wrap items-center justify-center gap-1 rounded-md p-1 ring-1 md:justify-start">
-        <button class="theme-btn flex-1 cursor-pointer rounded-[5px] px-2 py-1 text-center text-xs font-medium transition-all duration-300 text-subtext1 hover:text-subtext0" data-theme="latte">Latte</button>
-        <button class="theme-btn flex-1 cursor-pointer rounded-[5px] px-2 py-1 text-center text-xs font-medium transition-all duration-300 text-subtext1 hover:text-subtext0" data-theme="frappe">Frappe</button>
-        <button class="theme-btn flex-1 cursor-pointer rounded-[5px] px-2 py-1 text-center text-xs font-medium transition-all duration-300 text-subtext1 hover:text-subtext0" data-theme="macchiato">Macchiato</button>
-        <button class="theme-btn flex-1 cursor-pointer rounded-[5px] px-2 py-1 text-center text-xs font-medium transition-all duration-300 bg-base text-text ring-accent/70 shadow-sm ring-1 ring-inset" data-theme="mocha">Mocha</button>
-      </div>
-      <div class="relative grid grid-cols-7 gap-2.5 md:gap-1.5">
-        <button aria-label="Select rosewater accent color" title="Rosewater" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="rosewater" style="background-color: var(--color-rosewater);"><span class="sr-only">rosewater</span></button>
-        <button aria-label="Select flamingo accent color" title="Flamingo" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="flamingo" style="background-color: var(--color-flamingo);"><span class="sr-only">flamingo</span></button>
-        <button aria-label="Select pink accent color" title="Pink" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="pink" style="background-color: var(--color-pink);"><span class="sr-only">pink</span></button>
-        <button aria-label="Select mauve accent color" title="Mauve" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="mauve" style="background-color: var(--color-mauve);"><span class="sr-only">mauve</span></button>
-        <button aria-label="Select red accent color" title="Red" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="red" style="background-color: var(--color-red);"><span class="sr-only">red</span></button>
-        <button aria-label="Select maroon accent color" title="Maroon" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="maroon" style="background-color: var(--color-maroon);"><span class="sr-only">maroon</span></button>
-        <button aria-label="Select peach accent color" title="Peach" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 scale-105" data-accent="peach" style="background-color: var(--color-peach);"><span class="sr-only">peach</span></button>
-        <button aria-label="Select yellow accent color" title="Yellow" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="yellow" style="background-color: var(--color-yellow);"><span class="sr-only">yellow</span></button>
-        <button aria-label="Select green accent color" title="Green" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="green" style="background-color: var(--color-green);"><span class="sr-only">green</span></button>
-        <button aria-label="Select teal accent color" title="Teal" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="teal" style="background-color: var(--color-teal);"><span class="sr-only">teal</span></button>
-        <button aria-label="Select sky accent color" title="Sky" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="sky" style="background-color: var(--color-sky);"><span class="sr-only">sky</span></button>
-        <button aria-label="Select sapphire accent color" title="Sapphire" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="sapphire" style="background-color: var(--color-sapphire);"><span class="sr-only">sapphire</span></button>
-        <button aria-label="Select blue accent color" title="Blue" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="blue" style="background-color: var(--color-blue);"><span class="sr-only">blue</span></button>
-        <button aria-label="Select lavender accent color" title="Lavender" class="accent-btn aspect-square min-h-5 w-full min-w-5 cursor-pointer rounded-md shadow-sm transition-all duration-150 opacity-80 hover:scale-110 hover:opacity-100" data-accent="lavender" style="background-color: var(--color-lavender);"><span class="sr-only">lavender</span></button>
-        <div class="accent-ring ring-offset-base pointer-events-none absolute aspect-square min-h-5 min-w-5 rounded-md ring-2 ring-offset-2 transition-all duration-300 ease-out" style="transform: translate(calc(6 * (100% + 0.625rem)), calc(0 * (100% + 0.625rem))); width: calc((100% - 6 * 0.625rem) / 7); color: var(--color-peach); --tw-ring-color: currentColor;"></div>
-      </div>
-      <div class="mt-4 flex items-center">
-        <label class="flex cursor-pointer items-center">
-          <input type="checkbox" id="bg-effect" class="form-checkbox h-4 w-4 rounded text-current" aria-label="Toggle subtle background effect">
-          <span class="text-subtext0 ml-2 text-sm">Subtle Effect: <span id="bg-status" class="text-accent">off</span></span>
-        </label>
-      </div>
-    </div>
-    <!-- Nav Links -->
-    <nav class="flex-1 overflow-y-auto p-4">
-      <ul class="space-y-2" role="list">
-        <li><a href="/about.html" class="hover:bg-surface0 focus:bg-surface1 block rounded p-2 transition-colors duration-150 focus:outline-none">About</a></li>
-        <li><a href="/posts.html" class="hover:bg-surface0 focus:bg-surface1 block rounded p-2 transition-colors duration-150 focus:outline-none">Posts</a></li>
-        <li><a href="/projects.html" class="hover:bg-surface0 focus:bg-surface1 block rounded p-2 transition-colors duration-150 focus:outline-none">Projects</a></li>
-        <li><a href="/resume.pdf" target="_blank" rel="noopener noreferrer" class="hover:bg-surface0 focus:bg-surface1 block rounded p-2 transition-colors duration-150 focus:outline-none">Resume</a></li>
-        <li><hr class="border-surface1 my-2 border-t"></li>
-        <li class="text-subtext0 px-2 py-1 text-xs font-semibold tracking-wider uppercase">More</li>
-        <li><a href="/tutorials.html" class="hover:bg-surface0 focus:bg-surface1 block rounded p-2 transition-colors duration-150 focus:outline-none">Tutorials</a></li>
-      </ul>
-    </nav>
-  </aside>
+  <div data-include="header"></div>
 
-  <!-- Main Content: Empty Sections for You -->
-  <main class="flex-1 px-0 py-8 md:px-5">
-    <div class="mx-auto max-w-6xl space-y-12 px-0 py-8 md:space-y-16 md:px-4 md:py-12">
-      <!-- Hero Placeholder -->
-      <section id="hero" class="space-y-5 px-4 md:px-0">
-        <div class="rounded-3xl border border-surface0 bg-base/70 p-6 shadow-2xl backdrop-blur-xl md:p-10">
-          <p class="text-subtext0 text-xs uppercase tracking-[0.3em]">Futurist · Maker</p>
-          <h1 class="text-3xl font-semibold leading-tight text-text md:text-5xl">Hey! I’m Daljeet Singh</h1>
-          <p class="text-subtext1 max-w-2xl text-base leading-relaxed">
-            I am a software developer and fresh CS graduate driven by the art of digital craftsmanship.
-            Currently building AI that helps people articulate their ideas and share them at scale.
-          </p>
-          <div class="flex flex-wrap gap-3 pt-4">
-            <a href="https://linkedin.com/in/daljeetsingh" target="_blank" rel="noopener noreferrer" class="rounded-full border border-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-accent transition hover:border-accent hover:text-accent">LinkedIn</a>
-            <a href="https://github.com/djtsingh" target="_blank" rel="noopener noreferrer" class="rounded-full border border-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-accent transition hover:border-accent hover:text-accent">GitHub</a>
-            <a href="#more" class="rounded-full border border-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-accent transition hover:border-accent hover:text-accent">More...</a>
-          </div>
+  <!-- Hero + Projects -->
+  <main class="flex-1 container">
+    <section id="hero" class="hero-main space-y-6">
+      <div class="hero-card rounded-3xl border border-surface0 bg-base/70 shadow-2xl backdrop-blur-xl">
+        <p class="text-subtext1 text-xs uppercase tracking-[0.4em]">Futurist · Maker</p>
+        <h1 class="hero-title">Hey! I'm <span class="text-accent">Daljeet Singh</span></h1>
+        <p class="hero-text">
+          A Software dev and fresh CS grad driven by the art of digital craftsmanship. I bridge the gap between theoretical algorithms and practical, scalable applications. Driven by deep curiosity, I spend my downtime exploring emerging technologies to craft tools that are not only functional but truly transformative for the end user.
+        </p>
+        <div class="hero-chips">
+          <a href="https://www.linkedin.com/in/djtsingh/" target="_blank" rel="noopener noreferrer" class="hero-chip">LinkedIn</a>
+          <a href="https://github.com/djtsingh" target="_blank" rel="noopener noreferrer" class="hero-chip">GitHub</a>
+          <a href="#more" class="hero-chip">More...</a>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- Work Placeholder -->
-      <section id="work" class="px-4 md:px-0">
-        <!-- Add your work chips here -->
-      </section>
-
-      <!-- Projects Placeholder -->
-      <section id="projects" class="px-4 py-8 md:px-0">
-        <!-- Add your project grid here -->
-      </section>
-
-      <!-- Dashboard Placeholder: Include Theme Duplicate for Desktop -->
-      <section id="dashboard" class="px-4 md:px-0">
-        <div class="grid grid-cols-1 justify-center gap-5 sm:grid-cols-2 md:gap-6 lg:grid-cols-4">
-          <!-- Desktop Theme Widget -->
-          <div id="desktop-theme" class="border-surface0 bg-base rounded-xl border p-4 shadow-lg sm:col-span-2 xl:col-span-1 hidden md:block">
-            <!-- Duplicate theme selector here (copy from sidebar) -->
-            <h3 class="text-text mb-4 flex items-center gap-2 text-sm font-semibold">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon text-accent">
-                <!-- Palette path -->
-              </svg>
-              Theme
-            </h3>
-            <!-- Paste theme buttons and accent grid from sidebar -->
-            <div class="mt-4 flex items-center">
-              <label class="flex cursor-pointer items-center">
-                <input type="checkbox" id="bg-effect-desktop" class="form-checkbox h-4 w-4 rounded text-current" aria-label="Toggle subtle background effect">
-                <span class="text-subtext0 ml-2 text-sm">Subtle Effect: <span id="bg-status-desktop" class="text-accent">off</span></span>
-              </label>
+    <section id="projects" class="space-y-6 pt-12">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-2xl font-semibold text-text">Featured Projects</h2>
+        </div>
+      </div>
+      <div class="projects-grid">
+        <article class="project-card">
+          <img src="https://via.placeholder.com/600x360" alt="Project screenshot" class="project-img">
+          <div class="project-content">
+            <h3 class="project-title">ImageCraft</h3>
+            <p class="project-desc">Generative interface that turns abstract prompts into layered, shareable visuals for design teams.</p>
+            <div class="project-tags">
+              <span class="project-tag">AI</span>
+              <span class="project-tag">Design</span>
+              <span class="project-tag">Open Source</span>
             </div>
           </div>
-          <!-- Add your widgets here -->
-        </div>
-      </section>
-    </div>
+        </article>
+        <article class="project-card">
+          <img src="https://via.placeholder.com/600x360" alt="Project screenshot" class="project-img">
+          <div class="project-content">
+            <h3 class="project-title">SignalFlow</h3>
+            <p class="project-desc">Realtime analytics dashboard that maps ML signals into human-readable stories for product teams.</p>
+            <div class="project-tags">
+              <span class="project-tag">Data</span>
+              <span class="project-tag">Visualization</span>
+            </div>
+          </div>
+        </article>
+        <article class="project-card">
+          <img src="https://via.placeholder.com/600x360" alt="Project screenshot" class="project-img">
+          <div class="project-content">
+            <h3 class="project-title">Aurora Lab</h3>
+            <p class="project-desc">Experimental playground exploring autonomous agents that design interactive, adaptive experiences.</p>
+            <div class="project-tags">
+              <span class="project-tag">Research</span>
+              <span class="project-tag">Experiments</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
   </main>
 
-  <!-- Footer Placeholder -->
-  <footer id="footer" class="relative m-auto mx-5 mb-5">
-    <!-- Add your footer content here -->
-  </footer>
+  <div data-include="footer"></div>
 
-  <script src="js/script.js"></script>
+  <script src="/js/includes.js"></script>
 </body>
 </html>
