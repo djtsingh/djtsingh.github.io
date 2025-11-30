@@ -10,15 +10,47 @@
   --green:#a6e3a1; --teal:#94e2d5; --sky:#89dceb; --sapphire:#74c7ec;
   --blue:#89b4fa; --lavender:#b4befe;
   --accent: var(--peach);
-  
-  /* Typography */
-  --font-mono: 'JetBrains Mono', 'Consolas', 'Monaco', 'Courier New', monospace;
 
   /* color tokens used by the accent selector UI (keep for compatibility) */
   --color-rosewater: #f5e0dc; --color-flamingo: #f2cdcd; --color-pink: #f5c2e7; --color-mauve: #cba6f7;
   --color-red: #f38ba8; --color-maroon: #eba0ac; --color-peach: #fab387; --color-yellow: #f9e2af;
   --color-green: #a6e3a1; --color-teal: #94e2d5; --color-sky: #89dceb; --color-sapphire: #74c7ec;
   --color-blue: #89b4fa; --color-lavender: #b4befe;
+}
+
+/* Self-hosted font declarations: expect WOFF2 files in /fonts/ */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/jetbrainsmono-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/jetbrainsmono-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/jetbrainsmono-700.woff2') format('woff2');
+}
+
+/* Base typography: enforce JetBrains Mono across the site and prevent
+   mobile browsers from auto-adjusting text sizes (prevents iOS font-zoom).
+   This is intentionally high-specificity and placed after token definitions
+   so it overrides utility classes when necessary. */
+html, body {
+  font-family: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono', monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 /* Design tokens inspired by Nyx: spacing, radii, container sizing */
@@ -51,31 +83,10 @@
 .text-accent { color: var(--accent); }
 .border-surface0 { border-color: var(--surface0); }
 
-/* CSS Reset and Base Styles */
-html {
-  box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
-}
-
-*, *::before, *::after {
-  box-sizing: inherit;
-}
-
+/* Ensure no horizontal overflow */
 html, body {
   width: 100%;
   overflow-x: hidden;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: var(--font-mono);
-  background-color: var(--mantle);
-  color: var(--text);
-  min-height: 100vh;
-  line-height: 1.6;
 }
 
 /* Container --- centers content and limits width */
@@ -103,6 +114,10 @@ header > div[class*="max-w-"] {
   box-sizing: border-box;
 }
 
+/* Header typography: terminal nav (left) and desktop nav (right) */
+.terminal-nav { font-size: 1.1rem; }
+.header-nav a, .header-nav button { font-size: 1.05rem; }
+
 /* Hero */
 .hero-main { padding: calc(var(--space-6) + var(--space-5)) 0; }
 @media (min-width: 768px) { .hero-main { padding: calc(var(--space-6) + var(--space-6)) 0; } }
@@ -122,6 +137,9 @@ header > div[class*="max-w-"] {
 main.container > section, main.container > section > div { box-sizing:border-box; }
 main.container > section { padding-left: 0; padding-right: 0; }
 
+/* global box-sizing so paddings align predictably */
+html { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: inherit; }
 /* Projects */
 .projects-grid { display:grid; grid-template-columns: 1fr; gap:1.25rem; }
 @media (min-width: 640px) { .projects-grid { grid-template-columns: repeat(2, 1fr); gap:1.25rem; } }
@@ -223,3 +241,18 @@ main.container > section { padding-left: 0; padding-right: 0; }
   .about-grid .about-content h1 { font-size:1.6rem; }
   .about-content p { font-size:1.08rem; }
 }
+
+/* Posts page styles (moved from inline) */
+.posts-main { min-height: calc(100vh - 10rem); display:flex; align-items:center; justify-content:center; }
+.posts-inner { max-width:600px; text-align:center; padding:48px 24px; }
+.posts-emoji { font-size:4rem; margin-bottom:16px; }
+.posts-title { font-size:2rem; font-weight:700; margin:0 0 12px 0; }
+.posts-lead { color:var(--subtext0); font-size:1.1rem; line-height:1.6; margin:0 0 24px 0; }
+.posts-back { font-size:1rem; padding:0.6rem 1.2rem; }
+
+/* About: centralized sizes and socials */
+.about-grid { max-width:880px; margin:0 auto; width:100%; }
+.about-lead { margin:0 0 16px 0; color:var(--subtext0); max-width:60ch; }
+.about-sub { color:var(--subtext1); max-width:70ch; }
+.about-socials { display:flex; gap:12px; align-items:center; margin-bottom:12px; }
+.social-icon { font-size:20px; display:inline-block; vertical-align:middle; }

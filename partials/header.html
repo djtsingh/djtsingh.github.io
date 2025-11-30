@@ -1,17 +1,17 @@
 <header class="sticky top-0 z-10 bg-mantle/95 backdrop-blur-md border-b border-surface0">
   <div class="container flex items-center justify-between">
-    <nav class="flex items-center gap-0.5 select-none" style="font-size:1.1rem;">
+    <nav class="terminal-nav flex items-center gap-0.5 select-none">
       <a href="/" class="text-accent hover:text-accent/40 transition-colors duration-150 animation-wiggle">~</a>
       <span class="text-surface1" id="path-separator" style="display:none;">/</span>
       <span class="text-text" id="current-path" style="display:none;"></span>
-      <span class="cursor-blink" style="width:10px; height:20px; display:inline-block; margin-left:4px; background-color:var(--accent);"></span>
+      <span class="cursor-blink" style="width:3px; height:20px; display:inline-block; margin-left:4px; background-color:var(--accent);"></span>
     </nav>
-    <nav class="hidden md:flex items-center gap-4">
-      <a href="about.html" class="text-text hover:text-accent px-3 py-2 font-medium rounded transition-colors duration-150" style="font-size:1.05rem;">About</a>
-      <a href="projects.html" class="text-text hover:text-accent px-3 py-2 font-medium rounded transition-colors duration-150" style="font-size:1.05rem;">Projects</a>
-      <a href="posts.html" class="text-text hover:text-accent px-3 py-2 font-medium rounded transition-colors duration-150" style="font-size:1.05rem;">Posts</a>
-      <a href="assets/DJ_resume.pdf" target="_blank" rel="noopener noreferrer" class="text-text hover:text-accent px-3 py-2 font-medium rounded transition-colors duration-150" style="font-size:1.05rem;">Resume</a>
-      <button id="more-btn" class="text-text hover:text-accent px-3 py-2 font-medium rounded transition-colors duration-150" style="font-size:1.05rem;">More...</button>
+    <nav class="hidden md:flex items-center gap-4 header-nav">
+      <a href="about.html" class="text-text hover:text-accent px-3 py-2 font-medium rounded transition-colors duration-150">About</a>
+      <a href="projects.html" class="text-text hover:text-accent px-3 py-2 font-medium rounded transition-colors duration-150">Projects</a>
+      <a href="posts.html" class="text-text hover:text-accent px-3 py-2 font-medium rounded transition-colors duration-150">Posts</a>
+      <a href="assets/DJ_resume.pdf" target="_blank" rel="noopener noreferrer" class="text-text hover:text-accent px-3 py-2 font-medium rounded transition-colors duration-150">Resume</a>
+      <button id="more-btn" class="text-text hover:text-accent px-3 py-2 font-medium rounded transition-colors duration-150">More...</button>
     </nav>
     <button id="mobile-menu-btn" class="md:hidden p-2 rounded hover:bg-surface0 hover:text-accent transition-colors duration-150" aria-label="Open menu">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

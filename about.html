@@ -6,15 +6,19 @@
   <title>About me | Daljeet Singh</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="/fonts/jetbrainsmono-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/jetbrainsmono-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/jetbrainsmono-700.woff2" as="font" type="font/woff2" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body class="bg-mantle text-text font-mono min-h-screen antialiased">
   <div data-include="header"></div>
 
   <main class="container about-main">
-    <div class="about-grid" style="max-width:880px; margin:0 auto; width:100%;">
+    <div class="about-grid">
       <!-- Portrait -->
       <div class="portrait">
         <img src="assets/dj-web.jpg" alt="Portrait of Daljeet Singh" class="portrait-img" />
@@ -22,20 +26,21 @@
 
       <!-- Content -->
       <div class="about-content">
-        <p style="margin:0 0 16px 0; color:var(--subtext0); max-width:60ch;">Hey! I am Daljeet Singh. I build software that matters: from scalable systems at work to creative tools and experiments in my free time. I'm a Fresh CS grad with a background in data, algorithms, and full-stack engineering. I enjoy shipping polished experiences and learning new ways to make products delightful.</p>
+
+        <p class="about-lead">Hey! I am Daljeet Singh. I build software that matters: from scalable systems at work to creative tools and experiments in my free time. I'm a Fresh CS grad with a background in data, algorithms, and full-stack engineering. I enjoy shipping polished experiences and learning new ways to make products delightful.</p>
 
 
-        <div style="color:var(--subtext1); max-width:70ch;">
-          <p style="margin-top:0;">I focus on building reliable systems and delightful user experiences. My interests include machine learning, product design, and open-source tooling. When not coding I like to explore computational design and Gaming.</p>
+        <div class="about-sub" >
+          <p>I focus on building reliable systems and delightful user experiences. My interests include machine learning, product design, and open-source tooling. When not coding I like to explore computational design and Gaming.</p>
         </div>
         <br>
 
         
-        <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px;">
-          <a href="https://github.com/djtsingh" target="_blank" rel="noopener noreferrer" title="GitHub" class="text-text"><i class="ti ti-brand-github" style="font-size:20px;"></i></a>
-          <a href="https://www.linkedin.com/in/djtsingh/" target="_blank" rel="noopener noreferrer" title="LinkedIn" class="text-text"><i class="ti ti-brand-linkedin" style="font-size:20px;"></i></a>
-          <a href="mailto:hello@example.com" title="Email" class="text-text"><i class="ti ti-mail" style="font-size:20px;"></i></a>
-          <a href="https://x.com/djt5ingh" target="_blank" rel="noopener noreferrer" title="Twitter" class="text-text"><i class="ti ti-brand-x" style="font-size:20px;"></i></a>
+        <div class="about-socials">
+          <a href="https://github.com/djtsingh" target="_blank" rel="noopener noreferrer" title="GitHub" class="text-text"><i class="ti ti-brand-github social-icon"></i></a>
+          <a href="https://www.linkedin.com/in/djtsingh/" target="_blank" rel="noopener noreferrer" title="LinkedIn" class="text-text"><i class="ti ti-brand-linkedin social-icon"></i></a>
+          <a href="mailto:hello@example.com" title="Email" class="text-text"><i class="ti ti-mail social-icon"></i></a>
+          <a href="https://x.com/djt5ingh" target="_blank" rel="noopener noreferrer" title="Twitter" class="text-text"><i class="ti ti-brand-x social-icon"></i></a>
         </div>
       </div>
     </div>
