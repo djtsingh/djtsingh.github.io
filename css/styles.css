@@ -10,6 +10,9 @@
   --green:#a6e3a1; --teal:#94e2d5; --sky:#89dceb; --sapphire:#74c7ec;
   --blue:#89b4fa; --lavender:#b4befe;
   --accent: var(--peach);
+  
+  /* Typography */
+  --font-mono: 'JetBrains Mono', 'Consolas', 'Monaco', 'Courier New', monospace;
 
   /* color tokens used by the accent selector UI (keep for compatibility) */
   --color-rosewater: #f5e0dc; --color-flamingo: #f2cdcd; --color-pink: #f5c2e7; --color-mauve: #cba6f7;
@@ -48,10 +51,31 @@
 .text-accent { color: var(--accent); }
 .border-surface0 { border-color: var(--surface0); }
 
-/* Ensure no horizontal overflow */
+/* CSS Reset and Base Styles */
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
 html, body {
   width: 100%;
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-mono);
+  background-color: var(--mantle);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
 }
 
 /* Container --- centers content and limits width */
@@ -98,9 +122,6 @@ header > div[class*="max-w-"] {
 main.container > section, main.container > section > div { box-sizing:border-box; }
 main.container > section { padding-left: 0; padding-right: 0; }
 
-/* global box-sizing so paddings align predictably */
-html { box-sizing: border-box; }
-*, *::before, *::after { box-sizing: inherit; }
 /* Projects */
 .projects-grid { display:grid; grid-template-columns: 1fr; gap:1.25rem; }
 @media (min-width: 640px) { .projects-grid { grid-template-columns: repeat(2, 1fr); gap:1.25rem; } }

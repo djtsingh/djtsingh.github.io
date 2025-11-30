@@ -1,12 +1,20 @@
 // js/theme.js
-const html = document.documentElement;
+// Immediately invoked to prevent flash of unstyled content
+(function() {
+  'use strict';
+  
+  const html = document.documentElement;
 
-// Load saved preferences
-const savedTheme  = localStorage.getItem('theme')  || 'mocha';
-const savedAccent = localStorage.getItem('accent') || 'peach';
+  // Load saved preferences with fallbacks
+  const savedTheme  = localStorage.getItem('theme')  || 'mocha';
+  const savedAccent = localStorage.getItem('accent') || 'peach';
 
-html.classList.add(savedTheme);
-document.documentElement.style.setProperty('--accent', `var(--${savedAccent})`);
+  // Apply theme immediately (remove any existing theme classes first)
+  html.className = html.className.replace(/\b(latte|frappe|macchiato|mocha)\b/g, '').trim();
+  html.classList.add(savedTheme, 'scroll-smooth');
+  
+  // Apply accent color
+  document.documentElement.style.setProperty('--accent', `var(--${savedAccent})`);
 
 // Highlight active buttons
 document.querySelector(`[data-theme="${savedTheme}"]`)?.classList.add('bg-base','text-text','ring-1','ring-accent/70','shadow-sm');
@@ -44,3 +52,5 @@ document.querySelectorAll('[data-accent]').forEach(btn => {
     else ring.style.transform = `translateY(calc(100% + 0.625rem)) translateX(calc(${(index-7)} * (100% + 0.625rem)))`;
   });
 });
+
+})(); // End IIFE
