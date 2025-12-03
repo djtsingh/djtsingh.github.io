@@ -39,3 +39,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ===================
+# SvelteKit
+# ===================
+sveltekit/node_modules
+sveltekit/.svelte-kit
+sveltekit/build
+sveltekit/.env
+sveltekit/.env.*
+!sveltekit/.env.example
+sveltekit/package-lock.json
+
+# Vite
+sveltekit/vite.config.js.timestamp-*
+sveltekit/vite.config.ts.timestamp-*
