@@ -74,7 +74,7 @@
 }
 
 /* Theme variants */
-:global(.latte) {
+.latte {
   --base: #eff1f5;
   --mantle: #e6e9ef;
   --text: #4c4f69;
@@ -84,7 +84,7 @@
   --surface1: #bcc0cc;
 }
 
-:global(.frappe) {
+.frappe {
   --base: #303446;
   --mantle: #292c3c;
   --text: #c6d0f5;
@@ -94,7 +94,7 @@
   --surface1: #51576d;
 }
 
-:global(.macchiato) {
+.macchiato {
   --base: #24273a;
   --mantle: #1e2030;
   --text: #cad3f5;
@@ -104,7 +104,7 @@
   --surface1: #494d64;
 }
 
-:global(.mocha) {
+.mocha {
   --base: #1e1e2e;
   --mantle: #181825;
   --text: #cdd6f4;
