@@ -3,8 +3,8 @@
 </script>
 
 <SEO 
-  title="About | Daljeet Singh"
-  description="About Daljeet Singh — software developer. Background in data, algorithms and full-stack engineering."
+  title="About | Daljeet Singh Lotey"
+  description="About Daljeet Singh Lotey — Software Engineering and Data Science. Background in data, algorithms and full-stack engineering."
   canonical="https://djtsingh.github.io/about"
   type="profile"
 />
@@ -13,13 +13,13 @@
   <div class="about-grid">
     <!-- Portrait -->
     <div class="portrait">
-      <img src="/assets/dj-web.jpg" alt="Portrait of Daljeet Singh" class="portrait-img" />
+      <img src="/assets/dj-web.jpg" alt="Portrait of Daljeet Singh Lotey" class="portrait-img" />
     </div>
 
     <!-- Content -->
     <div class="about-content">
       <p class="about-lead">
-        Hey! I am Daljeet Singh. I build software that matters: from scalable systems at work to creative tools and experiments in my free time. I'm a Fresh CS grad with a background in data, algorithms, and full-stack engineering. I enjoy shipping polished experiences and learning new ways to make products delightful.
+        Hey! I am Daljeet Singh Lotey. I build software that matters: from scalable systems at work to creative tools and experiments in my free time. I'm a Fresh CS grad with a background in data, algorithms, and full-stack engineering. I enjoy shipping polished experiences and learning new ways to make products delightful.
       </p>
 
       <div class="about-sub">

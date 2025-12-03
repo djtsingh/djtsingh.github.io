@@ -27,8 +27,8 @@
 </script>
 
 <SEO 
-  title="Daljeet Singh | Portfolio"
-  description="Daljeet Singh — software developer and maker. Portfolio showcasing projects in AI, data visualization, and experiments."
+  title="Daljeet Singh Lotey | Portfolio"
+  description="Daljeet Singh Lotey — Software Engineering and Data Science. Portfolio showcasing projects in AI, data visualization, and experiments."
   canonical="https://djtsingh.github.io/"
   type="website"
 />

@@ -4,7 +4,7 @@
 
 <footer class="footer">
   <div class="footer-inner">
-    <p>© {year} Daljeet Singh. All rights reserved.</p>
+    <p>© {year} Daljeet Singh Lotey. All rights reserved.</p>
   </div>
 </footer>
 

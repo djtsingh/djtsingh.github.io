@@ -1,9 +1,9 @@
 <script>
   // Site-wide SEO defaults
   export const siteConfig = {
-    name: 'Daljeet Singh',
+    name: 'Daljeet Singh Lotey',
     url: 'https://djtsingh.github.io',
-    description: 'Daljeet Singh — software developer and maker. Portfolio showcasing projects in AI, data visualization, and experiments.',
+    description: 'Daljeet Singh Lotey — Software Engineering and Data Science. Portfolio showcasing projects in AI, data visualization, and experiments.',
     image: '/assets/dj-web.jpg',
     twitterHandle: '@djt5ingh',
     socials: {
