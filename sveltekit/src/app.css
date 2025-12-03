@@ -1,0 +1,161 @@
+/* Global styles and design tokens */
+
+/* Self-hosted fonts */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/jetbrainsmono-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/jetbrainsmono-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/jetbrainsmono-700.woff2') format('woff2');
+}
+
+/* Design tokens */
+:root {
+  --mantle: #181825;
+  --base: #1e1e2e;
+  --surface0: #313244;
+  --surface1: #45475a;
+  --surface2: #585b70;
+  --text: #cdd6f4;
+  --subtext0: #bac2de;
+  --subtext1: #a6adc8;
+  
+  /* Accent colors */
+  --rosewater: #f5e0dc;
+  --flamingo: #f2cdcd;
+  --pink: #f5c2e7;
+  --mauve: #cba6f7;
+  --red: #f38ba8;
+  --maroon: #eba0ac;
+  --peach: #fab387;
+  --yellow: #f9e2af;
+  --green: #a6e3a1;
+  --teal: #94e2d5;
+  --sky: #89dceb;
+  --sapphire: #74c7ec;
+  --blue: #89b4fa;
+  --lavender: #b4befe;
+  
+  --accent: var(--peach);
+  
+  /* Spacing */
+  --container-max: 1100px;
+  --gutter: 20px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+}
+
+/* Theme variants */
+:global(.latte) {
+  --base: #eff1f5;
+  --mantle: #e6e9ef;
+  --text: #4c4f69;
+  --subtext0: #6c6f85;
+  --subtext1: #5c5f77;
+  --surface0: #ccd0da;
+  --surface1: #bcc0cc;
+}
+
+:global(.frappe) {
+  --base: #303446;
+  --mantle: #292c3c;
+  --text: #c6d0f5;
+  --subtext0: #a5adce;
+  --subtext1: #b5bfe2;
+  --surface0: #414559;
+  --surface1: #51576d;
+}
+
+:global(.macchiato) {
+  --base: #24273a;
+  --mantle: #1e2030;
+  --text: #cad3f5;
+  --subtext0: #a5adcb;
+  --subtext1: #b8c0e0;
+  --surface0: #363a4f;
+  --surface1: #494d64;
+}
+
+:global(.mocha) {
+  --base: #1e1e2e;
+  --mantle: #181825;
+  --text: #cdd6f4;
+  --subtext0: #bac2de;
+  --subtext1: #a6adc8;
+  --surface0: #313244;
+  --surface1: #45475a;
+}
+
+/* Base styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Monaco, monospace;
+  background-color: var(--mantle);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: min(var(--container-max), 90vw);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* Animations */
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+/* Utility classes */
+.text-accent { color: var(--accent); }
+.text-text { color: var(--text); }
+.text-subtext0 { color: var(--subtext0); }
+.text-subtext1 { color: var(--subtext1); }
+.bg-mantle { background-color: var(--mantle); }
+.bg-base { background-color: var(--base); }
+.bg-surface0 { background-color: var(--surface0); }
