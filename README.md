@@ -1,4 +1,4 @@
-# Daljeet Singh Lotey Portfolio
+# My first Portfolio website
 
 A modern, component-based portfolio built with SvelteKit and deployed to GitHub Pages.
 
