@@ -104,7 +104,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 4rem;
+    height: 4.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
   }
   
   .terminal-nav {
@@ -143,12 +145,12 @@
   .desktop-nav {
     display: none;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
   }
   
   .desktop-nav a, .desktop-nav button {
-    padding: 0.5rem 0.75rem;
-    font-size: 1.05rem;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.9rem;
     font-weight: 500;
     color: var(--text);
     background: transparent;
