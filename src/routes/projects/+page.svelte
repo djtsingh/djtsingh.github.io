@@ -242,7 +242,7 @@
   
   .project-desc {
     margin: 0;
-    font-size: 1.05rem;
+    font-size: 1rem;
     line-height: 1.6;
     color: var(--subtext0);
   }

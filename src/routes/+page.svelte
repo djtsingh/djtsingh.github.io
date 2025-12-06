@@ -112,7 +112,7 @@
   .hero-text {
     margin: 0 0 1.5rem;
     max-width: 65ch;
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     line-height: 1.7;
     color: var(--subtext1);
   }

@@ -291,7 +291,7 @@
 
   .description {
     margin: 0 0 1.5rem;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     line-height: 1.7;
     color: var(--subtext1);
   }
@@ -414,7 +414,7 @@
 
   .feature-card p {
     margin: 0;
-    font-size: 1.05rem;
+    font-size: 1rem;
     line-height: 1.6;
     color: var(--subtext0);
   }
