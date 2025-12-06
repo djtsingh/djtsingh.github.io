@@ -8,6 +8,7 @@
     image: '/projects/janus.webp',
     status: 'Active', // Active, Completed, Experimental, Archived
     year: '2024',
+    readingTime: '8 min read', // Estimated reading time
     links: {
       github: 'https://github.com/djtsingh/janus',
       demo: '#',
@@ -78,6 +79,13 @@
       <div class="hero-meta">
         <span class="status status--{project.status.toLowerCase()}">{project.status}</span>
         <span class="year">{project.year}</span>
+        <span class="reading-time">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          {project.readingTime}
+        </span>
       </div>
       <h1>{project.title}</h1>
       <p class="tagline">{project.tagline}</p>
@@ -218,6 +226,19 @@
     align-items: center;
     gap: 1rem;
     margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .reading-time {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    color: var(--subtext1);
+  }
+  
+  .reading-time svg {
+    color: var(--accent);
   }
 
   .status {

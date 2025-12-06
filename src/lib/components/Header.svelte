@@ -72,6 +72,9 @@
     <a href="/about" on:click={closePanels}>About</a>
     <a href="/projects" on:click={closePanels}>Projects</a>
     <a href="/posts" on:click={closePanels}>Posts</a>
+    <a href="/journey" on:click={closePanels}>Journey</a>
+    <a href="/certifications" on:click={closePanels}>Certifications</a>
+    <a href="/socials" on:click={closePanels}>Socials</a>
     <a href="/assets/DJ_resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
   </nav>
   <div class="sidebar-footer">
@@ -86,6 +89,12 @@
     <button class="close-btn" on:click={toggleMorePanel} aria-label="Close">✕</button>
   </div>
   <div class="panel-content">
+    <nav class="more-nav">
+      <a href="/journey" on:click={closePanels}>Journey</a>
+      <a href="/certifications" on:click={closePanels}>Certifications</a>
+      <a href="/socials" on:click={closePanels}>Socials</a>
+    </nav>
+    <div class="more-divider"></div>
     <ThemeSelector />
   </div>
 </aside>
@@ -95,7 +104,7 @@
     position: sticky;
     top: 0;
     z-index: 10;
-    background: rgba(var(--mantle), 0.95);
+    background: var(--mantle);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--surface0);
   }
@@ -107,6 +116,7 @@
     height: 4.5rem;
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
+    gap: 1rem;
   }
   
   .terminal-nav {
@@ -185,6 +195,7 @@
     .desktop-nav {
       display: flex;
     }
+    
     .mobile-menu-btn {
       display: none;
     }
@@ -195,7 +206,23 @@
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     z-index: 30;
+    animation: fadeIn 0.2s ease;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+    }
+    to {
+      opacity: 1;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
   }
   
   /* Sidebar */
@@ -311,6 +338,32 @@
     padding: 1rem;
     overflow-y: auto;
     height: calc(100% - 4rem);
+  }
+  
+  .more-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .more-nav a {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  
+  .more-nav a:hover {
+    background: var(--surface0);
+    color: var(--accent);
+  }
+  
+  .more-divider {
+    height: 1px;
+    background: var(--surface0);
+    margin: 1rem 0;
   }
   
   @media (max-width: 640px) {

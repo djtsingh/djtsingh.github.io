@@ -9,12 +9,12 @@
   ];
   
   let currentTheme = 'mocha';
-  let currentAccent = 'peach';
+  let currentAccent = 'sapphire';
   
   onMount(() => {
     if (browser) {
       currentTheme = localStorage.getItem('theme') || 'mocha';
-      currentAccent = localStorage.getItem('accent') || 'peach';
+      currentAccent = localStorage.getItem('accent') || 'sapphire';
       applyTheme(currentTheme);
       applyAccent(currentAccent);
     }

@@ -55,7 +55,7 @@
   --blue: #89b4fa;
   --lavender: #b4befe;
   
-  --accent: var(--peach);
+  --accent: var(--sapphire);
   
   /* Spacing */
   --container-max: 1280px;
@@ -71,6 +71,18 @@
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 20px;
+  --radius-full: 9999px;
+  
+  /* Animation */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --duration-fast: 0.2s;
+  --duration-normal: 0.3s;
+  --duration-slow: 0.4s;
+  
+  /* Breakpoints (for reference in media queries) */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
 }
 
 /* Theme variants */
@@ -154,6 +166,21 @@ a {
 @keyframes wiggle {
   0%, 100% { transform: rotate(-3deg); }
   50% { transform: rotate(3deg); }
+}
+
+@keyframes springBounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+/* Spring physics micro-interactions */
+button, .btn, a[class*="btn"], a[class*="chip"], a[class*="link"]:not(.inline-link) {
+  transition: transform var(--duration-fast) var(--ease-spring);
+}
+
+button:active, .btn:active, a[class*="btn"]:active, a[class*="chip"]:active {
+  animation: springBounce 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 /* Utility classes */

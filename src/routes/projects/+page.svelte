@@ -1,56 +1,17 @@
 <script>
   import SEO from '$lib/components/SEO.svelte';
+  import { projects } from '$lib/data/projects.js';
   
-  const projects = [
-    {
-      title: 'Janus',
-      slug: 'janus',
-      description: 'A brief tagline describing what Janus does — update this with actual project info.',
-      image: '/projects/janus.webp',
-      tags: ['AI', 'Python', 'Open Source'],
-      featured: true
-    },
-    {
-      title: 'ImageCraft',
-      slug: null,
-      description: 'Generative interface that turns abstract prompts into layered, shareable visuals for design teams.',
-      image: 'https://picsum.photos/seed/image1/800/450',
-      tags: ['AI', 'Design', 'Open Source'],
-      links: { live: '#', source: 'https://github.com/djtsingh/imagecraft' }
-    },
-    {
-      title: 'SignalFlow',
-      slug: null,
-      description: 'Realtime analytics dashboard that maps ML signals into human-readable stories for product teams.',
-      image: 'https://picsum.photos/seed/image2/800/450',
-      tags: ['Data', 'Visualization'],
-      links: { demo: '#', source: 'https://github.com/djtsingh/signalflow' }
-    },
-    {
-      title: 'Aurora Lab',
-      slug: null,
-      description: 'Experimental playground exploring autonomous agents that design interactive, adaptive experiences.',
-      image: 'https://picsum.photos/seed/image3/800/450',
-      tags: ['Research', 'Experiments'],
-      links: { source: 'https://github.com/djtsingh/aurora-lab' }
-    },
-    {
-      title: 'Chronicle',
-      slug: null,
-      description: 'A lightweight journaling app with privacy-first syncing and a minimal editor focused on writing flow.',
-      image: 'https://picsum.photos/seed/image4/800/450',
-      tags: ['Productivity', 'Privacy'],
-      links: { demo: '#', source: 'https://github.com/djtsingh/chronicle' }
-    },
-    {
-      title: 'Toolbox',
-      slug: null,
-      description: 'Collection of small CLI and web utilities that speed up common engineering tasks and debugging workflows.',
-      image: 'https://picsum.photos/seed/image5/800/450',
-      tags: ['CLI', 'Tools'],
-      links: { source: 'https://github.com/djtsingh/toolbox' }
-    }
-  ];
+  let searchQuery = '';
+  
+  $: filteredProjects = searchQuery.trim() 
+    ? projects.filter(p => {
+        const query = searchQuery.toLowerCase();
+        return p.title.toLowerCase().includes(query) ||
+               p.description.toLowerCase().includes(query) ||
+               p.tags.some(tag => tag.toLowerCase().includes(query));
+      })
+    : projects;
 </script>
 
 <SEO 
@@ -65,10 +26,32 @@
     <p class="kicker">Work & experiments</p>
     <h1>Projects</h1>
     <p class="lead">A selection of projects I build — tools, experiments, and open-source work. Click through for live demos or source.</p>
+    
+    <!-- Search -->
+    <div class="search-box">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+      <input 
+        type="text" 
+        bind:value={searchQuery}
+        placeholder="Search projects..."
+        class="search-input"
+      />
+      {#if searchQuery}
+        <button class="clear-btn" on:click={() => searchQuery = ''}>×</button>
+      {/if}
+    </div>
   </header>
 
-  <div class="projects-grid">
-    {#each projects as project}
+  {#if filteredProjects.length === 0}
+    <div class="no-results">
+      <p>No projects found for "{searchQuery}"</p>
+    </div>
+  {:else}
+    <div class="projects-grid">
+      {#each filteredProjects as project}
       <article class="project-card" class:featured={project.featured}>
         {#if project.slug}
           <a href="/projects/{project.slug}" class="project-link">
@@ -115,19 +98,79 @@
           </div>
         {/if}
       </article>
-    {/each}
-  </div>
-</div>
-
-<style>
+      {/each}
+    </div>
+  {/if}
+</div><style>
   .projects-page {
     max-width: 1100px;
     margin: 0 auto;
   }
   
   .page-header {
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
     text-align: center;
+  }
+  
+  .search-box {
+    position: relative;
+    max-width: 500px;
+    margin: 2rem auto 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--surface0);
+    border: 1px solid var(--surface1);
+    border-radius: var(--radius-lg);
+    transition: border-color 0.2s ease;
+  }
+  
+  .search-box:focus-within {
+    border-color: var(--accent);
+  }
+  
+  .search-box svg {
+    color: var(--subtext1);
+    flex-shrink: 0;
+  }
+  
+  .search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-size: 0.95rem;
+    outline: none;
+  }
+  
+  .search-input::placeholder {
+    color: var(--subtext0);
+  }
+  
+  .clear-btn {
+    background: transparent;
+    border: none;
+    color: var(--subtext1);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+  }
+  
+  .clear-btn:hover {
+    color: var(--text);
+  }
+  
+  .no-results {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--subtext1);
   }
   
   .kicker {

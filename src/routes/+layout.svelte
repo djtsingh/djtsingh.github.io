@@ -1,8 +1,13 @@
 <script>
+  import { page } from '$app/stores';
+  import { fade, fly } from 'svelte/transition';
   import '../app.css';
   import Header from '$lib/components/Header.svelte';
   import Footer from '$lib/components/Footer.svelte';
   import SEO from '$lib/components/SEO.svelte';
+  import BackToTop from '$lib/components/BackToTop.svelte';
+  
+  $: pageKey = $page.url.pathname;
 </script>
 
 <SEO />
@@ -11,10 +16,15 @@
   <Header />
   
   <main class="main">
-    <slot />
+    {#key pageKey}
+      <div class="page-transition" in:fly={{ y: 20, duration: 400, delay: 200 }} out:fade={{ duration: 200 }}>
+        <slot />
+      </div>
+    {/key}
   </main>
   
   <Footer />
+  <BackToTop />
 </div>
 
 <style>
@@ -27,13 +37,17 @@
   .main {
     flex: 1;
     width: 100%;
-    max-width: 1200px;
+  }
+  
+  .page-transition {
+    width: 100%;
+    max-width: var(--container-max);
     margin: 0 auto;
     padding: 2rem 1rem;
   }
   
   @media (min-width: 768px) {
-    .main {
+    .page-transition {
       padding: 3rem 2rem;
     }
   }
