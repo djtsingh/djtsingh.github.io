@@ -81,11 +81,6 @@
   
   .hero-card {
     padding: 2rem;
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--surface0);
-    background: rgba(var(--base-rgb), 0.7);
-    box-shadow: var(--shadow-lg);
-    backdrop-filter: blur(12px);
   }
   
   .kicker {
@@ -126,32 +121,53 @@
   .chip {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.5rem 0.85rem;
-    font-size: 0.8rem;
+    gap: 0.5rem;
+    padding: 0.65rem 1rem;
+    font-size: 0.875rem;
     font-weight: 500;
     color: var(--text);
-    background: var(--surface0);
+    background: transparent;
+    border: 1px solid var(--surface1);
     border-radius: var(--radius-full);
     text-decoration: none;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
+  
+  .chip::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 0;
+  }
+  
+  .chip svg,
+  .chip span {
+    position: relative;
+    z-index: 1;
   }
   
   .chip svg {
     flex-shrink: 0;
-    opacity: 0.85;
-    transition: opacity 0.2s ease;
+    transition: transform 0.2s ease;
   }
   
   .chip:hover {
-    background: var(--accent);
-    color: var(--mantle);
-    transform: translateY(-1px);
+    border-color: var(--accent);
+    transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
   
+  .chip:hover::before {
+    opacity: 0.1;
+  }
+  
   .chip:hover svg {
-    opacity: 1;
+    transform: scale(1.1);
   }
   
   .chip:active {

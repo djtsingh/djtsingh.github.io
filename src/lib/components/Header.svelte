@@ -101,12 +101,14 @@
 
 <style>
   .header {
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 10;
-    background: var(--mantle);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--surface0);
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(var(--mantle-rgb), 0.85);
+    backdrop-filter: blur(8px) saturate(150%);
+    -webkit-backdrop-filter: blur(8px) saturate(150%);
   }
   
   .header-inner {

@@ -55,18 +55,45 @@
   .chip {
     display: inline-flex;
     align-items: center;
-    padding: 0.5rem 1.25rem;
-    font-size: 0.85rem;
+    padding: 0.65rem 1.25rem;
+    font-size: 0.875rem;
     font-weight: 500;
     color: var(--text);
-    background: var(--surface0);
+    background: transparent;
+    border: 1px solid var(--surface1);
     border-radius: var(--radius-full);
     text-decoration: none;
-    transition: background 0.15s ease, color 0.15s ease;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
+  
+  .chip::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 0;
+  }
+  
+  .chip span {
+    position: relative;
+    z-index: 1;
   }
   
   .chip:hover {
-    background: var(--accent);
-    color: var(--mantle);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .chip:hover::before {
+    opacity: 0.1;
+  }
+  
+  .chip:active {
+    transform: translateY(0);
   }
 </style>

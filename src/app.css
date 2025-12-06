@@ -39,6 +39,12 @@
   --subtext0: #bac2de;
   --subtext1: #a6adc8;
   
+  /* RGB values for transparency */
+  --mantle-rgb: 24, 24, 37;
+  --base-rgb: 30, 30, 46;
+  --surface0-rgb: 49, 50, 68;
+  --surface1-rgb: 69, 71, 90;
+  
   /* Accent colors */
   --rosewater: #f5e0dc;
   --flamingo: #f2cdcd;
@@ -94,6 +100,11 @@
   --subtext1: #5c5f77;
   --surface0: #ccd0da;
   --surface1: #bcc0cc;
+  
+  --mantle-rgb: 230, 233, 239;
+  --base-rgb: 239, 241, 245;
+  --surface0-rgb: 204, 208, 218;
+  --surface1-rgb: 188, 192, 204;
 }
 
 .frappe {
@@ -104,6 +115,11 @@
   --subtext1: #b5bfe2;
   --surface0: #414559;
   --surface1: #51576d;
+  
+  --mantle-rgb: 41, 44, 60;
+  --base-rgb: 48, 52, 70;
+  --surface0-rgb: 65, 69, 89;
+  --surface1-rgb: 81, 87, 109;
 }
 
 .macchiato {
@@ -114,6 +130,11 @@
   --subtext1: #b8c0e0;
   --surface0: #363a4f;
   --surface1: #494d64;
+  
+  --mantle-rgb: 30, 32, 48;
+  --base-rgb: 36, 39, 58;
+  --surface0-rgb: 54, 58, 79;
+  --surface1-rgb: 73, 77, 100;
 }
 
 .mocha {
@@ -124,6 +145,11 @@
   --subtext1: #a6adc8;
   --surface0: #313244;
   --surface1: #45475a;
+  
+  --mantle-rgb: 24, 24, 37;
+  --base-rgb: 30, 30, 46;
+  --surface0-rgb: 49, 50, 68;
+  --surface1-rgb: 69, 71, 90;
 }
 
 /* Base styles */
@@ -181,6 +207,64 @@ button, .btn, a[class*="btn"], a[class*="chip"], a[class*="link"]:not(.inline-li
 
 button:active, .btn:active, a[class*="btn"]:active, a[class*="chip"]:active {
   animation: springBounce 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Inline link styling - modern underline with subtle background glow */
+.inline-link {
+  position: relative;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--accent);
+  padding: 0 2px;
+  transition: all var(--duration-normal) var(--ease-smooth);
+}
+
+.inline-link::before {
+  content: '';
+  position: absolute;
+  inset: -2px -4px;
+  background: var(--accent);
+  opacity: 0.08;
+  border-radius: 4px;
+  z-index: -1;
+  transition: opacity var(--duration-normal) var(--ease-smooth);
+}
+
+.inline-link:hover {
+  color: var(--accent-bright);
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--accent-bright);
+}
+
+.inline-link:hover::before {
+  opacity: 0.15;
+}
+
+.inline-link:active {
+  transform: translateY(1px);
+  text-decoration-thickness: 1.5px;
+}
+
+.email-link {
+  position: relative;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--accent);
+  transition: all var(--duration-normal) var(--ease-smooth);
+}
+
+.email-link:hover {
+  color: var(--accent-bright);
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--accent-bright);
 }
 
 /* Utility classes */

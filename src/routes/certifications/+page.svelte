@@ -5,25 +5,25 @@
     {
       title: 'GitHub Co-Pilot (GH-300) Certified',
       issuer: 'GitHub',
-      date: 'January 2024',
-      credentialId: 'ABC123XYZ',
-      description: 'Validates expertise in designing distributed systems on AWS',
-      image: '/assets/cert-placeholder.jpg',
-      certificateUrl: '#',
-      verifyUrl: '#',
-      skills: ['Cloud Architecture', 'AWS', 'DevOps'],
-      status: 'active' // active, expired, pending
+      date: 'October 2025',
+      credentialId: 'ABCEFAD48C0C88871FE123XYZ',
+      description: 'Validates the ability to use the AI-driven coding tool effectively and responsibly',
+      image: '/assets/github-copilot.svg',
+      certificateUrl: 'https://learn.microsoft.com/api/credentials/share/en-us/djtsingh/EFAD48C0C88871FE?sharingId=767C0AA3B86567E',
+      verifyUrl: 'https://learn.microsoft.com/api/credentials/share/en-us/djtsingh/EFAD48C0C88871FE?sharingId=767C0AA3B86567E',
+      skills: ['Github Copilot', 'LLMs', 'Machine Learning'],
+      status: 'active'
     },
     {
-      title: 'Machine Learning Specialization',
-      issuer: 'Stanford University (Coursera)',
-      date: 'June 2023',
+      title: 'Digital Marketing Mastery',
+      issuer: 'Quibus Trainings, Jaipur',
+      date: 'May 2021',
       credentialId: 'ML2023456',
-      description: 'Comprehensive ML course covering supervised and unsupervised learning',
+      description: 'Comprehensive course covering skills in online strategies like SEO, content creation, social media management, and email marketing to achieve business goals such as increasing brand awareness, driving traffic, and improving ROI',
       image: '/assets/cert-placeholder.jpg',
       certificateUrl: '#',
       verifyUrl: '#',
-      skills: ['Machine Learning', 'Python', 'TensorFlow'],
+      skills: ['Marketing Strategy', 'SEO', 'Business Development'],
       status: 'active'
     },
     {

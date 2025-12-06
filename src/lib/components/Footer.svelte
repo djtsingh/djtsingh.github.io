@@ -61,6 +61,8 @@
         <span class="carbon-value">{carbonGrams}g CO₂</span>
       </a>
       
+      <span class="separator">•</span>
+      
       <div class="stat-badge" title="{visitors} total site visits">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
@@ -68,6 +70,8 @@
         </svg>
         <span>{visitors}</span>
       </div>
+      
+      <span class="separator">•</span>
       
       <a 
         href={commitUrl || 'https://github.com/djtsingh/djtsingh.github.io'} 
@@ -83,6 +87,8 @@
         </svg>
         <span>{commitHash}</span>
       </a>
+      
+      <span class="separator">•</span>
       
       <div class="social-icons">
         <a href="https://github.com/djtsingh" target="_blank" rel="noopener noreferrer" title="GitHub" class="social-icon">
@@ -215,6 +221,12 @@
   .stat-badge svg {
     color: var(--accent);
     flex-shrink: 0;
+  }
+  
+  .separator {
+    color: var(--surface1);
+    font-size: 0.9rem;
+    user-select: none;
   }
   
   @media (max-width: 768px) {

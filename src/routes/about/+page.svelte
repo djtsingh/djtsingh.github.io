@@ -28,7 +28,7 @@
     <!-- Content -->
     <div class="about-content">
       <p class="about-lead">
-        Hey! I am Daljeet Singh Lotey <a href="/socials" class="inline-link">(djtsingh)</a>. I build software that matters: from scalable systems, to creative tools and experiments <a href="/projects" class="inline-link">(cool projects)</a> in my free time. I'm a recent CS grad with a background in data, algorithms, and full-stack engineering.
+        Hey! I am Daljeet Singh Lotey <a href="/socials" class="inline-link">(@djtsingh)</a>. I build software that matters: from scalable systems, to creative tools and experiments <a href="/projects" class="inline-link">(cool projects)</a> in my free time. I'm a recent CS grad with a background in data, algorithms, and full-stack engineering.
       </p>
 
       <p>
@@ -83,7 +83,7 @@
       <div class="use-category">
         <h3>Hardware</h3>
         <ul class="use-list">
-          <li><span class="tool-name">MacBook Pro</span> <span class="tool-detail">M2, 16GB</span></li>
+          <li><span class="tool-name">MacBook Air</span> <span class="tool-detail">M4, 16GB</span></li>
           <li><span class="tool-name">External Monitor</span> <span class="tool-detail">27" 4K</span></li>
         </ul>
       </div>
@@ -189,61 +189,57 @@
   .social-link {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.5rem 0.75rem;
-    font-size: 0.85rem;
+    gap: 0.5rem;
+    padding: 0.65rem 1rem;
+    font-size: 0.875rem;
     font-weight: 500;
     color: var(--text);
-    background: var(--surface0);
-    border-radius: var(--radius-md);
-    transition: background 0.15s ease, color 0.15s ease;
+    background: transparent;
+    border: 1px solid var(--surface1);
+    border-radius: var(--radius-full);
+    transition: all 0.2s ease;
     text-decoration: none;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .social-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 0;
+  }
+  
+  .social-link svg,
+  .social-link span {
+    position: relative;
+    z-index: 1;
   }
   
   .social-link svg {
     flex-shrink: 0;
+    transition: transform 0.2s ease;
   }
   
   .social-link:hover {
-    background: var(--accent);
-    color: var(--mantle);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
   
-  /* Inline link styling for text links within paragraphs */
-  .inline-link {
-    position: relative;
-    color: var(--accent);
-    font-weight: 600;
-    text-decoration: none;
-    background: linear-gradient(to right, var(--accent), var(--accent)) no-repeat;
-    background-size: 0% 2px;
-    background-position: left bottom;
-    padding-bottom: 2px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  .social-link:hover::before {
+    opacity: 0.1;
   }
   
-  .inline-link::before {
-    content: '';
-    position: absolute;
-    inset: -2px -4px;
-    background: var(--accent);
-    opacity: 0;
-    border-radius: 4px;
-    z-index: -1;
-    transition: opacity 0.3s ease;
+  .social-link:hover svg {
+    transform: scale(1.1);
   }
   
-  .inline-link:hover {
-    color: var(--crust);
-    background-size: 100% 2px;
-  }
-  
-  .inline-link:hover::before {
-    opacity: 0.15;
-  }
-  
-  .inline-link:active {
-    transform: translateY(1px);
+  .social-link:active {
+    transform: translateY(0);
   }
   
   /* Uses Section */

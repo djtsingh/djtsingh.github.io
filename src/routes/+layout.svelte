@@ -37,18 +37,19 @@
   .main {
     flex: 1;
     width: 100%;
+    padding-top: 4.5rem;
   }
   
   .page-transition {
     width: 100%;
     max-width: var(--container-max);
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: 1rem 1rem;
   }
   
   @media (min-width: 768px) {
     .page-transition {
-      padding: 3rem 2rem;
+      padding: 1.5rem 2rem;
     }
   }
 </style>
