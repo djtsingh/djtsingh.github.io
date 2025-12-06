@@ -94,8 +94,21 @@
     padding: 2rem 0 3rem;
   }
   
+  @media (max-width: 768px) {
+    .hero {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
+  
   .hero-card {
     padding: 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    .hero-card {
+      padding: 1rem;
+    }
   }
   
   .kicker {
@@ -105,6 +118,13 @@
     letter-spacing: 0.4em;
     text-transform: uppercase;
     color: var(--subtext1);
+  }
+  
+  @media (max-width: 768px) {
+    .kicker {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+    }
   }
   
   .hero-title {

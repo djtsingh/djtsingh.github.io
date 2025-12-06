@@ -42,7 +42,7 @@
         <div class="timeline-content">
           <span class="timeline-date">2024 - Present</span>
           <h3>Software Engineer</h3>
-          <p class="timeline-company">Your Company</p>
+          <p class="timeline-company"></p>
           <p>Working on scalable systems and full-stack applications. Focus on data engineering and ML integration.</p>
         </div>
       </div>
@@ -50,8 +50,8 @@
       <div class="timeline-item">
         <div class="timeline-marker"></div>
         <div class="timeline-content">
-          <span class="timeline-date">2024</span>
-          <h3>Bachelor of Science</h3>
+          <span class="timeline-date">2025</span>
+          <h3>Bachelor of Science, Information Technology</h3>
           <p class="timeline-company">Amity University, Mumbai</p>
           <p>Graduated with focus on algorithms, data structures, and machine learning. Developed Janus project for thesis.</p>
         </div>
@@ -61,7 +61,7 @@
         <div class="timeline-marker"></div>
         <div class="timeline-content">
           <span class="timeline-date">2023</span>
-          <h3>Research Intern</h3>
+          <h3>Research Assistant</h3>
           <p class="timeline-company">Amity Institute of Information technology</p>
           <p>Computer vision research on adversarial detection systems and browser fingerprinting techniques.</p>
         </div>
@@ -83,6 +83,10 @@
   }
   
   .journey-header h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 700;
     background: linear-gradient(135deg, var(--text), var(--accent));

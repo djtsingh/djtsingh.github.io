@@ -210,7 +210,7 @@
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    z-index: 30;
+    z-index: 110;
     animation: fadeIn 0.2s ease;
   }
   
@@ -237,7 +237,7 @@
     max-width: 320px;
     background: var(--mantle);
     border-right: 1px solid var(--surface0);
-    z-index: 40;
+    z-index: 120;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     display: flex;
@@ -314,7 +314,7 @@
     min-width: 280px;
     background: var(--mantle);
     border-right: 1px solid var(--surface0);
-    z-index: 50;
+    z-index: 120;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
   }

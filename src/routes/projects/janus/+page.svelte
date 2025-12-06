@@ -3,8 +3,8 @@
   
   const project = {
     title: 'Janus',
-    tagline: 'A brief tagline describing what Janus does in one line',
-    description: 'A longer description of the project. Explain what problem it solves, who it\'s for, and what makes it unique. This should be 2-3 sentences that give visitors a clear understanding of the project.',
+    tagline: 'The open-source bouncer that only real humans can sweet-talk.',
+    description: 'It feels your shaky hands on a phone, watches your lazy mouse wiggles on a laptop, and listens for the tiny sighs of a real battery dying. One robotic twitch, one perfect straight-line scroll, one impossible leap to a hidden page — and Janus slams the door forever. Small sites, zero cost, bots obliterated.',
     image: '/projects/janus.webp',
     status: 'Active', // Active, Completed, Experimental, Archived
     year: '2024',
@@ -19,32 +19,32 @@
   const features = [
     {
       icon: '⚡',
-      title: 'Feature One',
-      description: 'Describe the first key feature or capability of the project.'
+      title: 'ZeroTrust Block',
+      description: 'Permanently blocks IPs exhibiting automated patterns, no cloud, no cost, fully self-hosted.'
     },
     {
       icon: '🎯',
-      title: 'Feature Two',
-      description: 'Describe the second key feature or capability of the project.'
+      title: 'MotionAuth',
+      description: 'Verifies real human grip through accelerometer variance and touch entropy.'
     },
     {
       icon: '🔒',
-      title: 'Feature Three',
-      description: 'Describe the third key feature or capability of the project.'
+      title: 'HardwareProof',
+      description: 'Confirms physical device via battery discharge patterns and unique GPU rendering signatures.'
     },
     {
       icon: '🚀',
-      title: 'Feature Four',
-      description: 'Describe the fourth key feature or capability of the project.'
+      title: 'BehaviorGuard',
+      description: 'Continuously analyzes navigation sequence, scrolling dynamics, and interaction timing.'
     }
   ];
   
   const techStack = [
-    { name: 'Python', category: 'language' },
-    { name: 'PyTorch', category: 'framework' },
-    { name: 'FastAPI', category: 'framework' },
+    { name: 'GoLang', category: 'language' },
+    { name: 'IPBlocking', category: 'framework' },
+    { name: 'TypeScript', category: 'framework' },
     { name: 'Docker', category: 'tool' },
-    { name: 'React', category: 'frontend' },
+    { name: 'HTML', category: 'frontend' },
     { name: 'PostgreSQL', category: 'database' }
   ];
   

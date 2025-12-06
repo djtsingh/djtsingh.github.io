@@ -173,6 +173,7 @@
   .page-header h1 {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.75rem;
     margin: 0 0 0.75rem;
     font-size: clamp(2rem, 5vw, 2.5rem);
