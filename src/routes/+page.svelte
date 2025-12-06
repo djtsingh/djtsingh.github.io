@@ -99,7 +99,7 @@
   
   .hero-title {
     margin: 0 0 1rem;
-    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
     font-weight: 700;
     line-height: 1.15;
     color: var(--text);
@@ -112,7 +112,7 @@
   .hero-text {
     margin: 0 0 1.5rem;
     max-width: 65ch;
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     line-height: 1.7;
     color: var(--subtext1);
   }

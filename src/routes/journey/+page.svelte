@@ -234,7 +234,7 @@
   }
   
   .timeline-content h3 {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     font-weight: 600;
     color: var(--text);
     margin: 0.5rem 0 0.25rem;
@@ -242,7 +242,7 @@
   }
   
   .timeline-company {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--subtext0);
     font-weight: 500;
     margin: 0 0 1rem;
@@ -252,7 +252,7 @@
     margin: 0;
     color: var(--subtext1);
     line-height: 1.7;
-    font-size: 1.05rem;
+    font-size: 0.95rem;
   }
   
   @keyframes fadeInUp {
