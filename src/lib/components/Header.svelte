@@ -106,9 +106,9 @@
     left: 0;
     right: 0;
     z-index: 100;
-    background: rgba(var(--mantle-rgb), 0.85);
-    backdrop-filter: blur(8px) saturate(150%);
-    -webkit-backdrop-filter: blur(8px) saturate(150%);
+    background: rgba(var(--mantle-rgb), 0.75);
+    backdrop-filter: blur(6px) saturate(140%);
+    -webkit-backdrop-filter: blur(6px) saturate(140%);
   }
   
   .header-inner {

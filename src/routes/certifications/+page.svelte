@@ -51,7 +51,13 @@
 <div class="certs-page">
   <header class="page-header">
     <p class="kicker">Credentials & Learning</p>
-    <h1>Certifications</h1>
+    <h1>
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="6"/>
+        <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+      </svg>
+      <span>Certifications</span>
+    </h1>
     <p class="lead">Professional certifications and credentials I've earned to validate skills and continue learning.</p>
   </header>
 
@@ -165,10 +171,18 @@
   }
 
   .page-header h1 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     margin: 0 0 0.75rem;
     font-size: clamp(2rem, 5vw, 2.5rem);
     font-weight: 700;
     color: var(--text);
+  }
+  
+  .page-header h1 svg {
+    color: var(--accent);
+    flex-shrink: 0;
   }
 
   .lead {

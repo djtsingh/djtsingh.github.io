@@ -65,7 +65,7 @@
   
   /* Spacing */
   --container-max: 1280px;
-  --gutter: 24px;
+  --gutter: 28px;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -169,6 +169,13 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  font-size: 17px;
+}
+
+@media (max-width: 768px) {
+  html, body {
+    font-size: 16px;
+  }
 }
 
 a {

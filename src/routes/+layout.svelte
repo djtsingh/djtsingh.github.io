@@ -44,7 +44,7 @@
     width: 100%;
     max-width: var(--container-max);
     margin: 0 auto;
-    padding: 1rem 1rem;
+    padding: 1rem var(--gutter);
   }
   
   @media (min-width: 768px) {

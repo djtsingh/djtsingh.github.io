@@ -39,7 +39,13 @@
 
 <section class="projects-section">
   <div class="section-header">
-    <h2>Featured Projects</h2>
+    <h2 class="section-title">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+      </svg>
+      <span>Featured Projects</span>
+    </h2>
   </div>
   <div class="projects-grid">
     {#each featuredProjects as project}
@@ -71,6 +77,15 @@
         {/if}
       </article>
     {/each}
+  </div>
+  <div class="view-all-container">
+    <a href="/projects" class="view-all-btn">
+      <span>View All Projects</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14"/>
+        <path d="m12 5 7 7-7 7"/>
+      </svg>
+    </a>
   </div>
 </section>
 
@@ -176,6 +191,78 @@
   
   .projects-section {
     padding-top: 3rem;
+  }
+  
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0 0 2rem;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 700;
+    color: var(--text);
+  }
+  
+  .section-title svg {
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  
+  .view-all-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+  
+  .view-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--surface1);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: all var(--duration-normal) var(--ease-smooth);
+  }
+  
+  .view-all-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity var(--duration-normal) var(--ease-smooth);
+    z-index: 0;
+  }
+  
+  .view-all-btn span,
+  .view-all-btn svg {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .view-all-btn svg {
+    transition: transform var(--duration-normal) var(--ease-smooth);
+  }
+  
+  .view-all-btn:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .view-all-btn:hover::before {
+    opacity: 0.1;
+  }
+  
+  .view-all-btn:hover svg {
+    transform: translateX(4px);
   }
   
   .section-header h2 {

@@ -24,7 +24,13 @@
 <div class="projects-page">
   <header class="page-header">
     <p class="kicker">Work & experiments</p>
-    <h1>Projects</h1>
+    <h1>
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+      </svg>
+      <span>Projects</span>
+    </h1>
     <p class="lead">A selection of projects I build — tools, experiments, and open-source work. Click through for live demos or source.</p>
     
     <!-- Search -->
@@ -183,10 +189,18 @@
   }
   
   .page-header h1 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     margin: 0 0 0.75rem;
     font-size: clamp(2rem, 5vw, 2.5rem);
     font-weight: 700;
     color: var(--text);
+  }
+  
+  .page-header h1 svg {
+    color: var(--accent);
+    flex-shrink: 0;
   }
   
   .lead {
