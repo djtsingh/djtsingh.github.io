@@ -235,14 +235,14 @@
   
   .project-title {
     margin: 0;
-    font-size: 1.125rem;
+    font-size: 1.25rem;
     font-weight: 600;
     color: var(--text);
   }
   
   .project-desc {
     margin: 0;
-    font-size: 0.875rem;
+    font-size: 1rem;
     line-height: 1.6;
     color: var(--subtext0);
   }

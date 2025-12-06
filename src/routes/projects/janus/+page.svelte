@@ -277,21 +277,21 @@
 
   .hero-content h1 {
     margin: 0 0 0.75rem;
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
     font-weight: 700;
     color: var(--text);
   }
 
   .tagline {
     margin: 0 0 1rem;
-    font-size: 1.125rem;
+    font-size: 1.25rem;
     color: var(--accent);
     font-weight: 500;
   }
 
   .description {
     margin: 0 0 1.5rem;
-    font-size: 1rem;
+    font-size: 1.1rem;
     line-height: 1.7;
     color: var(--subtext1);
   }
@@ -365,7 +365,7 @@
 
   .section-title {
     margin: 0 0 1.5rem;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: var(--text);
     display: flex;
@@ -407,14 +407,14 @@
 
   .feature-card h3 {
     margin: 0 0 0.5rem;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--text);
   }
 
   .feature-card p {
     margin: 0;
-    font-size: 0.875rem;
+    font-size: 1rem;
     line-height: 1.6;
     color: var(--subtext0);
   }
