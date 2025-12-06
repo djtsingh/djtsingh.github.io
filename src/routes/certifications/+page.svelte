@@ -3,8 +3,8 @@
   
   const certifications = [
     {
-      title: 'AWS Certified Solutions Architect',
-      issuer: 'Amazon Web Services',
+      title: 'GitHub Co-Pilot (GH-300) Certified',
+      issuer: 'GitHub',
       date: 'January 2024',
       credentialId: 'ABC123XYZ',
       description: 'Validates expertise in designing distributed systems on AWS',
