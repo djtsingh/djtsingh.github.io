@@ -163,14 +163,14 @@
   
   .about-lead {
     margin: 0;
-    font-size: 1.05rem;
+    font-size: 1.15rem;
     line-height: 1.7;
     color: var(--subtext1);
   }
   
   .about-content p {
     margin: 0;
-    font-size: 1.05rem;
+    font-size: 1.15rem;
     line-height: 1.7;
     color: var(--subtext1);
   }
