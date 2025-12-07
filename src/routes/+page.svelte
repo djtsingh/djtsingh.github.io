@@ -2,7 +2,6 @@
   import SEO from '$lib/components/SEO.svelte';
   import { projects } from '$lib/data/projects.js';
   
-  // Show only featured projects on homepage
   const featuredProjects = projects.filter(p => p.featured);
 </script>
 
@@ -15,10 +14,9 @@
 
 <section class="hero">
   <div class="hero-card">
-    <p class="kicker">Explorer · Engineer · Builder</p>
     <h1 class="hero-title">Hey! I'm <span class="accent">Daljeet Singh</span></h1>
     <p class="hero-text">
-      A Software dev and fresh CS grad driven by the art of digital craftsmanship. I bridge the gap between theoretical algorithms and practical, scalable applications. Driven by deep curiosity, I spend my downtime exploring emerging technologies to craft tools that are not only functional but truly transformative for the end user.
+      I am a Software Developer and recent CS graduate dedicated to the craft of building scalable, high-performance systems. I bridge the gap between theoretical algorithms and practical application, engineering robust tools that deliver real impact and elevate the user experience.
     </p>
     <div class="hero-chips">
       <a href="https://www.linkedin.com/in/djtsingh/" target="_blank" rel="noopener noreferrer" class="chip">
@@ -102,12 +100,12 @@
   }
   
   .hero-card {
-    padding: 2rem;
+    padding: 2rem 2.5rem 2rem 2rem;
   }
   
   @media (max-width: 768px) {
     .hero-card {
-      padding: 1rem;
+      padding: 1rem 1.5rem 1rem 1rem;
     }
   }
   
@@ -141,8 +139,8 @@
   
   .hero-text {
     margin: 0 0 1.5rem;
-    max-width: 65ch;
-    font-size: 0.95rem;
+    max-width: 75ch;
+    font-size: 1rem;
     line-height: 1.7;
     color: var(--subtext1);
   }
@@ -249,6 +247,14 @@
     position: relative;
     overflow: hidden;
     transition: all var(--duration-normal) var(--ease-smooth);
+  }
+  
+  @media (max-width: 768px) {
+    .view-all-btn {
+      padding: 0.75rem 1.25rem;
+      font-size: 0.875rem;
+      gap: 0.5rem;
+    }
   }
   
   .view-all-btn::before {

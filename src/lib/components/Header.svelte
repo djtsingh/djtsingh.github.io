@@ -27,7 +27,7 @@
   <div class="container header-inner">
     <!-- Terminal nav -->
     <nav class="terminal-nav">
-      <a href="/" class="tilde">~</a>
+      <a href="/" class="tilde">$</a>
       {#if pageName}
         <span class="separator">/</span>
         <span class="current-path">{pageName}</span>
@@ -131,7 +131,6 @@
   
   .tilde {
     color: var(--accent);
-    animation: wiggle 2s ease-in-out infinite;
   }
   
   .tilde:hover {
@@ -139,7 +138,7 @@
   }
   
   .separator {
-    color: var(--surface1);
+    color: var(--subtext1);
   }
   
   .current-path {
@@ -147,11 +146,11 @@
   }
   
   .cursor {
-    width: 3px;
+    width: 6px;
     height: 20px;
     background: var(--accent);
     margin-left: 4px;
-    animation: blink 1s step-end infinite;
+    animation: blink 2s step-end infinite;
   }
   
   .desktop-nav {
@@ -162,7 +161,7 @@
   
   .desktop-nav a, .desktop-nav button {
     padding: 0.5rem 0.875rem;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-weight: 500;
     color: var(--text);
     background: transparent;
