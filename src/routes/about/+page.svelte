@@ -13,7 +13,7 @@
 
 <SEO 
   title="About | Daljeet Singh Lotey"
-  description="About Daljeet Singh Lotey — Software Engineering and Data Science. Background in data, algorithms and full-stack engineering."
+  description="About Daljeet Singh Lotey | Software Engineering and Data Science. Background in data, algorithms and full-stack engineering."
   canonical="https://djtsingh.github.io/about"
   type="profile"
 />

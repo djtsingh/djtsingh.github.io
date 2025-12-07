@@ -4,7 +4,7 @@
 
 <SEO 
   title="Posts | Daljeet Singh Lotey"
-  description="Posts by Daljeet Singh Lotey — software engineering, design, and technical experiments (under development)."
+  description="Posts by Daljeet Singh Lotey | software engineering, design, and technical experiments (under development)."
   canonical="https://djtsingh.github.io/posts"
   type="website"
 />

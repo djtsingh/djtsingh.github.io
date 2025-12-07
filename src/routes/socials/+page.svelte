@@ -51,7 +51,7 @@
 
 <SEO 
   title="Socials | Daljeet Singh Lotey"
-  description="Connect with Daljeet Singh Lotey on various platforms — GitHub, LinkedIn, Twitter, and more."
+  description="Connect with Daljeet Singh Lotey on various platforms | GitHub, LinkedIn, Twitter, and more."
   canonical="https://djtsingh.github.io/socials"
   type="website"
 />

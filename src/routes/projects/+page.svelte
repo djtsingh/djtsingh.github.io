@@ -16,7 +16,7 @@
 
 <SEO 
   title="Projects | Daljeet Singh Lotey"
-  description="Projects by Daljeet Singh Lotey — tools, experiments and open-source work in AI, visualization and systems engineering."
+  description="Projects by Daljeet Singh Lotey | tools, experiments and open-source work in AI, visualization and systems engineering."
   canonical="https://djtsingh.github.io/projects"
   type="website"
 />

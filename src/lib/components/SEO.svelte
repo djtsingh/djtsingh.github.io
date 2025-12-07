@@ -86,6 +86,9 @@
   <meta name="description" content={pageDescription} />
   <link rel="canonical" href={canonicalUrl} />
   
+  <!-- Apple Touch Icon -->
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  
   <!-- Author & Creator -->
   <meta name="author" content={siteConfig.name} />
   <link rel="me" href={siteConfig.socials.github} />

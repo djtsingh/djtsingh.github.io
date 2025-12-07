@@ -23,7 +23,7 @@
         });
       
       // Fetch latest commit
-      fetch('https://api.github.com/repos/djtsingh/EOS/commits/main')
+      fetch('https://api.github.com/repos/djtsingh/Djx/commits/main')
         .then(response => response.json())
         .then(data => {
           commitHash = data.sha.substring(0, 7);
@@ -74,7 +74,7 @@
       <span class="separator">•</span>
       
       <a 
-        href={commitUrl || 'https://github.com/djtsingh/EOS'} 
+        href={commitUrl || 'https://github.com/djtsingh/Djx'} 
         target="_blank" 
         rel="noopener noreferrer"
         class="stat-badge"
