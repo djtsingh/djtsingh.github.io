@@ -125,7 +125,7 @@
     display: flex;
     align-items: center;
     gap: 2px;
-    font-size: 1.1rem;
+    font-size: 1rem;
     user-select: none;
   }
   
