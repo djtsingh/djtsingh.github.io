@@ -11,7 +11,7 @@ export const projects = [
     title: 'Djx',
     slug: 'portfolio',
     description: 'Personal portfolio website built with SvelteKit featuring modern design, custom theming, and optimized performance.',
-    image: 'https://picsum.photos/seed/portfolio/800/450',
+    image: '/projects/djx-cover.webp',
     tags: ['SvelteKit', 'Web Design', 'Open Source'],
     featured: true,
     links: { live: 'https://djtsingh.github.io', source: 'https://github.com/djtsingh/djtsingh.github.io' }
