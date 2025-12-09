@@ -139,22 +139,22 @@
     <div class="philosophy-grid">
       <div class="philosophy-card">
         <h3>Minimal & Intentional</h3>
-        <p>Every element serves a purpose. Clean layouts with generous whitespace, focused typography, and reduced visual noise allow content to take center stage.</p>
+        <p>Clean layouts with generous whitespace and focused typography.</p>
       </div>
       
       <div class="philosophy-card">
         <h3>Terminal Aesthetics</h3>
-        <p>Terminal-inspired breadcrumbs with $ prompt and blinking cursor, monospace typography, and command-line visual language create a technical, developer-focused identity.</p>
+        <p>Monospace fonts and command-line visual language for a technical identity.</p>
       </div>
       
       <div class="philosophy-card">
         <h3>Micro-interactions</h3>
-        <p>Thoughtful animations and transitions - button hover states, page transitions, theme switching - enhance usability without overwhelming the experience.</p>
+        <p>Thoughtful animations that enhance usability without overwhelming.</p>
       </div>
       
       <div class="philosophy-card">
         <h3>Performance as Feature</h3>
-        <p>Speed isn't an afterthought - static generation, optimized assets, minimal runtime JavaScript, and efficient CSS ensure instant interactions.</p>
+        <p>Static generation and optimized assets ensure instant interactions.</p>
       </div>
     </div>
   </section>
@@ -180,7 +180,7 @@
 
       <div class="highlight-item">
         <h3>🎨 Component Architecture</h3>
-        <p>Reusable Svelte components (Header, Footer, SEO, ThemeSelector, BackToTop) with prop-driven configuration and slot-based composition for maximum flexibility.</p>
+        <p>Reusable Svelte components (Header, Footer, SEO, ThemeSelector) with prop-driven configuration and slot-based composition for maximum flexibility.</p>
       </div>
 
       <div class="highlight-item">

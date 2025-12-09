@@ -5,7 +5,6 @@
   import Header from '$lib/components/Header.svelte';
   import Footer from '$lib/components/Footer.svelte';
   import SEO from '$lib/components/SEO.svelte';
-  import BackToTop from '$lib/components/BackToTop.svelte';
   
   $: pageKey = $page.url.pathname;
 </script>
@@ -24,7 +23,6 @@
   </main>
   
   <Footer />
-  <BackToTop />
 </div>
 
 <style>
