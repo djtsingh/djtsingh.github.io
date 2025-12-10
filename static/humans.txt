@@ -15,7 +15,7 @@ Framework: SvelteKit
 Styling: Tailwind CSS
 Theme: Catppuccin
 Fonts: JetBrains Mono
-Analytics: Umami
+Analytics: Google Analytics
 
 /* THANKS */
 Catppuccin - Color palette
