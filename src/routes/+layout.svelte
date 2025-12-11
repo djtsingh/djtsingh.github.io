@@ -6,19 +6,22 @@
   import Footer from '$lib/components/Footer.svelte';
   import SEO from '$lib/components/SEO.svelte';
   
+  const IS_PROD = import.meta.env.PROD;
   $: pageKey = $page.url.pathname;
 </script>
 
-<svelte:head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-84DNZR8VET"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-84DNZR8VET');
-  </script>
-</svelte:head>
+{#if IS_PROD}
+  <svelte:head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-84DNZR8VET"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);} 
+      gtag('js', new Date());
+      gtag('config', 'G-84DNZR8VET');
+    </script>
+  </svelte:head>
+{/if}
 
 <SEO />
 
