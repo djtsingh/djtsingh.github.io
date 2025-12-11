@@ -10,8 +10,8 @@
   $: pageKey = $page.url.pathname;
 </script>
 
-{#if IS_PROD}
-  <svelte:head>
+<svelte:head>
+  {#if IS_PROD}
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-84DNZR8VET"></script>
     <script>
@@ -20,8 +20,8 @@
       gtag('js', new Date());
       gtag('config', 'G-84DNZR8VET');
     </script>
-  </svelte:head>
-{/if}
+  {/if}
+</svelte:head>
 
 <SEO />
 
