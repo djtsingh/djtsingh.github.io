@@ -17,6 +17,15 @@ export const projects = [
     links: { live: 'https://djtsingh.github.io', source: 'https://github.com/djtsingh/djtsingh.github.io' }
   },
   {
+    title: 'S&P 500 Market Prediction & Analysis',
+    slug: 'market-prediction',
+    description: 'A data-driven S&P 500 market prediction and analysis project focused on tactical forecasting and feature engineering, inspired by the Hull Tactical Market Prediction competition.',
+    image: '/projects/market-prediction.webp',
+    tags: ['Finance', 'Time Series', 'Machine Learning'],
+    featured: true,
+    links: { source: 'https://github.com/djtsingh/Market-Prediction-2025', kaggle: 'https://www.kaggle.com/competitions/hull-tactical-market-prediction/overview' }
+  },
+  {
     title: 'ImageCraft',
     slug: null,
     description: 'Generative interface that turns abstract prompts into layered, shareable visuals for design teams.',
