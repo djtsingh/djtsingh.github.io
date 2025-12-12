@@ -4,6 +4,7 @@
   
   let sidebarOpen = false;
   let morePanelOpen = false;
+  let breadcrumb = [];
   
   function toggleSidebar() {
     sidebarOpen = !sidebarOpen;
@@ -18,21 +19,60 @@
     morePanelOpen = false;
   }
   
-  // Get current page name for terminal nav
+  // Get current page name and breadcrumb parts for terminal nav
   $: currentPath = $page.url.pathname;
-  $: pageName = currentPath === '/' ? '' : currentPath.replace('/', '').replace('.html', '');
+  $: pathParts = currentPath.split('/').filter(Boolean);
+  $: isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  // Breadcrumb logic: show truncated previous folder if path is too long on mobile
+  $: {
+    if (pathParts.length > 1 && isMobile) {
+      // Truncate previous folder if combined length is too long
+      const prev = pathParts[pathParts.length - 2];
+      const curr = pathParts[pathParts.length - 1];
+      const maxPrev = 8;
+      const maxTotal = 18;
+      let prevDisplay = prev;
+      if ((prev.length + curr.length + 1) > maxTotal) {
+        prevDisplay = prev.slice(0, maxPrev) + '…';
+      }
+      breadcrumb = [prevDisplay, curr];
+    } else {
+      breadcrumb = pathParts;
+    }
+  }
+  $: pageName = pathParts.length ? pathParts[pathParts.length - 1] : '';
 </script>
 
 <header class="header">
   <div class="container header-inner">
     <!-- Terminal nav -->
+
     <nav class="terminal-nav">
       <a href="/" class="tilde">$</a>
-      {#if pageName}
+      {#if pathParts.length === 0}
+        <span class="cursor"></span>
+      {:else if pathParts.length === 1}
         <span class="separator">/</span>
-        <span class="current-path">{pageName}</span>
+        <span class="current-path">{pathParts[0]}</span>
+        <span class="cursor"></span>
+      {:else}
+        <span class="separator">/</span>
+        {#if isMobile}
+          <span class="breadcrumb-mobile">
+            <span class="breadcrumb-prev">{breadcrumb[0]}</span>
+            <span class="separator">/</span>
+            <span class="current-path">{breadcrumb[1]}</span>
+          </span>
+        {:else}
+          <span class="breadcrumb-desktop">
+            {#each pathParts as part, i}
+              {#if i > 0}<span class="separator">/</span>{/if}
+              <span class="current-path">{part}</span>
+            {/each}
+          </span>
+        {/if}
+        <span class="cursor"></span>
       {/if}
-      <span class="cursor"></span>
     </nav>
     
     <!-- Desktop nav -->
@@ -121,6 +161,7 @@
     gap: 1rem;
   }
   
+
   .terminal-nav {
     display: flex;
     align-items: center;
@@ -128,21 +169,70 @@
     font-size: 1rem;
     user-select: none;
   }
-  
+
   .tilde {
     color: var(--accent);
+    font-size: 1.2em;
   }
-  
+
   .tilde:hover {
     opacity: 0.7;
   }
-  
+
   .separator {
     color: var(--subtext1);
+    font-size: 1em;
   }
-  
+
   .current-path {
     color: var(--text);
+    font-weight: 500;
+    font-size: 1em;
+    max-width: 8em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: bottom;
+  }
+
+  .breadcrumb-mobile {
+    display: flex;
+    align-items: center;
+    max-width: 12em;
+    overflow: hidden;
+  }
+  .breadcrumb-prev {
+    max-width: 5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--subtext1);
+    font-size: 0.95em;
+  }
+  .breadcrumb-desktop {
+    display: flex;
+    align-items: center;
+  }
+
+  @media (max-width: 767px) {
+    .terminal-nav {
+      font-size: 0.92rem;
+    }
+    .tilde {
+      font-size: 1em;
+    }
+    .current-path {
+      font-size: 0.95em;
+      max-width: 6em;
+    }
+    .breadcrumb-mobile {
+      max-width: 8em;
+    }
+    .breadcrumb-prev {
+      max-width: 3.5em;
+      font-size: 0.9em;
+    }
   }
   
   .cursor {
