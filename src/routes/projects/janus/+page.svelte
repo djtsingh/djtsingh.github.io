@@ -1,5 +1,6 @@
 <script>
   import SEO from '$lib/components/SEO.svelte';
+  import { onMount } from 'svelte';
   
   const project = {
     title: 'Janus',
@@ -52,6 +53,178 @@
     { src: '/projects/janus.webp', alt: 'Janus main interface', caption: 'Main dashboard view' },
     // Add more screenshots as needed
   ];
+
+  import { tick } from 'svelte';
+  let showSimulator = false;
+  let simulatorInitialized = false;
+  let simulatorCleanup = null;
+  let previousActiveElement = null;
+  let openButtonRef;
+
+  // Preload libs on mount but don't init simulator until user opens modal
+  onMount(() => {
+    const waitForLibs = () => new Promise((res) => {
+      const interval = setInterval(() => {
+        if (window.gsap && window.anime) { clearInterval(interval); res(true); }
+      }, 50);
+      setTimeout(() => { clearInterval(interval); res(false); }, 2000);
+    });
+    waitForLibs();
+  });
+
+  async function openSimulator() {
+    previousActiveElement = document.activeElement;
+    showSimulator = true;
+    await tick();
+    // focus management: move focus to modal close button when opened
+    const modalClose = document.querySelector('.modal-close');
+    if (!simulatorInitialized) initSimulator();
+    (modalClose || document.querySelector('#launch'))?.focus();
+  }
+
+  function closeSimulator() {
+    showSimulator = false;
+    if (simulatorCleanup) {
+      try { simulatorCleanup(); } catch (e) { /* ignore cleanup errors */ }
+      simulatorCleanup = null;
+      simulatorInitialized = false;
+    }
+    // restore focus to previous element
+    try { if (previousActiveElement && typeof previousActiveElement.focus === 'function') previousActiveElement.focus(); } catch(e){}
+  }
+
+  function initSimulator() {
+    simulatorInitialized = true;
+    const portal = document.getElementById('portal');
+    const launchBtn = document.getElementById('launch');
+    const canvas = document.getElementById('flow-canvas');
+    const metrics = document.getElementById('metrics');
+    const particlesDiv = document.getElementById('particles');
+    if (!canvas) return;
+
+    const packet = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    packet.setAttribute('r', 12);
+    packet.setAttribute('fill', 'url(#glow-blue)');
+    packet.classList.add('glow');
+    canvas.appendChild(packet);
+
+    const tl = gsap.timeline({ paused: true, onComplete: () => showOutcome('Access Granted! JWT Issued. 🎉') });
+
+    tl.addLabel('start')
+      .to(packet, { motionPath: { path: '#bypass', align: '#bypass', autoRotate: true }, duration: 3, ease: 'power2.inOut' }, 'start')
+      .addLabel('bypass')
+      .to('#middleware', { scale: 1.5, duration: 0.5, yoyo: true, repeat: 1 }, 'bypass')
+      .call(() => updateMetric('cookie-status', Math.random() > 0.8 ? 'Yes (Bypass! ✅)' : 'No → Scoring'))
+      .addLabel('scoring')
+      .to(packet, { duration: 1 }, 'scoring')
+      .to('#scoring', { scale: 1.5, duration: 0.5, yoyo: true, repeat: 1 }, 'scoring')
+      .call(simScoring)
+      .add(() => {}, null, 'scoring');
+
+    function simScoring() {
+      const persona = document.querySelector('input[name="persona"]:checked')?.value || 'human';
+      const baseScore = persona === 'bot' ? 80 : 20;
+      const score = Math.max(0, Math.min(100, Math.floor(baseScore + (Math.random() * 40 - 20))));
+      updateMetric('score', score);
+      updateMetric('rate', score > 90 ? 'Hit! (429 🚫)' : 'Safe');
+
+      const existing = document.getElementById('score-meter'); if (existing) existing.remove();
+      const meter = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      meter.setAttribute('x', 550); meter.setAttribute('y', 500); meter.setAttribute('width', 2);
+      meter.setAttribute('height', 10); meter.setAttribute('fill', score > 50 ? '#ef4444' : '#10b981');
+      meter.id = 'score-meter'; canvas.appendChild(meter);
+      gsap.to(meter, { attr: { width: (score / 100) * 100 }, duration: 1, ease: 'power2.out' });
+
+      createParticles(600, 540, score > 50 ? '#ef4444' : '#10b981', 20);
+
+      if (score > 50) {
+        tl.to(packet, { motionPath: { path: '#challenge', align: '#challenge', autoRotate: true }, duration: 2, ease: 'power1.inOut' });
+        tl.addLabel('challenge');
+        tl.to('#challenge-node', { scale: 1.5, duration: 0.5, yoyo: true, repeat: 1 }, 'challenge');
+        tl.call(simChallenge);
+        tl.to(packet, { duration: 1.5 }, 'challenge');
+        tl.addLabel('verify');
+        tl.to('#verify', { scale: 1.5, duration: 0.5, yoyo: true, repeat: 1 }, 'verify');
+        tl.call(simVerify);
+        tl.to(packet, { x: 1850, y: 540, duration: 1, scale: 0, rotation: 360 });
+        tl.set(packet, { visibility: 'hidden' });
+      } else {
+        tl.to(packet, { motionPath: { path: '#bypass', align: '#bypass', autoRotate: true }, duration: 2 });
+        tl.to(packet, { x: 1700, y: 540, duration: 2 });
+        tl.to(packet, { x: 1850, y: 540, duration: 1, scale: 0, rotation: 360 });
+        tl.set(packet, { visibility: 'hidden' });
+      }
+    }
+
+    function simChallenge() {
+      updateMetric('outcome', 'Issuing Challenge: Compute PoW/PoR...');
+      const nonce = Math.random().toString(36).substring(7); let proof = nonce; let attempts = 0;
+      while (attempts < 100 && !proof.startsWith('0000')) { proof = btoa(proof + Date.now()).substring(0, 10); attempts++; }
+      setTimeout(() => updateMetric('outcome', `Proof Ready: ${proof.substring(0,8)}...`), 1500);
+      createParticles(1200, 420, '#fbbf24', 15);
+
+      const proofCanvas = document.createElement('canvas'); proofCanvas.width = 100; proofCanvas.height = 50;
+      const ctx = proofCanvas.getContext('2d'); ctx.fillStyle = '#3b82f6'; ctx.fillRect(0, 0, 100, 50);
+      proofCanvas.style.position = 'fixed'; proofCanvas.style.right = '12px'; proofCanvas.style.bottom = '12px'; proofCanvas.style.zIndex = 9999;
+      document.body.appendChild(proofCanvas);
+      const proofHandler = (e) => { ctx.fillStyle = `hsl(${Math.random()*360}, 70%, 50%)`; ctx.fillRect(e.offsetX, e.offsetY, 10, 10); };
+      proofCanvas.addEventListener('click', proofHandler);
+      setTimeout(() => { try { proofCanvas.remove(); } catch(e){} }, 2000);
+    }
+
+    function simVerify() {
+      const score = parseInt(document.getElementById('score').textContent || '0');
+      const success = score < 70 || Math.random() > 0.3; const color = success ? '#10b981' : '#ef4444';
+      updateMetric('outcome', success ? 'Verified! Cookie Set.' : 'Failed: Retry Rift 🔄');
+      createParticles(1700, 540, color, 30);
+      if (!success) gsap.to(packet, { attr: { fill: color }, scale: 0.5, duration: 0.5, yoyo: true, repeat: 3 });
+    }
+
+    function showOutcome(msg) { const out = document.getElementById('outcome'); if (out) out.textContent = msg; setTimeout(() => { gsap.set(packet, { x: 100, y: 540, scale: 1, visibility: 'visible' }); const meter = document.getElementById('score-meter'); if (meter) meter.remove(); clearParticles(); }, 3000); }
+
+    function updateMetric(id, value) { const el = document.getElementById(id); if (el) el.textContent = value; }
+
+    function createParticles(x, y, color, count) { clearParticles(); for (let i = 0; i < count; i++) { const particle = document.createElement('div'); particle.className = 'particle'; particle.style.left = x + 'px'; particle.style.top = y + 'px'; particle.style.background = color; particlesDiv.appendChild(particle); anime({ targets: particle, translateX: () => anime.random(-100, 100), translateY: () => anime.random(-100, 100), scale: [0, 1], opacity: [1, 0], duration: 1000 + Math.random() * 500, easing: 'easeOutExpo', complete: () => particle.remove() }); } }
+
+    function clearParticles() { const p = document.getElementById('particles'); if (p) p.innerHTML = ''; }
+
+    const launchHandler = () => {
+      portal.style.opacity = '0'; setTimeout(() => portal.style.display = 'none', 500); metrics.classList.remove('hidden'); tl.restart(); let time = 30; const expiryInt = setInterval(() => { const expiry = document.getElementById('expiry'); if (expiry) expiry.textContent = `${Math.floor(time/60)}:${(time%60).toString().padStart(2,'0')}`; time--; if (time < 0) clearInterval(expiryInt); }, 1000);
+    };
+
+    launchBtn?.addEventListener('click', launchHandler);
+    const keyHandler = (e) => { if (e.code === 'Space' && portal.style.display !== 'none') launchBtn.click(); };
+    document.addEventListener('keydown', keyHandler);
+
+    // Modal-level keyboard handlers: ESC to quit, Tab focus trap
+    const modalEl = document.querySelector('.janus-modal');
+    const modalKeyHandler = (e) => {
+      if (e.key === 'Escape') { e.preventDefault(); closeSimulator(); }
+      if (e.key === 'Tab' && modalEl) {
+        const focusable = Array.from(modalEl.querySelectorAll('a, button, input, [tabindex]:not([tabindex="-1"])')).filter(el => !el.hasAttribute('disabled'));
+        if (focusable.length === 0) { e.preventDefault(); return; }
+        const idx = focusable.indexOf(document.activeElement);
+        let next = 0;
+        if (e.shiftKey) {
+          next = idx > 0 ? idx - 1 : focusable.length - 1;
+        } else {
+          next = idx >= 0 && idx < focusable.length - 1 ? idx + 1 : 0;
+        }
+        e.preventDefault(); focusable[next].focus();
+      }
+    };
+    if (modalEl) modalEl.addEventListener('keydown', modalKeyHandler);
+    if (window.innerWidth < 768) { metrics.classList.remove('absolute', 'right-4', 'top-4'); metrics.classList.add('w-full', 'mt-4'); metrics.style.position = 'relative'; }
+
+    // cleanup closure
+    simulatorCleanup = () => {
+      try { tl.kill(); } catch(e){}
+      try { packet.remove(); } catch(e){}
+      clearParticles();
+      try { launchBtn?.removeEventListener('click', launchHandler); document.removeEventListener('keydown', keyHandler); } catch(e){}
+      try { if (modalEl) modalEl.removeEventListener('keydown', modalKeyHandler); } catch(e){}
+    };
+  }
 </script>
 
 <SEO 
@@ -61,6 +234,13 @@
   canonical="https://djtsingh.github.io/projects/janus"
   type="article"
 />
+
+<svelte:head>
+  <!-- GSAP + MotionPath + Anime for simulator visuals -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</svelte:head>
 
 <article class="project-page">
   <!-- Back Navigation -->
@@ -92,29 +272,34 @@
       <p class="description">{project.description}</p>
       
       <div class="hero-actions">
-        {#if project.links.demo && project.links.demo !== '#'}
-          <a href={project.links.demo} class="btn btn--primary" target="_blank" rel="noopener noreferrer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-              <polyline points="15 3 21 3 21 9"/>
-              <line x1="10" x2="21" y1="14" y2="3"/>
-            </svg>
-            Live Demo
-          </a>
-        {/if}
-        {#if project.links.github}
-          <a href={project.links.github} class="btn btn--secondary" target="_blank" rel="noopener noreferrer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-            </svg>
-            View Source
-          </a>
-        {/if}
-        {#if project.links.docs && project.links.docs !== '#'}
-          <a href={project.links.docs} class="btn btn--ghost" target="_blank" rel="noopener noreferrer">
-            Documentation
-          </a>
-        {/if}
+          {#if project.links.demo && project.links.demo !== '#'}
+            <a href={project.links.demo} class="btn btn--primary" target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" x2="21" y1="14" y2="3"/>
+              </svg>
+              Live Demo
+            </a>
+          {/if}
+          {#if project.links.github}
+            <a href={project.links.github} class="btn btn--secondary" target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+              View Source
+            </a>
+            <button class="btn btn--primary open-sim-btn" on:click={openSimulator} aria-label="Open Janus simulator" bind:this={openButtonRef}>
+              <span class="open-emoji" aria-hidden="true">👁️‍🗨️</span>
+              <span>Open Simulator</span>
+              <span class="spark">✨</span>
+            </button>
+          {/if}
+          {#if project.links.docs && project.links.docs !== '#'}
+            <a href={project.links.docs} class="btn btn--ghost" target="_blank" rel="noopener noreferrer">
+              Documentation
+            </a>
+          {/if}
       </div>
     </div>
     
@@ -136,6 +321,69 @@
       {/each}
     </div>
   </section>
+  {#if showSimulator}
+    <div class="janus-modal fixed inset-0 z-50 bg-black/90 flex items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="janus-modal-title">
+      <div class="modal-inner relative w-full h-full" on:keydown={(e)=>{ /* focus trap handled in initSimulator too */ }}>
+        <button class="modal-close absolute left-4 top-4 z-60 bg-black/60 text-white px-3 py-2 rounded" on:click={closeSimulator} aria-label="Close simulator">Close ✕</button>
+
+        <div id="portal" class="absolute inset-0 flex items-center justify-center bg-black/50 z-20 transition-opacity duration-500">
+          <div class="text-center px-6">
+            <h2 id="janus-modal-title" class="text-2xl md:text-4xl font-bold mb-3 text-indigo-400">Enter the Janus Gateway</h2>
+            <p class="text-sm mb-4 max-w-md mx-auto">Launch a simulated request and watch scoring, challenges, and verification.</p>
+            <div class="flex gap-4 justify-center mb-4">
+              <label class="flex items-center gap-2"><input type="radio" name="persona" value="human" checked class="mr-2" aria-label="Launch simulation as human"><span class="text-green-400">Curious Human</span></label>
+              <label class="flex items-center gap-2"><input type="radio" name="persona" value="bot" class="mr-2" aria-label="Launch simulation as bot"><span class="text-red-400">Sneaky Bot</span></label>
+            </div>
+            <div class="sim-controls mt-3 flex gap-3 justify-center">
+              <button id="start-sim" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded font-semibold" on:click={() => { document.getElementById('launch')?.click(); }} aria-label="Start simulation">Start</button>
+              <button id="replay-sim" class="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded font-semibold" on:click={() => { document.getElementById('launch')?.click(); }} aria-label="Replay simulation">Replay</button>
+              <button id="quit-sim" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded font-semibold" on:click={closeSimulator} aria-label="Quit simulator">Quit</button>
+            </div>
+            <button id="launch" class="sr-only">Launch Request</button>
+          </div>
+        </div>
+
+        <svg id="flow-canvas" class="w-full h-full flex-1" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" role="img" aria-describedby="metrics">
+          <defs>
+            <linearGradient id="glow-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+              <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+            </linearGradient>
+            <filter id="glow-filter">
+              <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          <path id="bypass" d="M100,540 Q400,400 800,540 T1600,540" stroke="url(#glow-blue)" stroke-width="4" fill="none" opacity="0.6" filter="url(#glow-filter)"></path>
+          <path id="challenge" d="M600,540 Q900,300 1200,540 Q1500,700 1700,540" stroke="#ef4444" stroke-width="3" fill="none" opacity="0.3" filter="url(#glow-filter)"></path>
+          <circle id="middleware" cx="100" cy="540" r="20" fill="#10b981" class="glow" />
+          <text x="100" y="570" text-anchor="middle" font-size="12" fill="white">Middleware</text>
+          <circle id="scoring" cx="600" cy="540" r="20" fill="#f59e0b" class="glow" />
+          <text x="600" y="570" text-anchor="middle" font-size="12" fill="white">Scoring</text>
+          <circle id="challenge-node" cx="1200" cy="420" r="20" fill="#ef4444" class="glow" />
+          <text x="1200" y="450" text-anchor="middle" font-size="12" fill="white">Challenge</text>
+          <circle id="verify" cx="1700" cy="540" r="20" fill="#8b5cf6" class="glow" />
+          <text x="1700" y="570" text-anchor="middle" font-size="12" fill="white">Verify</text>
+        </svg>
+
+        <aside id="metrics" class="absolute right-4 top-4 w-64 bg-black/70 backdrop-blur-md p-4 rounded-lg z-10 text-sm hidden md:block">
+          <h3 class="font-bold mb-2 text-indigo-400">Live Metrics</h3>
+          <ul id="log-list" class="space-y-1 text-xs">
+            <li><span class="text-green-400">✓ Cookie Valid?</span> <span id="cookie-status">Checking...</span></li>
+            <li><span class="text-yellow-400">Suspicion Score:</span> <span id="score">0</span>/100</li>
+            <li><span class="text-red-400">Rate Limit:</span> <span id="rate">Safe</span></li>
+            <li><span>Challenge Expiry:</span> <span id="expiry">--:--</span></li>
+            <li id="outcome" class="font-semibold mt-2">Ready to Launch</li>
+          </ul>
+        </aside>
+
+        <div id="particles" class="absolute inset-0 pointer-events-none"></div>
+      </div>
+    </div>
+  {/if}
 
   <!-- Tech Stack Section -->
   <section class="section stack-section">
@@ -165,6 +413,7 @@
   {/if}
 
   <!-- CTA Section -->
+    <!-- Simulator will open in a fullscreen modal when the user clicks 'Open Simulator' -->
   <section class="section cta-section">
     <div class="cta-content">
       <h2>Interested in this project?</h2>
@@ -512,4 +761,32 @@
     gap: 1rem;
     flex-wrap: wrap;
   }
+  /* Simulator styles */
+  :global(#portal::before) {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.03) 50%, transparent 70%);
+    animation: fog 20s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes fog { 0% { transform: translateX(-100%) translateY(-100%); } 100% { transform: translateX(100vw) translateY(100vh); } }
+
+  :global(#launch:hover) { box-shadow: 0 0 20px rgba(99, 102, 241, 0.5); transform: scale(1.05); }
+  :global(#flow-canvas) { background: radial-gradient(circle at center, #1e3a8a 0%, #0f172a 100%); }
+  :global(.glow) { filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5)); }
+  :global(.particle) { position: absolute; width: 4px; height: 4px; background: #3b82f6; border-radius: 50%; }
+  /* Modal styles */
+  .janus-modal { backdrop-filter: blur(6px); z-index: 99999 !important; }
+  .janus-modal .modal-inner { z-index: 100000; position: relative; }
+  .modal-close { z-index: 100001; }
+  /* Open simulator button styling */
+  :global(.open-sim-btn) { display:inline-flex; align-items:center; gap:0.5rem; padding:0.65rem 1rem; font-weight:600; box-shadow:0 6px 18px rgba(59,130,246,0.12); transform:translateZ(0); }
+  :global(.open-sim-btn .open-emoji) { font-size:1.05rem; }
+  :global(.open-sim-btn .spark) { margin-left:0.25rem; opacity:0.95; }
+  @keyframes pulse-sim { 0% { box-shadow: 0 0 0 0 rgba(59,130,246,0.35); } 70% { box-shadow: 0 0 0 12px rgba(59,130,246,0); } 100% { box-shadow: 0 0 0 0 rgba(59,130,246,0); } }
+  :global(.open-sim-btn) { animation: pulse-sim 2.5s infinite; }
+
+  /* Modal close (left-top) */
+  :global(.modal-close) { left: 1rem; right: auto; }
 </style>
