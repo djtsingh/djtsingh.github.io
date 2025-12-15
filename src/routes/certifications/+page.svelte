@@ -8,10 +8,20 @@
       date: 'October 2025',
       credentialId: 'ABCEFAD48C0C88871FE123XYZ',
       description: 'Validates the ability to use the AI-driven coding tool effectively and responsibly',
-      image: '/assets/github-copilot.svg',
-      certificateUrl: 'https://learn.microsoft.com/api/credentials/share/en-us/djtsingh/EFAD48C0C88871FE?sharingId=767C0AA3B86567E',
+      image: '/assets/certs/github-copilot.svg',
       verifyUrl: 'https://learn.microsoft.com/api/credentials/share/en-us/djtsingh/EFAD48C0C88871FE?sharingId=767C0AA3B86567E',
       skills: ['Github Copilot', 'LLMs', 'Machine Learning'],
+      status: 'active'
+    },
+    {
+      title: 'Microsoft Ai Essentials: Workloads & Machine learning',
+      issuer: 'Microsoft',
+      date: 'January 2025',
+      credentialId: '51f8092c0b4794c6fa809efe68011abe',
+      description: 'MS Azure AI: Workloads and machine learning on azure',
+      image: '/assets/certs/mazure.jpeg',
+      verifyUrl: 'https://www.linkedin.com/learning/certificates/51f8092c0b4794c6fa809efe68011abe7248963eacbe2ddafa15a288f0f71aaa?trk=share_certificate',
+      skills: ['Azure AI', 'Cloud Infrastructure', 'Machine Learning on Azure'],
       status: 'active'
     },
     {
@@ -19,11 +29,21 @@
       issuer: 'Quibus Trainings, Jaipur',
       date: 'May 2021',
       credentialId: 'ML2023456',
-      description: 'Comprehensive course covering skills in online strategies like SEO, content creation, social media management, and email marketing to achieve business goals such as increasing brand awareness, driving traffic, and improving ROI',
-      image: '/assets/cert-placeholder.jpg',
-      certificateUrl: '#',
-      verifyUrl: '#',
+      description: 'Expertise in online strategies like SEO, content creation, social media management, and email marketing to achieve business goals such as increasing brand awareness, driving traffic, and improving ROI',
+      image: '/assets/certs/digi-m.png',
+      verifyUrl: 'assets/certs/dgm-quibus.png',
       skills: ['Marketing Strategy', 'SEO', 'Business Development'],
+      status: 'active'
+    },
+    {
+      title: 'Google Analytics',
+      issuer: 'Google',
+      date: 'September 28, 2021',
+      credentialId: '90724027',
+      description: 'Google Analytics (GA4), covering setup, data collection, reporting, and marketing effectiveness',
+      image: 'assets/certs/google.png',
+      verifyUrl: 'assets/certs/Ganalytics.pdf',
+      skills: ['Tracking & Analysis', 'Insights', 'Marketing strategy'],
       status: 'active'
     },
     {
@@ -32,10 +52,21 @@
       date: 'March 2023',
       credentialId: 'PSM789012',
       description: 'Demonstrates fundamental understanding of Scrum framework',
-      image: '/assets/cert-placeholder.jpg',
+      image: '/assets/certs/djt-scrum-1.png',
       certificateUrl: '#',
       verifyUrl: '#',
       skills: ['Agile', 'Scrum', 'Project Management'],
+      status: 'active'
+    },
+    {
+      title: 'Google Ads',
+      issuer: 'Google',
+      date: 'September 2022',
+      credentialId: '90518366',
+      description: 'Expertise in using the Google Ads platform, skills in areas like Search, Display, Video, Shopping, Measurement, and Apps',
+      image: 'assets/certs/gads.png',
+      verifyUrl: 'assets/certs/.pdf',
+      skills: ['Keyword research ', 'Bidding Strategies', 'Promotion'],
       status: 'active'
     }
   ];

@@ -65,7 +65,7 @@
   onMount(() => {
     const waitForLibs = () => new Promise((res) => {
       const interval = setInterval(() => {
-        if (window.gsap && window.anime) { clearInterval(interval); res(true); }
+        if (window.gsap && window.anime && window.THREE) { clearInterval(interval); res(true); }
       }, 50);
       setTimeout(() => { clearInterval(interval); res(false); }, 2000);
     });
@@ -109,6 +109,62 @@
     canvas.appendChild(packet);
 
     const tl = gsap.timeline({ paused: true, onComplete: () => showOutcome('Access Granted! JWT Issued. 🎉') });
+
+    // Optional 3D realm (Three.js) - initialize if available
+    const realmCanvas = document.getElementById('realm-canvas');
+    let realmAnimationId = null;
+    let realmRenderer = null;
+    let realmScene = null;
+    let realmCamera = null;
+    let realmPacketGroup = null;
+    let realmOnResize = null;
+    function initRealm() {
+      try {
+        if (!realmCanvas || !window.THREE) return;
+        realmScene = new window.THREE.Scene();
+        realmScene.fog = new window.THREE.Fog(0x0a0a1a, 1, 1000);
+        realmCamera = new window.THREE.PerspectiveCamera(60, Math.max(1, realmCanvas.clientWidth) / Math.max(1, realmCanvas.clientHeight), 0.1, 2000);
+        realmCamera.position.z = 120;
+        realmRenderer = new window.THREE.WebGLRenderer({ canvas: realmCanvas, alpha: true, antialias: true });
+        realmRenderer.setSize(realmCanvas.clientWidth, realmCanvas.clientHeight);
+        realmRenderer.setPixelRatio(window.devicePixelRatio || 1);
+        realmRenderer.setClearColor(0x000000, 0);
+
+        realmPacketGroup = new window.THREE.Group();
+        const count = window.innerWidth < 768 ? 50 : 150;
+        for (let i = 0; i < count; i++) {
+          const geometry = new window.THREE.SphereGeometry(0.6, 8, 6);
+          const material = new window.THREE.MeshBasicMaterial({ color: Math.random() * 0xffffff, transparent: true, opacity: 0.6 });
+          const p = new window.THREE.Mesh(geometry, material);
+          p.position.set((Math.random() - 0.5) * 200, (Math.random() - 0.5) * 100, (Math.random() - 0.5) * 400 - 200);
+          p.userData = { speed: Math.random() * 1.5 + 0.2, originalZ: p.position.z };
+          realmPacketGroup.add(p);
+        }
+        realmScene.add(realmPacketGroup);
+
+        realmOnResize = function () {
+          if (!realmCamera || !realmRenderer) return;
+          realmCamera.aspect = Math.max(1, realmCanvas.clientWidth) / Math.max(1, realmCanvas.clientHeight);
+          realmCamera.updateProjectionMatrix();
+          realmRenderer.setSize(realmCanvas.clientWidth, realmCanvas.clientHeight);
+        };
+        window.addEventListener('resize', realmOnResize);
+
+        function animateRealm() {
+          realmAnimationId = requestAnimationFrame(animateRealm);
+          realmPacketGroup.children.forEach((c) => {
+            c.position.z += c.userData.speed;
+            if (c.position.z > 300) c.position.z = c.userData.originalZ - 400;
+            c.rotation.x += 0.002 * (c.userData.speed || 1);
+            c.rotation.y += 0.003 * (c.userData.speed || 1);
+          });
+          realmPacketGroup.rotation.y += 0.0015;
+          realmRenderer.render(realmScene, realmCamera);
+        }
+        animateRealm();
+      } catch (err) { console.warn('initRealm failed', err); }
+    }
+    if (realmCanvas && window.THREE) initRealm();
 
     tl.addLabel('start')
       .to(packet, { motionPath: { path: '#bypass', align: '#bypass', autoRotate: true }, duration: 3, ease: 'power2.inOut' }, 'start')
@@ -221,6 +277,10 @@
       try { tl.kill(); } catch(e){}
       try { packet.remove(); } catch(e){}
       clearParticles();
+      // realm cleanup
+      try { if (realmAnimationId) cancelAnimationFrame(realmAnimationId); } catch(e){}
+      try { if (realmRenderer) { realmRenderer.dispose(); realmRenderer.forceContextLoss && realmRenderer.forceContextLoss(); } } catch(e){}
+      try { if (realmOnResize) window.removeEventListener('resize', realmOnResize); } catch(e){}
       try { launchBtn?.removeEventListener('click', launchHandler); document.removeEventListener('keydown', keyHandler); } catch(e){}
       try { if (modalEl) modalEl.removeEventListener('keydown', modalKeyHandler); } catch(e){}
     };
@@ -240,6 +300,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <!-- three.js for the 3D realm visuals -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
 </svelte:head>
 
 <article class="project-page">
@@ -368,6 +430,9 @@
           <circle id="verify" cx="1700" cy="540" r="20" fill="#8b5cf6" class="glow" />
           <text x="1700" y="570" text-anchor="middle" font-size="12" fill="white">Verify</text>
         </svg>
+
+        <!-- Optional 3D realm canvas (pointer-events:none so it doesn't block UI) -->
+        <canvas id="realm-canvas" class="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true"></canvas>
 
         <aside id="metrics" class="absolute right-4 top-4 w-64 bg-black/70 backdrop-blur-md p-4 rounded-lg z-10 text-sm hidden md:block">
           <h3 class="font-bold mb-2 text-indigo-400">Live Metrics</h3>
