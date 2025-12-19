@@ -55,6 +55,11 @@
   ];
 
   import { tick } from 'svelte';
+
+  // Ensure GSAP MotionPathPlugin is registered before any timeline code runs
+  if (typeof window !== 'undefined' && window.gsap && window.MotionPathPlugin) {
+    window.gsap.registerPlugin(window.MotionPathPlugin);
+  }
   let showSimulator = false;
   let simulatorInitialized = false;
   let simulatorCleanup = null;
