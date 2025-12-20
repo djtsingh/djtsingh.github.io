@@ -31,7 +31,7 @@
       credentialId: 'ML2023456',
       description: 'Expertise in online strategies like SEO, content creation, social media management, and email marketing to achieve business goals such as increasing brand awareness, driving traffic, and improving ROI',
       image: '/assets/certs/digi-m.png',
-      verifyUrl: 'assets/certs/dgm-quibus.png',
+      verifyUrl: '/assets/certs/dgm-quibus.png',
       skills: ['Marketing Strategy', 'SEO', 'Business Development'],
       status: 'active'
     },
@@ -41,8 +41,8 @@
       date: 'September 28, 2021',
       credentialId: '90724027',
       description: 'Google Analytics (GA4), covering setup, data collection, reporting, and marketing effectiveness',
-      image: 'assets/certs/google.png',
-      verifyUrl: 'assets/certs/Ganalytics.pdf',
+      image: '/assets/certs/google.png',
+      verifyUrl: '/assets/certs/Ganalytics.pdf',
       skills: ['Tracking & Analysis', 'Insights', 'Marketing strategy'],
       status: 'active'
     },
@@ -64,8 +64,8 @@
       date: 'September 2022',
       credentialId: '90518366',
       description: 'Expertise in using the Google Ads platform, skills in areas like Search, Display, Video, Shopping, Measurement, and Apps',
-      image: 'assets/certs/gads.png',
-      verifyUrl: 'assets/certs/.pdf',
+      image: '/assets/certs/gads.png',
+      verifyUrl: '/assets/certs/gads.pdf',
       skills: ['Keyword research ', 'Bidding Strategies', 'Promotion'],
       status: 'active'
     }

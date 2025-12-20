@@ -56,39 +56,188 @@
 
   import { tick } from 'svelte';
 
-  // Ensure GSAP MotionPathPlugin is registered before any timeline code runs
-  if (typeof window !== 'undefined' && window.gsap && window.MotionPathPlugin) {
-    window.gsap.registerPlugin(window.MotionPathPlugin);
+  // Ensure libraries are available before any code runs
+  if (typeof window !== 'undefined') {
+    // Window is ready
   }
   let showSimulator = false;
   let simulatorInitialized = false;
   let simulatorCleanup = null;
   let previousActiveElement = null;
+  let scrollPosition = 0;
   let openButtonRef;
+  let isNarrowScreen = false;
+
+  // Traffic visualization state
+  let stats = {
+    totalRequests: 0,
+    botsBlocked: 0,
+    usersVerified: 0,
+    activeChecks: 0,
+    avgScore: 0
+  };
+  let isRunning = true;
+  let speed = 1;
+  let selectedParticle = null;
+  let particles = [];
+  let animationId = null;
+  let canvasRef;
+  let lastTime = 0;
+
+  // Particle types for the visualization
+  const PARTICLE_TYPES = {
+    LEGITIMATE: { color: '#10b981', label: 'Legitimate User', score: 85 },
+    SUSPICIOUS: { color: '#f59e0b', label: 'Suspicious', score: 45 },
+    BOT: { color: '#ef4444', label: 'Bot', score: 15 }
+  };
+
+  // Verification stages
+  const STAGES = {
+    INCOMING: { x: 0.1, label: 'Incoming Traffic', icon: '→' },
+    FINGERPRINT: { x: 0.25, label: 'Fingerprinting', icon: '🔍' },
+    CHALLENGE: { x: 0.4, label: 'Challenge Issued', icon: '🎯' },
+    PROOF: { x: 0.55, label: 'Proof Verification', icon: '⚡' },
+    SCORING: { x: 0.7, label: 'Score Analysis', icon: '📊' },
+    DECISION: { x: 0.85, label: 'Decision', icon: '⚖️' }
+  };
+
+  // Particle class
+  class Particle {
+    constructor(canvas) {
+      this.canvas = canvas;
+      const types = Object.values(PARTICLE_TYPES);
+      this.type = types[Math.floor(Math.random() * types.length)];
+      this.x = 50;
+      this.y = 150 + Math.random() * 200;
+      this.size = 8;
+      this.stage = 'INCOMING';
+      this.progress = 0;
+      this.score = this.type.score + (Math.random() * 20 - 10);
+      this.id = Math.random().toString(36).substr(2, 9);
+      this.trail = [];
+      this.glowIntensity = 0;
+      
+      // Verification data
+      this.fingerprint = {
+        canvas: Math.random().toString(36).substr(2, 8),
+        userAgent: ['Chrome', 'Firefox', 'Safari'][Math.floor(Math.random() * 3)],
+        screen: `${[1920, 1366, 1440][Math.floor(Math.random() * 3)]}x${[1080, 768, 900][Math.floor(Math.random() * 3)]}`,
+        timezone: [-5, 0, 5.5][Math.floor(Math.random() * 3)]
+      };
+      
+      this.challenge = {
+        nonce: Math.random().toString(36).substr(2, 16),
+        difficulty: this.type === PARTICLE_TYPES.BOT ? 0 : 2,
+        seed: Math.random().toString(36).substr(2, 8)
+      };
+    }
+
+    update(deltaTime, canvasWidth, canvasHeight) {
+      const stageKeys = Object.keys(STAGES);
+      const currentStageIndex = stageKeys.indexOf(this.stage);
+      
+      if (currentStageIndex < stageKeys.length - 1) {
+        const currentStage = STAGES[this.stage];
+        const nextStage = STAGES[stageKeys[currentStageIndex + 1]];
+        
+        const targetX = nextStage.x * canvasWidth;
+        this.x += (targetX - this.x) * 0.02 * deltaTime * speed;
+        
+        // Add wave motion
+        this.y += Math.sin(this.x * 0.01) * 0.5;
+        
+        // Progress through stage
+        this.progress += 0.01 * deltaTime * speed;
+        
+        if (this.progress >= 1) {
+          this.progress = 0;
+          this.stage = stageKeys[currentStageIndex + 1];
+          this.glowIntensity = 1;
+        }
+      }
+      
+      // Fade glow
+      this.glowIntensity *= 0.95;
+      
+      // Trail effect
+      this.trail.push({ x: this.x, y: this.y });
+      if (this.trail.length > 15) this.trail.shift();
+      
+      return this.stage !== 'DECISION' || this.x < canvasWidth;
+    }
+
+    draw(ctx) {
+      // Draw trail
+      this.trail.forEach((pos, i) => {
+        const alpha = (i / this.trail.length) * 0.3;
+        ctx.fillStyle = `${this.type.color}${Math.floor(alpha * 255).toString(16).padStart(2, '0')}`;
+        ctx.beginPath();
+        ctx.arc(pos.x, pos.y, this.size * 0.5, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // Glow effect
+      if (this.glowIntensity > 0) {
+        ctx.shadowBlur = 20 * this.glowIntensity;
+        ctx.shadowColor = this.type.color;
+      }
+
+      // Main particle
+      ctx.fillStyle = this.type.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.shadowBlur = 0;
+
+      // Score indicator
+      ctx.fillStyle = 'white';
+      ctx.font = 'bold 10px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(Math.round(this.score), this.x, this.y + 3);
+    }
+
+    isClicked(mouseX, mouseY) {
+      const dist = Math.sqrt((mouseX - this.x) ** 2 + (mouseY - this.y) ** 2);
+      return dist < this.size + 5;
+    }
+  }
 
   // Preload libs on mount but don't init simulator until user opens modal
   onMount(() => {
-    const waitForLibs = () => new Promise((res) => {
-      const interval = setInterval(() => {
-        if (window.gsap && window.anime && window.THREE) { clearInterval(interval); res(true); }
-      }, 50);
-      setTimeout(() => { clearInterval(interval); res(false); }, 2000);
-    });
-    waitForLibs();
+    // Initialize narrow screen detection
+    isNarrowScreen = window.innerWidth < 768;
+    
+    // Handle window resize to update narrow screen detection
+    const handleResize = () => {
+      isNarrowScreen = window.innerWidth < 768;
+    };
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   });
 
   async function openSimulator() {
     previousActiveElement = document.activeElement;
+    scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
     showSimulator = true;
+    document.body.classList.add('has-modal');
+    document.documentElement.classList.add('has-modal');
     await tick();
-    // focus management: move focus to modal close button when opened
-    const modalClose = document.querySelector('.modal-close');
+    // focus management: move focus to the start/pause button when opened
+    const startButton = document.querySelector('.janus-modal button');
     if (!simulatorInitialized) initSimulator();
-    (modalClose || document.querySelector('#launch'))?.focus();
+    (startButton || document.querySelector('#traffic-canvas'))?.focus();
   }
 
   function closeSimulator() {
     showSimulator = false;
+    document.body.classList.remove('has-modal');
+    document.documentElement.classList.remove('has-modal');
+    // Restore scroll position
+    window.scrollTo(0, scrollPosition);
     if (simulatorCleanup) {
       try { simulatorCleanup(); } catch (e) { /* ignore cleanup errors */ }
       simulatorCleanup = null;
@@ -100,194 +249,195 @@
 
   function initSimulator() {
     simulatorInitialized = true;
-    const portal = document.getElementById('portal');
-    const launchBtn = document.getElementById('launch');
-    const canvas = document.getElementById('flow-canvas');
-    const metrics = document.getElementById('metrics');
-    const particlesDiv = document.getElementById('particles');
-    if (!canvas) return;
+    canvasRef = document.getElementById('traffic-canvas');
+    if (!canvasRef) return;
 
-    const packet = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    packet.setAttribute('r', 12);
-    packet.setAttribute('fill', 'url(#glow-blue)');
-    packet.classList.add('glow');
-    canvas.appendChild(packet);
+    const ctx = canvasRef.getContext('2d');
+    const resizeCanvas = () => {
+      if (!canvasRef || !canvasRef.offsetWidth || !canvasRef.offsetHeight) return;
+      canvasRef.width = canvasRef.offsetWidth;
+      canvasRef.height = canvasRef.offsetHeight;
+    };
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
-    const tl = gsap.timeline({ paused: true, onComplete: () => showOutcome('Access Granted! JWT Issued. 🎉') });
+    let spawnTimer = 0;
 
-    // Optional 3D realm (Three.js) - initialize if available
-    const realmCanvas = document.getElementById('realm-canvas');
-    let realmAnimationId = null;
-    let realmRenderer = null;
-    let realmScene = null;
-    let realmCamera = null;
-    let realmPacketGroup = null;
-    let realmOnResize = null;
-    function initRealm() {
-      try {
-        if (!realmCanvas || !window.THREE) return;
-        realmScene = new window.THREE.Scene();
-        realmScene.fog = new window.THREE.Fog(0x0a0a1a, 1, 1000);
-        realmCamera = new window.THREE.PerspectiveCamera(60, Math.max(1, realmCanvas.clientWidth) / Math.max(1, realmCanvas.clientHeight), 0.1, 2000);
-        realmCamera.position.z = 120;
-        realmRenderer = new window.THREE.WebGLRenderer({ canvas: realmCanvas, alpha: true, antialias: true });
-        realmRenderer.setSize(realmCanvas.clientWidth, realmCanvas.clientHeight);
-        realmRenderer.setPixelRatio(window.devicePixelRatio || 1);
-        realmRenderer.setClearColor(0x000000, 0);
+    const animate = (currentTime) => {
+      // Safety check: ensure canvas and context still exist
+      if (!canvasRef || !ctx) return;
+      
+      const deltaTime = currentTime - lastTime;
+      lastTime = currentTime;
 
-        realmPacketGroup = new window.THREE.Group();
-        const count = window.innerWidth < 768 ? 50 : 150;
-        for (let i = 0; i < count; i++) {
-          const geometry = new window.THREE.SphereGeometry(0.6, 8, 6);
-          const material = new window.THREE.MeshBasicMaterial({ color: Math.random() * 0xffffff, transparent: true, opacity: 0.6 });
-          const p = new window.THREE.Mesh(geometry, material);
-          p.position.set((Math.random() - 0.5) * 200, (Math.random() - 0.5) * 100, (Math.random() - 0.5) * 400 - 200);
-          p.userData = { speed: Math.random() * 1.5 + 0.2, originalZ: p.position.z };
-          realmPacketGroup.add(p);
-        }
-        realmScene.add(realmPacketGroup);
+      ctx.fillStyle = '#0a0f1e';
+      ctx.fillRect(0, 0, canvasRef.width, canvasRef.height);
 
-        realmOnResize = function () {
-          if (!realmCamera || !realmRenderer) return;
-          realmCamera.aspect = Math.max(1, realmCanvas.clientWidth) / Math.max(1, realmCanvas.clientHeight);
-          realmCamera.updateProjectionMatrix();
-          realmRenderer.setSize(realmCanvas.clientWidth, realmCanvas.clientHeight);
-        };
-        window.addEventListener('resize', realmOnResize);
-
-        function animateRealm() {
-          realmAnimationId = requestAnimationFrame(animateRealm);
-          realmPacketGroup.children.forEach((c) => {
-            c.position.z += c.userData.speed;
-            if (c.position.z > 300) c.position.z = c.userData.originalZ - 400;
-            c.rotation.x += 0.002 * (c.userData.speed || 1);
-            c.rotation.y += 0.003 * (c.userData.speed || 1);
-          });
-          realmPacketGroup.rotation.y += 0.0015;
-          realmRenderer.render(realmScene, realmCamera);
-        }
-        animateRealm();
-      } catch (err) { console.warn('initRealm failed', err); }
-    }
-    if (realmCanvas && window.THREE) initRealm();
-
-    tl.addLabel('start')
-      .to(packet, { motionPath: { path: '#bypass', align: '#bypass', autoRotate: true }, duration: 3, ease: 'power2.inOut' }, 'start')
-      .addLabel('bypass')
-      .to('#middleware', { scale: 1.5, duration: 0.5, yoyo: true, repeat: 1 }, 'bypass')
-      .call(() => updateMetric('cookie-status', Math.random() > 0.8 ? 'Yes (Bypass! ✅)' : 'No → Scoring'))
-      .addLabel('scoring')
-      .to(packet, { duration: 1 }, 'scoring')
-      .to('#scoring', { scale: 1.5, duration: 0.5, yoyo: true, repeat: 1 }, 'scoring')
-      .call(simScoring)
-      .add(() => {}, null, 'scoring');
-
-    function simScoring() {
-      const persona = document.querySelector('input[name="persona"]:checked')?.value || 'human';
-      const baseScore = persona === 'bot' ? 80 : 20;
-      const score = Math.max(0, Math.min(100, Math.floor(baseScore + (Math.random() * 40 - 20))));
-      updateMetric('score', score);
-      updateMetric('rate', score > 90 ? 'Hit! (429 🚫)' : 'Safe');
-
-      const existing = document.getElementById('score-meter'); if (existing) existing.remove();
-      const meter = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-      meter.setAttribute('x', 550); meter.setAttribute('y', 500); meter.setAttribute('width', 2);
-      meter.setAttribute('height', 10); meter.setAttribute('fill', score > 50 ? '#ef4444' : '#10b981');
-      meter.id = 'score-meter'; canvas.appendChild(meter);
-      gsap.to(meter, { attr: { width: (score / 100) * 100 }, duration: 1, ease: 'power2.out' });
-
-      createParticles(600, 540, score > 50 ? '#ef4444' : '#10b981', 20);
-
-      if (score > 50) {
-        tl.to(packet, { motionPath: { path: '#challenge', align: '#challenge', autoRotate: true }, duration: 2, ease: 'power1.inOut' });
-        tl.addLabel('challenge');
-        tl.to('#challenge-node', { scale: 1.5, duration: 0.5, yoyo: true, repeat: 1 }, 'challenge');
-        tl.call(simChallenge);
-        tl.to(packet, { duration: 1.5 }, 'challenge');
-        tl.addLabel('verify');
-        tl.to('#verify', { scale: 1.5, duration: 0.5, yoyo: true, repeat: 1 }, 'verify');
-        tl.call(simVerify);
-        tl.to(packet, { x: 1850, y: 540, duration: 1, scale: 0, rotation: 360 });
-        tl.set(packet, { visibility: 'hidden' });
-      } else {
-        tl.to(packet, { motionPath: { path: '#bypass', align: '#bypass', autoRotate: true }, duration: 2 });
-        tl.to(packet, { x: 1700, y: 540, duration: 2 });
-        tl.to(packet, { x: 1850, y: 540, duration: 1, scale: 0, rotation: 360 });
-        tl.set(packet, { visibility: 'hidden' });
+      // Draw grid
+      ctx.strokeStyle = '#1a2332';
+      ctx.lineWidth = 1;
+      for (let i = 0; i < canvasRef.width; i += 50) {
+        ctx.beginPath();
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, canvasRef.height);
+        ctx.stroke();
       }
-    }
+      for (let i = 0; i < canvasRef.height; i += 50) {
+        ctx.beginPath();
+        ctx.moveTo(0, i);
+        ctx.lineTo(canvasRef.width, i);
+        ctx.stroke();
+      }
 
-    function simChallenge() {
-      updateMetric('outcome', 'Issuing Challenge: Compute PoW/PoR...');
-      const nonce = Math.random().toString(36).substring(7); let proof = nonce; let attempts = 0;
-      while (attempts < 100 && !proof.startsWith('0000')) { proof = btoa(proof + Date.now()).substring(0, 10); attempts++; }
-      setTimeout(() => updateMetric('outcome', `Proof Ready: ${proof.substring(0,8)}...`), 1500);
-      createParticles(1200, 420, '#fbbf24', 15);
+      // Draw stage markers
+      const stageEntries = Object.entries(STAGES);
+      const labelWidth = 120; // Width of each label box
+      const minSpacing = labelWidth + 20; // Minimum space between labels
+      
+      stageEntries.forEach(([key, stage], index) => {
+        const x = stage.x * canvasRef.width;
+        
+        // Stage line
+        ctx.strokeStyle = '#2d3748';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([5, 5]);
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvasRef.height);
+        ctx.stroke();
+        ctx.setLineDash([]);
 
-      const proofCanvas = document.createElement('canvas'); proofCanvas.width = 100; proofCanvas.height = 50;
-      const ctx = proofCanvas.getContext('2d'); ctx.fillStyle = '#3b82f6'; ctx.fillRect(0, 0, 100, 50);
-      proofCanvas.style.position = 'fixed'; proofCanvas.style.right = '12px'; proofCanvas.style.bottom = '12px'; proofCanvas.style.zIndex = 9999;
-      document.body.appendChild(proofCanvas);
-      const proofHandler = (e) => { ctx.fillStyle = `hsl(${Math.random()*360}, 70%, 50%)`; ctx.fillRect(e.offsetX, e.offsetY, 10, 10); };
-      proofCanvas.addEventListener('click', proofHandler);
-      setTimeout(() => { try { proofCanvas.remove(); } catch(e){} }, 2000);
-    }
+        // Check if this label would overlap with adjacent labels
+        let showText = true;
+        if (canvasRef.width < 768) { // Mobile breakpoint
+          // Check overlap with previous label
+          if (index > 0) {
+            const prevStage = stageEntries[index - 1][1];
+            const prevX = prevStage.x * canvasRef.width;
+            if (Math.abs(x - prevX) < minSpacing) {
+              showText = false;
+            }
+          }
+          // Check overlap with next label
+          if (index < stageEntries.length - 1) {
+            const nextStage = stageEntries[index + 1][1];
+            const nextX = nextStage.x * canvasRef.width;
+            if (Math.abs(x - nextX) < minSpacing) {
+              showText = false;
+            }
+          }
+        }
 
-    function simVerify() {
-      const score = parseInt(document.getElementById('score').textContent || '0');
-      const success = score < 70 || Math.random() > 0.3; const color = success ? '#10b981' : '#ef4444';
-      updateMetric('outcome', success ? 'Verified! Cookie Set.' : 'Failed: Retry Rift 🔄');
-      createParticles(1700, 540, color, 30);
-      if (!success) gsap.to(packet, { attr: { fill: color }, scale: 0.5, duration: 0.5, yoyo: true, repeat: 3 });
-    }
+        if (showText) {
+          // Stage label background
+          ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+          ctx.fillRect(x - 60, 15, 120, 40);
+          
+          // Stage label border
+          ctx.strokeStyle = '#4f46e5';
+          ctx.lineWidth = 1;
+          ctx.strokeRect(x - 60, 15, 120, 40);
 
-    function showOutcome(msg) { const out = document.getElementById('outcome'); if (out) out.textContent = msg; setTimeout(() => { gsap.set(packet, { x: 100, y: 540, scale: 1, visibility: 'visible' }); const meter = document.getElementById('score-meter'); if (meter) meter.remove(); clearParticles(); }, 3000); }
+          // Stage icon
+          ctx.fillStyle = '#60a5fa';
+          ctx.font = 'bold 18px system-ui';
+          ctx.textAlign = 'center';
+          ctx.fillText(stage.icon, x, 35);
 
-    function updateMetric(id, value) { const el = document.getElementById(id); if (el) el.textContent = value; }
+          // Stage label
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 12px system-ui';
+          ctx.fillText(stage.label, x, 50);
+        } else {
+          // Just show the icon without background when overlapping
+          ctx.fillStyle = '#60a5fa';
+          ctx.font = 'bold 16px system-ui';
+          ctx.textAlign = 'center';
+          ctx.fillText(stage.icon, x, 35);
+        }
+      });
 
-    function createParticles(x, y, color, count) { clearParticles(); for (let i = 0; i < count; i++) { const particle = document.createElement('div'); particle.className = 'particle'; particle.style.left = x + 'px'; particle.style.top = y + 'px'; particle.style.background = color; particlesDiv.appendChild(particle); anime({ targets: particle, translateX: () => anime.random(-100, 100), translateY: () => anime.random(-100, 100), scale: [0, 1], opacity: [1, 0], duration: 1000 + Math.random() * 500, easing: 'easeOutExpo', complete: () => particle.remove() }); } }
+      // Spawn new particles
+      if (isRunning) {
+        spawnTimer += deltaTime * 0.06 * speed;
+        if (spawnTimer > 60) {
+          particles = [...particles, new Particle(canvasRef)];
+          spawnTimer = 0;
+        }
+      }
 
-    function clearParticles() { const p = document.getElementById('particles'); if (p) p.innerHTML = ''; }
+      // Update and draw particles
+      let activeChecks = 0;
+      particles = particles.filter(particle => {
+        const alive = particle.update(deltaTime * 0.06, canvasRef.width, canvasRef.height);
+        if (alive) {
+          particle.draw(ctx);
+          if (particle.stage !== 'INCOMING' && particle.stage !== 'DECISION') {
+            activeChecks++;
+          }
+          return true;
+        } else {
+          // Update stats when particle reaches end
+          stats = {
+            ...stats,
+            totalRequests: stats.totalRequests + 1,
+            botsBlocked: stats.botsBlocked + (particle.type === PARTICLE_TYPES.BOT ? 1 : 0),
+            usersVerified: stats.usersVerified + (particle.type === PARTICLE_TYPES.LEGITIMATE ? 1 : 0),
+            activeChecks: activeChecks,
+            avgScore: ((stats.avgScore * stats.totalRequests) + particle.score) / (stats.totalRequests + 1)
+          };
+          return false;
+        }
+      });
 
-    const launchHandler = () => {
-      portal.style.opacity = '0'; setTimeout(() => portal.style.display = 'none', 500); metrics.classList.remove('hidden'); tl.restart(); let time = 30; const expiryInt = setInterval(() => { const expiry = document.getElementById('expiry'); if (expiry) expiry.textContent = `${Math.floor(time/60)}:${(time%60).toString().padStart(2,'0')}`; time--; if (time < 0) clearInterval(expiryInt); }, 1000);
+      stats = { ...stats, activeChecks };
+
+      // Draw selected particle info highlight
+      if (selectedParticle) {
+        const particle = particles.find(p => p.id === selectedParticle.id);
+        if (particle) {
+          ctx.strokeStyle = '#60a5fa';
+          ctx.lineWidth = 2;
+          ctx.setLineDash([5, 5]);
+          ctx.beginPath();
+          ctx.arc(particle.x, particle.y, particle.size + 10, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+      }
+
+      animationId = requestAnimationFrame(animate);
     };
 
-    launchBtn?.addEventListener('click', launchHandler);
-    const keyHandler = (e) => { if (e.code === 'Space' && portal.style.display !== 'none') launchBtn.click(); };
-    document.addEventListener('keydown', keyHandler);
+    animate(0);
 
-    // Modal-level keyboard handlers: ESC to quit, Tab focus trap
+    const handleClick = (e) => {
+      const rect = canvasRef.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const clicked = particles.find(p => p.isClicked(x, y));
+      selectedParticle = clicked || null;
+    };
+
+    canvasRef.addEventListener('click', handleClick);
+
+    // Modal-level keyboard handlers: ESC to quit
     const modalEl = document.querySelector('.janus-modal');
     const modalKeyHandler = (e) => {
       if (e.key === 'Escape') { e.preventDefault(); closeSimulator(); }
-      if (e.key === 'Tab' && modalEl) {
-        const focusable = Array.from(modalEl.querySelectorAll('a, button, input, [tabindex]:not([tabindex="-1"])')).filter(el => !el.hasAttribute('disabled'));
-        if (focusable.length === 0) { e.preventDefault(); return; }
-        const idx = focusable.indexOf(document.activeElement);
-        let next = 0;
-        if (e.shiftKey) {
-          next = idx > 0 ? idx - 1 : focusable.length - 1;
-        } else {
-          next = idx >= 0 && idx < focusable.length - 1 ? idx + 1 : 0;
-        }
-        e.preventDefault(); focusable[next].focus();
-      }
     };
     if (modalEl) modalEl.addEventListener('keydown', modalKeyHandler);
-    if (window.innerWidth < 768) { metrics.classList.remove('absolute', 'right-4', 'top-4'); metrics.classList.add('w-full', 'mt-4'); metrics.style.position = 'relative'; }
 
     // cleanup closure
     simulatorCleanup = () => {
-      try { tl.kill(); } catch(e){}
-      try { packet.remove(); } catch(e){}
-      clearParticles();
-      // realm cleanup
-      try { if (realmAnimationId) cancelAnimationFrame(realmAnimationId); } catch(e){}
-      try { if (realmRenderer) { realmRenderer.dispose(); realmRenderer.forceContextLoss && realmRenderer.forceContextLoss(); } } catch(e){}
-      try { if (realmOnResize) window.removeEventListener('resize', realmOnResize); } catch(e){}
-      try { launchBtn?.removeEventListener('click', launchHandler); document.removeEventListener('keydown', keyHandler); } catch(e){}
+      try { if (animationId) cancelAnimationFrame(animationId); } catch(e){}
+      try { window.removeEventListener('resize', resizeCanvas); } catch(e){}
+      try { canvasRef?.removeEventListener('click', handleClick); } catch(e){}
       try { if (modalEl) modalEl.removeEventListener('keydown', modalKeyHandler); } catch(e){}
+      particles = [];
+      stats = { totalRequests: 0, botsBlocked: 0, usersVerified: 0, activeChecks: 0, avgScore: 0 };
+      selectedParticle = null;
     };
   }
 </script>
@@ -301,12 +451,7 @@
 />
 
 <svelte:head>
-  <!-- GSAP + MotionPath + Anime for simulator visuals -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-  <!-- three.js for the 3D realm visuals -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+  <!-- No external libraries needed for Janus simulator -->
 </svelte:head>
 
 <article class="project-page">
@@ -389,68 +534,185 @@
     </div>
   </section>
   {#if showSimulator}
-    <div class="janus-modal fixed inset-0 z-50 bg-black/90 flex items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="janus-modal-title">
-      <div class="modal-inner relative w-full h-full" on:keydown={(e)=>{ /* focus trap handled in initSimulator too */ }}>
-        <button class="modal-close absolute left-4 top-4 z-60 bg-black/60 text-white px-3 py-2 rounded" on:click={closeSimulator} aria-label="Close simulator">Close ✕</button>
-
-        <div id="portal" class="absolute inset-0 flex items-center justify-center bg-black/50 z-20 transition-opacity duration-500">
-          <div class="text-center px-6">
-            <h2 id="janus-modal-title" class="text-2xl md:text-4xl font-bold mb-3 text-indigo-400">Enter the Janus Gateway</h2>
-            <p class="text-sm mb-4 max-w-md mx-auto">Launch a simulated request and watch scoring, challenges, and verification.</p>
-            <div class="flex gap-4 justify-center mb-4">
-              <label class="flex items-center gap-2"><input type="radio" name="persona" value="human" checked class="mr-2" aria-label="Launch simulation as human"><span class="text-green-400">Curious Human</span></label>
-              <label class="flex items-center gap-2"><input type="radio" name="persona" value="bot" class="mr-2" aria-label="Launch simulation as bot"><span class="text-red-400">Sneaky Bot</span></label>
+    <div class="janus-modal fixed inset-0 z-50 bg-black/90 flex items-center justify-center {isNarrowScreen ? 'narrow-screen' : ''}" role="dialog" aria-modal="true" aria-labelledby="janus-modal-title" on:touchstart={(e) => { if (!isNarrowScreen) { e.preventDefault(); e.stopPropagation(); } }} on:touchmove={(e) => { if (!isNarrowScreen) { e.preventDefault(); e.stopPropagation(); } }} on:touchend={(e) => { if (!isNarrowScreen) { e.preventDefault(); e.stopPropagation(); } }} on:wheel={(e) => { if (!isNarrowScreen) { e.preventDefault(); e.stopPropagation(); } }}>
+      <div class="modal-inner relative w-full h-full flex flex-col bg-slate-950 text-white {isNarrowScreen ? 'overflow-y-auto' : 'overflow-hidden'}">
+        <!-- Header -->
+        <div class="bg-black border-b border-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 p-4 md:p-6 shadow-2xl flex-shrink-0 relative">
+          <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-purple-500/5 to-pink-500/5 rounded-t-lg"></div>
+          <div class="relative max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex items-center gap-3 md:gap-4 flex-shrink-0">
+              <div class="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg">
+                <span class="text-xl md:text-2xl">🛡️</span>
+              </div>
+              <div class="min-w-0">
+                <h1 id="janus-modal-title" class="text-xl md:text-3xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent truncate">
+                  Janus Bot Mitigation Engine
+                </h1>
+                <p class="text-slate-300 text-xs md:text-sm">Real-time Traffic Analysis & Threat Detection</p>
+              </div>
             </div>
-            <div class="sim-controls mt-3 flex gap-3 justify-center">
-              <button id="start-sim" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded font-semibold" on:click={() => { document.getElementById('launch')?.click(); }} aria-label="Start simulation">Start</button>
-              <button id="replay-sim" class="bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded font-semibold" on:click={() => { document.getElementById('launch')?.click(); }} aria-label="Replay simulation">Replay</button>
-              <button id="quit-sim" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded font-semibold" on:click={closeSimulator} aria-label="Quit simulator">Quit</button>
+            <div class="flex flex-wrap gap-2 md:gap-3 justify-center md:justify-end flex-shrink-0">
+              <button
+                on:click={() => isRunning = !isRunning}
+                class="px-4 py-2 md:px-6 md:py-2 rounded-lg font-semibold text-sm md:text-base transition-all {isRunning ? 'bg-amber-600 hover:bg-amber-700' : 'bg-green-600 hover:bg-green-700'} shadow-lg"
+              >
+                {isRunning ? 'Pause' : 'Start'}
+              </button>
+              <button
+                on:click={() => {
+                  particles = [];
+                  stats = { totalRequests: 0, botsBlocked: 0, usersVerified: 0, activeChecks: 0, avgScore: 0 };
+                  selectedParticle = null;
+                }}
+                class="px-4 py-2 md:px-6 md:py-2 bg-slate-700 hover:bg-slate-600 rounded-lg font-semibold text-sm md:text-base transition-all shadow-lg"
+              >
+                Reset
+              </button>
+              <button
+                on:click={closeSimulator}
+                class="px-4 py-2 md:px-6 md:py-2 bg-slate-600 hover:bg-slate-500 rounded-lg font-semibold text-sm md:text-base transition-all shadow-lg"
+                aria-label="Quit simulator"
+              >
+                Quit
+              </button>
             </div>
-            <button id="launch" class="sr-only">Launch Request</button>
           </div>
         </div>
 
-        <svg id="flow-canvas" class="w-full h-full flex-1" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" role="img" aria-describedby="metrics">
-          <defs>
-            <linearGradient id="glow-blue" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
-              <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
-            </linearGradient>
-            <filter id="glow-filter">
-              <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
-              <feMerge>
-                <feMergeNode in="coloredBlur"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
-          </defs>
-          <path id="bypass" d="M100,540 Q400,400 800,540 T1600,540" stroke="url(#glow-blue)" stroke-width="4" fill="none" opacity="0.6" filter="url(#glow-filter)"></path>
-          <path id="challenge" d="M600,540 Q900,300 1200,540 Q1500,700 1700,540" stroke="#ef4444" stroke-width="3" fill="none" opacity="0.3" filter="url(#glow-filter)"></path>
-          <circle id="middleware" cx="100" cy="540" r="20" fill="#10b981" class="glow" />
-          <text x="100" y="570" text-anchor="middle" font-size="12" fill="white">Middleware</text>
-          <circle id="scoring" cx="600" cy="540" r="20" fill="#f59e0b" class="glow" />
-          <text x="600" y="570" text-anchor="middle" font-size="12" fill="white">Scoring</text>
-          <circle id="challenge-node" cx="1200" cy="420" r="20" fill="#ef4444" class="glow" />
-          <text x="1200" y="450" text-anchor="middle" font-size="12" fill="white">Challenge</text>
-          <circle id="verify" cx="1700" cy="540" r="20" fill="#8b5cf6" class="glow" />
-          <text x="1700" y="570" text-anchor="middle" font-size="12" fill="white">Verify</text>
-        </svg>
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col lg:flex-row gap-4 p-4 {isNarrowScreen ? 'overflow-visible' : 'overflow-hidden'}">
+          <!-- Stats Panel -->
+          <div class="w-full lg:w-80 space-y-4 overflow-y-auto flex-shrink-0 order-2 lg:order-1 max-h-[40vh] lg:max-h-none scrollbar-thin scrollbar-thumb-slate-600 scrollbar-track-slate-800">
+            <!-- Real-time Stats -->
+            <!-- Real-time Stats -->
+            <div class="bg-slate-900 rounded-xl p-4 border border-slate-800 shadow-lg">
+              <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+                <span class="text-cyan-400">📊</span>
+                Live Statistics
+              </h3>
+              <div class="space-y-3">
+                <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
+                  <div class="flex items-center gap-3">
+                    <span class="text-blue-400">👥</span>
+                    <span class="text-sm text-slate-300">Total Requests</span>
+                  </div>
+                  <span class="text-xl font-bold text-blue-400">{stats.totalRequests}</span>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
+                  <div class="flex items-center gap-3">
+                    <span class="text-green-400">✅</span>
+                    <span class="text-sm text-slate-300">Users Verified</span>
+                  </div>
+                  <span class="text-xl font-bold text-green-400">{stats.usersVerified}</span>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
+                  <div class="flex items-center gap-3">
+                    <span class="text-red-400">🚫</span>
+                    <span class="text-sm text-slate-300">Bots Blocked</span>
+                  </div>
+                  <span class="text-xl font-bold text-red-400">{stats.botsBlocked}</span>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
+                  <div class="flex items-center gap-3">
+                    <span class="text-yellow-400">⚡</span>
+                    <span class="text-sm text-slate-300">Active Checks</span>
+                  </div>
+                  <span class="text-xl font-bold text-yellow-400">{stats.activeChecks}</span>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
+                  <div class="flex items-center gap-3">
+                    <span class="text-purple-400">📈</span>
+                    <span class="text-sm text-slate-300">Avg Score</span>
+                  </div>
+                  <span class="text-xl font-bold text-purple-400">{Math.round(stats.avgScore)}</span>
+                </div>
+              </div>
+            </div>
 
-        <!-- Optional 3D realm canvas (pointer-events:none so it doesn't block UI) -->
-        <canvas id="realm-canvas" class="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true"></canvas>
+            <!-- Speed Control -->
+            <div class="bg-slate-900 rounded-xl p-4 border border-slate-800 shadow-lg">
+              <h3 class="text-lg font-bold mb-3">Simulation Speed</h3>
+              <input
+                type="range"
+                min="0.5"
+                max="3"
+                step="0.5"
+                bind:value={speed}
+                class="w-full"
+              />
+              <div class="text-center mt-2 text-cyan-400 font-mono">{speed}x</div>
+            </div>
 
-        <aside id="metrics" class="absolute right-4 top-4 w-64 bg-black/70 backdrop-blur-md p-4 rounded-lg z-10 text-sm hidden md:block">
-          <h3 class="font-bold mb-2 text-indigo-400">Live Metrics</h3>
-          <ul id="log-list" class="space-y-1 text-xs">
-            <li><span class="text-green-400">✓ Cookie Valid?</span> <span id="cookie-status">Checking...</span></li>
-            <li><span class="text-yellow-400">Suspicion Score:</span> <span id="score">0</span>/100</li>
-            <li><span class="text-red-400">Rate Limit:</span> <span id="rate">Safe</span></li>
-            <li><span>Challenge Expiry:</span> <span id="expiry">--:--</span></li>
-            <li id="outcome" class="font-semibold mt-2">Ready to Launch</li>
-          </ul>
-        </aside>
+            <!-- Legend -->
+            <div class="bg-slate-900 rounded-xl p-4 border border-slate-800 shadow-lg">
+              <h3 class="text-lg font-bold mb-3">Traffic Types</h3>
+              <div class="space-y-2">
+                {#each Object.entries(PARTICLE_TYPES) as [key, type]}
+                  <div class="flex items-center gap-3">
+                    <div class="w-4 h-4 rounded-full" style="background-color: {type.color}"></div>
+                    <span class="text-sm">{type.label}</span>
+                    <span class="ml-auto text-xs text-slate-400">~{type.score}</span>
+                  </div>
+                {/each}
+              </div>
+            </div>
 
-        <div id="particles" class="absolute inset-0 pointer-events-none"></div>
+            <!-- Selected Particle Info -->
+            {#if selectedParticle}
+              <div class="bg-slate-900 rounded-xl p-4 border border-cyan-500 shadow-lg">
+                <h3 class="text-lg font-bold mb-3 flex items-center gap-2">
+                  <span class="text-cyan-400">🔍</span>
+                  Request Details
+                </h3>
+                <div class="space-y-2 text-sm font-mono">
+                  <div><span class="text-slate-400">ID:</span> {selectedParticle.id}</div>
+                  <div><span class="text-slate-400">Type:</span> <span style="color: {selectedParticle.type.color}">{selectedParticle.type.label}</span></div>
+                  <div><span class="text-slate-400">Score:</span> {Math.round(selectedParticle.score)}/100</div>
+                  <div><span class="text-slate-400">Stage:</span> {STAGES[selectedParticle.stage]?.label}</div>
+                  
+                  <div class="pt-2 border-t border-slate-700">
+                    <div class="text-slate-400 mb-1 flex items-center gap-1">
+                      <span>🔗</span>
+                      Fingerprint
+                    </div>
+                    <div class="pl-4 text-xs space-y-1">
+                      <div>Canvas: {selectedParticle.fingerprint.canvas}</div>
+                      <div>UA: {selectedParticle.fingerprint.userAgent}</div>
+                      <div>Screen: {selectedParticle.fingerprint.screen}</div>
+                      <div>TZ: GMT{selectedParticle.fingerprint.timezone > 0 ? '+' : ''}{selectedParticle.fingerprint.timezone}</div>
+                    </div>
+                  </div>
+
+                  <div class="pt-2 border-t border-slate-700">
+                    <div class="text-slate-400 mb-1 flex items-center gap-1">
+                      <span>🌐</span>
+                      Challenge
+                    </div>
+                    <div class="pl-4 text-xs space-y-1">
+                      <div>Nonce: {selectedParticle.challenge.nonce}</div>
+                      <div>Difficulty: {selectedParticle.challenge.difficulty}</div>
+                      <div>Seed: {selectedParticle.challenge.seed}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {/if}
+          </div>
+
+          <!-- Canvas -->
+          <div class="flex-1 relative order-1 lg:order-2 min-h-[40vh] lg:min-h-0">
+            <canvas
+              id="traffic-canvas"
+              bind:this={canvasRef}
+              class="w-full h-full rounded-xl border-2 border-slate-800 shadow-2xl cursor-pointer"
+            />
+            <div class="absolute bottom-4 left-4 bg-black/70 backdrop-blur-sm rounded-lg p-2 md:p-3 text-xs font-mono shadow-lg max-w-xs">
+              <div class="text-cyan-400 mb-1">Click any particle for details</div>
+              <div class="text-slate-400 hidden md:block">← Traffic flows left to right →</div>
+              <div class="text-slate-400 md:hidden">Tap particles for details</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   {/if}
@@ -847,8 +1109,43 @@
   :global(.glow) { filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5)); }
   :global(.particle) { position: absolute; width: 4px; height: 4px; background: #3b82f6; border-radius: 50%; }
   /* Modal styles */
-  .janus-modal { backdrop-filter: blur(6px); z-index: 99999 !important; }
-  .janus-modal .modal-inner { z-index: 100000; position: relative; }
+  .janus-modal { 
+    backdrop-filter: blur(6px); 
+    z-index: 999999 !important; 
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    pointer-events: auto !important;
+  }
+  .janus-modal .modal-inner { 
+    z-index: 100000; 
+    position: relative;
+    max-height: 100vh;
+  }
+  
+  /* Prevent body scroll when modal is open */
+  :global(body.has-modal) { 
+    overflow: hidden !important; 
+    touch-action: none !important;
+    position: fixed !important;
+    width: 100% !important;
+    height: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+    /* Hide scrollbar */
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+  :global(body.has-modal::-webkit-scrollbar) {
+    display: none !important;
+  }
+  :global(html.has-modal) {
+    overflow: hidden !important;
+  }
   .modal-close { z-index: 100001; }
   /* Open simulator button styling */
   :global(.open-sim-btn) { display:inline-flex; align-items:center; gap:0.5rem; padding:0.65rem 1rem; font-weight:600; box-shadow:0 6px 18px rgba(59,130,246,0.12); transform:translateZ(0); }
@@ -859,4 +1156,12 @@
 
   /* Modal close (left-top) */
   :global(.modal-close) { left: 1rem; right: auto; }
+  
+  /* Custom scrollbar for stats panel */
+  :global(.scrollbar-thin) { scrollbar-width: thin; }
+  :global(.scrollbar-thumb-slate-600) { scrollbar-color: #475569 #1e293b; }
+  :global(.scrollbar-thumb-slate-600::-webkit-scrollbar) { width: 6px; }
+  :global(.scrollbar-thumb-slate-600::-webkit-scrollbar-track) { background: #1e293b; }
+  :global(.scrollbar-thumb-slate-600::-webkit-scrollbar-thumb) { background: #475569; border-radius: 3px; }
+  :global(.scrollbar-thumb-slate-600::-webkit-scrollbar-thumb:hover) { background: #64748b; }
 </style>
