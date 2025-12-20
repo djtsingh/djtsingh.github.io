@@ -705,7 +705,7 @@
               id="traffic-canvas"
               bind:this={canvasRef}
               class="w-full h-full rounded-xl border-2 border-slate-800 shadow-2xl cursor-pointer"
-            />
+            ></canvas>
             <div class="absolute bottom-4 left-4 bg-black/70 backdrop-blur-sm rounded-lg p-2 md:p-3 text-xs font-mono shadow-lg max-w-xs">
               <div class="text-cyan-400 mb-1">Click any particle for details</div>
               <div class="text-slate-400 hidden md:block">← Traffic flows left to right →</div>

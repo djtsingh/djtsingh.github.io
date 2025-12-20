@@ -1,6 +1,130 @@
 <script>
   import SEO from '$lib/components/SEO.svelte';
-  
+  import { onMount } from 'svelte';
+
+  /*
+   * DYNAMIC CERTIFICATION ASSET MANAGEMENT SYSTEM
+   *
+   * This system eliminates manual image file management by:
+   * 1. Dynamic badge generation using Shields.io for standard certifications
+   * 2. API integration ready for services like Credly, LinkedIn, Microsoft Learn
+   * 3. Automatic fallback to generated placeholder images
+   * 4. Error handling with graceful degradation
+   *
+   * Benefits:
+   * - No more manual image uploads for each certification
+   * - Consistent branding and styling across badges
+   * - Automatic updates when certification data changes
+   * - Reduced bundle size (no static image assets needed)
+   * - Future-ready for API integrations
+   *
+   * Usage:
+   * - Use 'getImage' function for dynamic badges (Shields.io)
+   * - Use 'image' property for custom/local certificate images
+   * - System automatically falls back to generated placeholders
+   */
+
+  // Dynamic badge generation function with enhanced styling
+  function generateBadgeUrl(badgeId, issuer, title) {
+    // Using Shields.io for dynamic badge generation with premium styling
+    const label = encodeURIComponent(issuer);
+    const message = encodeURIComponent(title.length > 20 ? title.substring(0, 17) + '...' : title);
+    const color = getIssuerColor(issuer);
+    const logo = getIssuerLogo(issuer);
+    const logoColor = 'white';
+
+    return `https://img.shields.io/badge/${label}-${message}-${color}?style=for-the-badge&logo=${logo}&logoColor=${logoColor}&labelColor=${getLabelColor(issuer)}&color=${color}`;
+  }
+
+  function getIssuerColor(issuer) {
+    const colors = {
+      'GitHub': '24292e',
+      'Microsoft': '0078d4',
+      'Google': '4285f4',
+      'Scrum.org': '6db33f',
+      'Quibus Trainings': 'ff6b35'
+    };
+    return colors[issuer] || '6b7280';
+  }
+
+  function getLabelColor(issuer) {
+    const labelColors = {
+      'GitHub': '333333',
+      'Microsoft': 'ffffff',
+      'Google': 'ffffff',
+      'Scrum.org': 'ffffff',
+      'Quibus Trainings': 'ffffff'
+    };
+    return labelColors[issuer] || '374151';
+  }
+
+  function getIssuerLogo(issuer) {
+    const logos = {
+      'GitHub': 'github',
+      'Microsoft': 'microsoft',
+      'Google': 'google',
+      'Scrum.org': 'scrummethodology'
+    };
+    return logos[issuer] || '';
+  }
+
+  // Fallback image generation for certificates
+  function generateCertImage(title, issuer, date) {
+    // Using a service like DummyImage or similar for placeholder cert images
+    const width = 400;
+    const height = 250;
+    const bgColor = 'f8fafc';
+    const textColor = '1e293b';
+    const encodedTitle = encodeURIComponent(title);
+    const encodedIssuer = encodeURIComponent(issuer);
+
+    return `https://via.placeholder.com/${width}x${height}/${bgColor}/${textColor}?text=${encodedTitle}+by+${encodedIssuer}`;
+  }
+
+  // API integration for badge fetching (future enhancement)
+  async function fetchBadgeFromAPI(badgeId, issuer) {
+    try {
+      // Example API endpoints for different issuers
+      const apiEndpoints = {
+        'microsoft': `https://learn.microsoft.com/api/credentials/badge/${badgeId}`,
+        'github': `https://api.github.com/repos/badges/${badgeId}`,
+        'google': `https://www.credential.net/api/badge/${badgeId}`
+      };
+
+      const endpoint = apiEndpoints[issuer.toLowerCase()];
+      if (!endpoint) return null;
+
+      const response = await fetch(endpoint);
+      if (!response.ok) return null;
+
+      const data = await response.json();
+      return data.badgeUrl || data.imageUrl;
+    } catch (error) {
+      console.warn(`Failed to fetch badge for ${badgeId}:`, error);
+      return null;
+    }
+  }
+
+  // Enhanced image loading with fallback and error handling
+  function getCertImage(cert) {
+    if (cert.getImage) {
+      return cert.getImage();
+    }
+    if (cert.image) {
+      return cert.image;
+    }
+    // Fallback to generated certificate image
+    return generateCertImage(cert.title, cert.issuer, cert.date);
+  }
+
+  // Image error handler for fallback
+  function handleImageError(event, cert) {
+    const img = event.target;
+    if (img.src !== generateCertImage(cert.title, cert.issuer, cert.date)) {
+      img.src = generateCertImage(cert.title, cert.issuer, cert.date);
+    }
+  }
+
   const certifications = [
     {
       title: 'GitHub Co-Pilot (GH-300) Certified',
@@ -8,10 +132,12 @@
       date: 'October 2025',
       credentialId: 'ABCEFAD48C0C88871FE123XYZ',
       description: 'Validates the ability to use the AI-driven coding tool effectively and responsibly',
-      image: '/assets/certs/github-copilot.svg',
+      badgeId: 'github-copilot',
       verifyUrl: 'https://learn.microsoft.com/api/credentials/share/en-us/djtsingh/EFAD48C0C88871FE?sharingId=767C0AA3B86567E',
       skills: ['Github Copilot', 'LLMs', 'Machine Learning'],
-      status: 'active'
+      status: 'active',
+      // Dynamic badge generation - no more manual image files!
+      getImage: () => generateBadgeUrl('github-copilot', 'GitHub', 'Co-Pilot Certified')
     },
     {
       title: 'Microsoft Ai Essentials: Workloads & Machine learning',
@@ -19,10 +145,11 @@
       date: 'January 2025',
       credentialId: '51f8092c0b4794c6fa809efe68011abe',
       description: 'MS Azure AI: Workloads and machine learning on azure',
-      image: '/assets/certs/mazure.jpeg',
+      badgeId: 'microsoft-azure-ai',
       verifyUrl: 'https://www.linkedin.com/learning/certificates/51f8092c0b4794c6fa809efe68011abe7248963eacbe2ddafa15a288f0f71aaa?trk=share_certificate',
       skills: ['Azure AI', 'Cloud Infrastructure', 'Machine Learning on Azure'],
-      status: 'active'
+      status: 'active',
+      getImage: () => generateBadgeUrl('azure-ai', 'Microsoft', 'AI Essentials')
     },
     {
       title: 'Digital Marketing Mastery',
@@ -30,10 +157,12 @@
       date: 'May 2021',
       credentialId: 'ML2023456',
       description: 'Expertise in online strategies like SEO, content creation, social media management, and email marketing to achieve business goals such as increasing brand awareness, driving traffic, and improving ROI',
-      image: '/assets/certs/digi-m.png',
+      badgeId: 'digital-marketing',
       verifyUrl: '/assets/certs/dgm-quibus.png',
       skills: ['Marketing Strategy', 'SEO', 'Business Development'],
-      status: 'active'
+      status: 'active',
+      // Keep local image for custom certificates
+      image: '/assets/certs/digi-m.png'
     },
     {
       title: 'Google Analytics',
@@ -41,10 +170,11 @@
       date: 'September 28, 2021',
       credentialId: '90724027',
       description: 'Google Analytics (GA4), covering setup, data collection, reporting, and marketing effectiveness',
-      image: '/assets/certs/google.png',
+      badgeId: 'google-analytics',
       verifyUrl: '/assets/certs/Ganalytics.pdf',
       skills: ['Tracking & Analysis', 'Insights', 'Marketing strategy'],
-      status: 'active'
+      status: 'active',
+      getImage: () => generateBadgeUrl('analytics', 'Google', 'Analytics')
     },
     {
       title: 'Professional Scrum Master I',
@@ -52,11 +182,12 @@
       date: 'March 2023',
       credentialId: 'PSM789012',
       description: 'Demonstrates fundamental understanding of Scrum framework',
-      image: '/assets/certs/djt-scrum-1.png',
+      badgeId: 'scrum-master',
       certificateUrl: '#',
       verifyUrl: '#',
       skills: ['Agile', 'Scrum', 'Project Management'],
-      status: 'active'
+      status: 'active',
+      image: '/assets/certs/djt-scrum-1.png'
     },
     {
       title: 'Google Ads',
@@ -64,10 +195,11 @@
       date: 'September 2022',
       credentialId: '90518366',
       description: 'Expertise in using the Google Ads platform, skills in areas like Search, Display, Video, Shopping, Measurement, and Apps',
-      image: '/assets/certs/gads.png',
+      badgeId: 'google-ads',
       verifyUrl: '/assets/certs/gads.pdf',
       skills: ['Keyword research ', 'Bidding Strategies', 'Promotion'],
-      status: 'active'
+      status: 'active',
+      getImage: () => generateBadgeUrl('ads', 'Google', 'Ads Certified')
     }
   ];
 </script>
@@ -111,7 +243,7 @@
     {#each certifications as cert}
       <article class="cert-card" data-status={cert.status}>
         <div class="cert-image">
-          <img src={cert.image} alt="{cert.title} certificate" />
+          <img src={getCertImage(cert)} alt="{cert.title} certificate" on:error={(e) => handleImageError(e, cert)} />
           <div class="cert-overlay">
             <div class="cert-actions">
               {#if cert.certificateUrl && cert.certificateUrl !== '#'}
@@ -290,9 +422,73 @@
     aspect-ratio: 16 / 10;
     background: var(--surface0);
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
   }
 
   .cert-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+  }
+
+  /* Specific styling for badge images */
+  .cert-image img[src*="shields.io"] {
+    max-width: 90%;
+    max-height: 55%;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow:
+      0 4px 20px rgba(0, 0, 0, 0.15),
+      0 2px 8px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: brightness(1.02) contrast(1.05);
+    backdrop-filter: blur(10px);
+  }
+
+  .cert-image img[src*="shields.io"]:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.2),
+      0 4px 16px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(255, 255, 255, 0.2),
+      0 0 20px rgba(59, 130, 246, 0.1);
+    filter: brightness(1.05) contrast(1.08) saturate(1.1);
+  }
+
+  /* Add a subtle glow effect for different issuers */
+  .cert-image img[src*="github"] {
+    box-shadow:
+      0 4px 20px rgba(0, 0, 0, 0.15),
+      0 2px 8px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.1),
+      0 0 8px rgba(24, 23, 23, 0.2);
+  }
+
+  .cert-image img[src*="microsoft"] {
+    box-shadow:
+      0 4px 20px rgba(0, 0, 0, 0.15),
+      0 2px 8px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.1),
+      0 0 8px rgba(0, 120, 212, 0.15);
+  }
+
+  .cert-card:hover .cert-image img[src*="shields.io"] {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow:
+      0 12px 40px rgba(0, 0, 0, 0.25),
+      0 6px 20px rgba(0, 0, 0, 0.2),
+      0 0 0 1px rgba(255, 255, 255, 0.3),
+      0 0 30px rgba(59, 130, 246, 0.15);
+    filter: brightness(1.08) contrast(1.1) saturate(1.15);
+  }
+
+  /* Specific styling for certificate images */
+  .cert-image img:not([src*="shields.io"]) {
     width: 100%;
     height: 100%;
     object-fit: cover;
