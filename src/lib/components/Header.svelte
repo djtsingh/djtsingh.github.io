@@ -21,6 +21,8 @@
   // Get current page name for terminal nav
   $: currentPath = $page.url.pathname;
   $: pageName = currentPath === '/' ? '' : currentPath.replace('/', '').replace('.html', '');
+  $: displayName = pageName.includes('/') ? pageName.split('/').pop() : pageName;
+  $: fullPath = pageName;
 </script>
 
 <header class="header">
@@ -30,7 +32,10 @@
       <a href="/" class="tilde">$</a>
       {#if pageName}
         <span class="separator">/</span>
-        <span class="current-path">{pageName}</span>
+        <!-- Full path for wide screens -->
+        <span class="current-path full-path">{fullPath}</span>
+        <!-- Shortened path for narrow screens -->
+        <span class="current-path short-path">{displayName}</span>
       {/if}
       <span class="cursor"></span>
     </nav>
@@ -143,6 +148,25 @@
   
   .current-path {
     color: var(--text);
+  }
+  
+  /* Responsive path display */
+  .full-path {
+    display: none;
+  }
+  
+  .short-path {
+    display: inline;
+  }
+  
+  @media (min-width: 640px) {
+    .full-path {
+      display: inline;
+    }
+    
+    .short-path {
+      display: none;
+    }
   }
   
   .cursor {

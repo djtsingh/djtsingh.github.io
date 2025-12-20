@@ -41,6 +41,22 @@
   <div class="footer-card">
     <div class="footer-section footer-left">
       <p class="copyright">© {year} Daljeet Singh Lotey</p>
+      
+      <span class="separator">•</span>
+      
+      <a 
+        href="/status"
+        class="stat-badge"
+        title="System status and performance metrics"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 1v6m0 6v6"/>
+          <path d="m16.24 7.76-4.24 4.24-4.24-4.24"/>
+          <path d="m7.76 16.24 4.24-4.24 4.24 4.24"/>
+        </svg>
+        <span>All Services Nominal</span>
+      </a>
     </div>
     
     <div class="footer-section footer-right">
@@ -256,12 +272,18 @@
     
     .footer-left {
       gap: 0;
+      min-width: 0;
+      flex-shrink: 1;
     }
     
     .footer-right {
       padding-top: 0;
       border-top: none;
       gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      min-width: 0;
+      flex-shrink: 1;
     }
     
     .separator {
@@ -270,12 +292,15 @@
     
     .copyright {
       font-size: 0.8rem;
+      flex-shrink: 0;
     }
     
     .stat-badge,
     .carbon-badge {
       font-size: 0.7rem;
       padding: 0.35rem 0.6rem;
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     
     .social-icons {
@@ -285,6 +310,71 @@
       padding-top: 0;
       border-top: none;
       justify-content: center;
+      flex-shrink: 0;
+    }
+  }
+
+  /* Tablet breakpoint for iPad Air/Pro and similar devices */
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .footer-card {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem;
+    }
+    
+    .footer-section {
+      width: 100%;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    
+    .footer-left {
+      gap: 0.5rem;
+      min-width: 0;
+      flex-shrink: 1;
+      justify-content: center;
+    }
+    
+    .footer-right {
+      padding-top: 0;
+      border-top: none;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      min-width: 0;
+      flex-shrink: 1;
+    }
+    
+    .separator {
+      display: none;
+    }
+    
+    .copyright {
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    
+    .stat-badge,
+    .carbon-badge {
+      font-size: 0.75rem;
+      padding: 0.4rem 0.7rem;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+    
+    .social-icons {
+      width: auto;
+      padding-left: 0;
+      border-left: none;
+      padding-top: 0;
+      border-top: none;
+      justify-content: center;
+      flex-shrink: 0;
+      gap: 0.75rem;
     }
   }
 </style>

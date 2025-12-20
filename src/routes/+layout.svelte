@@ -5,6 +5,7 @@
   import Header from '$lib/components/Header.svelte';
   import Footer from '$lib/components/Footer.svelte';
   import SEO from '$lib/components/SEO.svelte';
+  import EdgeCaseHandler from '$lib/components/EdgeCaseHandler.svelte';
   
   const IS_PROD = import.meta.env.PROD;
   $: pageKey = $page.url.pathname;
@@ -25,19 +26,21 @@
 
 <SEO />
 
-<div class="app">
-  <Header />
-  
-  <main class="main">
-    {#key pageKey}
-      <div class="page-transition" in:fly={{ y: 20, duration: 400, delay: 200 }} out:fade={{ duration: 200 }}>
-        <slot />
-      </div>
-    {/key}
-  </main>
-  
-  <Footer />
-</div>
+<EdgeCaseHandler>
+  <div class="app">
+    <Header />
+    
+    <main class="main" id="main-content">
+      {#key pageKey}
+        <div class="page-transition" in:fly={{ y: 20, duration: 400, delay: 200 }} out:fade={{ duration: 200 }}>
+          <slot />
+        </div>
+      {/key}
+    </main>
+    
+    <Footer />
+  </div>
+</EdgeCaseHandler>
 
 <style>
   .app {

@@ -1,198 +1,522 @@
 <script>
   import SEO from '$lib/components/SEO.svelte';
+
+  const project = {
+    title: 'S&P 500 Market Prediction & Analysis',
+    tagline: 'Tactical forecasting and defensible evaluation for S&P 500 returns',
+    description: 'A project inspired by the Hull Tactical Market Prediction competition on Kaggle. It focuses on rigorous feature engineering, time-series-aware validation, and ensemble models to produce robust short-term signals for the S&P 500.',
+    image: '/projects/market-prediction.webp',
+    status: 'Featured',
+    year: '2023 - 2025',
+    readingTime: '8 min read',
+    links: {
+      demo: '#',
+      github: 'https://github.com/djtsingh/Market-Prediction-2025',
+      docs: '#'
+    }
+  };
+
+  const features = [
+    { icon: '📊', title: 'Feature Engineering', description: 'Comprehensive technical indicators, macroeconomic data, and sentiment analysis for robust signal generation.' },
+    { icon: '🤖', title: 'Ensemble Models', description: 'Multiple ML algorithms combined with stacking and blending techniques for improved prediction accuracy.' },
+    { icon: '📈', title: 'Time-Series Validation', description: 'Walk-forward optimization and cross-validation to prevent lookahead bias and ensure realistic performance.' },
+    { icon: '⚖️', title: 'Risk Management', description: 'Position sizing, drawdown control, and Sharpe ratio optimization for practical trading applications.' },
+    { icon: '🔬', title: 'Backtesting Framework', description: 'Comprehensive evaluation with transaction costs, slippage, and market impact considerations.' },
+    { icon: '📉', title: 'Market Regime Analysis', description: 'Bull/bear market detection and regime-specific model adaptation for different market conditions.' }
+  ];
+
+  const techStack = [
+    { name: 'Python', category: 'language' },
+    { name: 'Pandas', category: 'data' },
+    { name: 'NumPy', category: 'data' },
+    { name: 'Scikit-learn', category: 'ml' },
+    { name: 'XGBoost', category: 'ml' },
+    { name: 'LightGBM', category: 'ml' },
+    { name: 'TensorFlow', category: 'ml' },
+    { name: 'Keras', category: 'ml' },
+    { name: 'Jupyter', category: 'tool' },
+    { name: 'Matplotlib', category: 'viz' },
+    { name: 'Seaborn', category: 'viz' }
+  ];
+
+  const screenshots = [
+    { src: '/projects/market-prediction.webp', alt: 'Market prediction analysis', caption: 'S&P 500 forecasting and analysis dashboard' }
+  ];
 </script>
 
-<SEO
-  title="S&P 500 Market Prediction & Analysis | Projects | Daljeet Singh Lotey"
-  description="Tactical S&P 500 forecasting and analysis using feature engineering, ensemble models, and careful backtesting."
-  image="/projects/market-prediction.webp"
+<SEO 
+  title="{project.title} | Projects | Daljeet Singh Lotey"
+  description="{project.tagline} - A project by Daljeet Singh Lotey"
+  image={project.image}
   canonical="https://djtsingh.github.io/projects/market-prediction"
   type="article"
 />
 
 <article class="project-page">
+  <!-- Back Navigation -->
   <nav class="breadcrumb">
-    <a href="/projects" class="back-link">← Projects</a>
+    <a href="/projects" class="back-link">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m15 18-6-6 6-6"/>
+      </svg>
+      All Projects
+    </a>
   </nav>
 
-  <header class="hero">
-    <div class="status-bar">
-      <span class="status status--active">Featured</span>
-      <span class="year">2023 - 2025</span>
-    </div>
-
+  <!-- Hero Section -->
+  <header class="project-hero">
     <div class="hero-content">
-      <h1>S&P 500 Market Prediction & Analysis</h1>
-      <p class="tagline">Tactical forecasting and defensible evaluation for S&P 500 returns</p>
-      <p class="description">
-        A project inspired by the Hull Tactical Market Prediction competition on Kaggle. It focuses on rigorous feature engineering, time-series-aware validation, and ensemble models to produce robust short-term signals for the S&P 500.
-      </p>
-
-      <div class="action-bar">
-        <a href="https://www.kaggle.com/competitions/hull-tactical-market-prediction/overview" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Kaggle Competition</a>
-        <a href="https://github.com/djtsingh/Market-Prediction-2025" target="_blank" rel="noopener noreferrer" class="btn btn--secondary">Source Code</a>
+      <div class="hero-meta">
+        <span class="status status--{project.status.toLowerCase()}">{project.status}</span>
+        <span class="year">{project.year}</span>
+        <span class="reading-time">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          {project.readingTime}
+        </span>
       </div>
+      <h1>{project.title}</h1>
+      <p class="tagline">{project.tagline}</p>
+      <p class="description">{project.description}</p>
+      
+      <div class="hero-actions">
+          {#if project.links.demo && project.links.demo !== '#'}
+            <a href={project.links.demo} class="btn btn--primary" target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" x2="21" y2="3"/>
+              </svg>
+              Live Demo
+            </a>
+          {/if}
+          {#if project.links.github}
+            <a href={project.links.github} class="btn btn--secondary" target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+              View Source
+            </a>
+          {/if}
+          {#if project.links.docs && project.links.docs !== '#'}
+            <a href={project.links.docs} class="btn btn--ghost" target="_blank" rel="noopener noreferrer">
+              Documentation
+            </a>
+          {/if}
+      </div>
+    </div>
+    
+    <div class="hero-image">
+      <img src={project.image} alt="{project.title} preview" />
     </div>
   </header>
 
-  <section class="section">
-    <h2 class="section-title">Overview</h2>
-    <div class="content-grid">
-      <div class="content-block">
-        <h3>Objective</h3>
-        <p>
-          Build predictive models and tactical signals for the S&P 500 that generalize across market regimes. Emphasis is placed on reproducible feature engineering, walk-forward validation, and risk-aware evaluation.
-        </p>
-      </div>
-
-      <div class="content-block">
-        <h3>Data</h3>
-        <p>
-          Uses historical S&P 500 prices, derived technical indicators, macro features, and engineered statistics aligned to competition structure. Time-based features and careful alignment of targets prevent lookahead bias.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2 class="section-title">Approach</h2>
+  <!-- Features Section -->
+  <section class="section features-section">
+    <h2 class="section-title">Features</h2>
     <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">🔬</div>
-        <h3>Feature Engineering</h3>
-        <p>Rolling returns, volatility, momentum, ratio features, day-of-week encodings, and cross-asset signals where available. Features are normalized per-window to reduce regime sensitivity.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">🧪</div>
-        <h3>Validation</h3>
-        <p>Walk-forward time-series split with out-of-time test sets. Backtests use transaction cost assumptions and position sizing rules to estimate realistic P&L.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">🤖</div>
-        <h3>Modeling</h3>
-        <p>Gradient-boosted trees (LightGBM/XGBoost), stacked ensembles, and simple neural baselines where appropriate. Hyperparameter tuning via time-aware search.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">📈</div>
-        <h3>Evaluation</h3>
-        <p>Sharpe-like metrics, cumulative returns plots, precision/recall on directional predictions, and competition-specific scoring (as applicable).</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2 class="section-title">Technical Highlights</h2>
-    <div class="highlights">
-      <div class="highlight-item">
-        <h3>🎯 Robust Features</h3>
-        <p>Designed features to be robust across lookback windows and market regimes; use of winsorization and rolling normalization helped stabilize model inputs.</p>
-      </div>
-
-      <div class="highlight-item">
-        <h3>🧩 Ensemble Strategy</h3>
-        <p>Blended multiple model families with time-aware cross-validation to reduce overfitting and improve generalization.</p>
-      </div>
-
-      <div class="highlight-item">
-        <h3>🔁 Reproducible Pipelines</h3>
-        <p>Data pipelines implemented with explicit seeds, incremental caching, and clear separation between feature generation, training, and backtest stages.</p>
-      </div>
-
-      <div class="highlight-item">
-        <h3>🔒 Risk Controls</h3>
-        <p>Position sizing, max-drawdown limits, and transaction cost modeling included in evaluation to produce realistic performance estimates.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2 class="section-title">Results & Metrics</h2>
-    <div class="metrics-grid">
-      <div class="metric-card">
-        <div class="metric-value">α</div>
-        <div class="metric-label">Tactical Alpha</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value">Sharpe</div>
-        <div class="metric-label">Risk-adjusted</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value">Backtest</div>
-        <div class="metric-label">Walk-forward P&L</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-value">Robust</div>
-        <div class="metric-label">Cross-validation</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2 class="section-title">Kaggle Submission</h2>
-    <div class="submission-card">
-      <div class="submission-meta">
-        <h3>Competition</h3>
-        <p>Hull Tactical Market Prediction — Kaggle competition format and leaderboard.</p>
-        <a href="https://www.kaggle.com/competitions/hull-tactical-market-prediction/overview" target="_blank" rel="noopener noreferrer" class="btn btn--secondary">View Competition</a>
-      </div>
-      <div class="submission-preview">
-        <img src="/projects/market-prediction.webp" alt="Market prediction cover" />
-        <div class="submission-actions">
-          <a href="https://github.com/djtsingh/Market-Prediction-2025" target="_blank" rel="noopener noreferrer" class="btn btn--primary">View Repo</a>
-          <a href="https://www.kaggle.com/competitions/hull-tactical-market-prediction/overview" target="_blank" rel="noopener noreferrer" class="btn btn--secondary">Kaggle Entry</a>
+      {#each features as feature}
+        <div class="feature-card">
+          <span class="feature-icon">{feature.icon}</span>
+          <h3>{feature.title}</h3>
+          <p>{feature.description}</p>
         </div>
-      </div>
+      {/each}
     </div>
   </section>
 
-  <section class="cta-section">
-    <h2>Explore the Code & Replicate</h2>
-    <p>All data processing and model code is available in the repository. Reproducible scripts and notebooks are included to reproduce experiments and backtests.</p>
-    <div class="cta-actions">
-      <a href="https://github.com/djtsingh/Market-Prediction-2025" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Open Source Repo</a>
+  <!-- Tech Stack Section -->
+  <section class="section stack-section">
+    <h2 class="section-title">Tech Stack</h2>
+    <div class="stack-grid">
+      {#each techStack as tech}
+        <span class="stack-badge" data-category={tech.category}>{tech.name}</span>
+      {/each}
+    </div>
+  </section>
+
+  <!-- Screenshots Section -->
+  {#if screenshots.length > 0}
+    <section class="section screenshots-section">
+      <h2 class="section-title">Screenshots</h2>
+      <div class="screenshots-grid">
+        {#each screenshots as screenshot}
+          <figure class="screenshot">
+            <img src={screenshot.src} alt={screenshot.alt} />
+            {#if screenshot.caption}
+              <figcaption>{screenshot.caption}</figcaption>
+            {/if}
+          </figure>
+        {/each}
+      </div>
+    </section>
+  {/if}
+
+  <!-- CTA Section -->
+  <section class="section cta-section">
+    <div class="cta-content">
+      <h2>Interested in this project?</h2>
+      <p>Check out the source code, try the demo, or get in touch to collaborate.</p>
+      <div class="cta-actions">
+        {#if project.links.github}
+          <a href={project.links.github} class="btn btn--primary" target="_blank" rel="noopener noreferrer">
+            View on GitHub
+          </a>
+        {/if}
+        <a href="/about" class="btn btn--ghost">Contact Me</a>
+      </div>
     </div>
   </section>
 </article>
 
 <style>
-  .project-page { max-width: 900px; margin: 0 auto; padding: 2rem 0; }
-  .breadcrumb { margin-bottom: 1.5rem; }
-  .back-link { color: var(--subtext1); font-size: 0.9rem; }
-  .hero { margin-bottom: 3rem; }
-  .status-bar { display:flex; gap:1rem; margin-bottom:1rem; }
-  .status--active { background: rgba(166,227,161,0.2); color:var(--green); padding:0.25rem 0.6rem; border-radius:6px; font-weight:600; }
-  .hero-content h1 { margin:0 0 0.5rem; font-size:clamp(1.8rem,4vw,2.6rem); }
-  .tagline { color:var(--accent); margin:0 0 0.75rem; }
-  .description { color:var(--subtext1); margin:0 0 1.25rem; }
-  .action-bar { display:flex; gap:0.75rem; }
+  .project-page {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
 
-  .section { margin-bottom:3rem; }
-  .section-title { font-size:1.25rem; margin-bottom:1rem; }
-  .content-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.25rem; }
-  .features-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; }
-  .feature-card { padding:1rem; background:var(--surface0); border-radius:8px; }
-  .feature-icon { font-size:1.5rem; margin-bottom:0.5rem; }
+  /* Breadcrumb */
+  .breadcrumb {
+    margin-bottom: 2rem;
+  }
 
-  .highlights { display:flex; flex-direction:column; gap:1rem; }
-  .highlight-item { padding:1rem; background:var(--base); border-radius:8px; }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--subtext0);
+    transition: color 0.15s ease;
+  }
 
-  .metrics-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1rem; }
-  .metric-card { padding:1rem; text-align:center; background:var(--surface0); border-radius:8px; }
-  .metric-value { font-weight:700; color:var(--accent); font-size:1.2rem; }
-  .metric-label { font-size:0.75rem; color:var(--subtext0); }
+  .back-link:hover {
+    color: var(--accent);
+  }
 
-  .submission-card { display:grid; grid-template-columns: 1fr 320px; gap:1rem; align-items:center; }
-  .submission-meta { padding:1rem; }
-  .submission-preview img { width:100%; border-radius:8px; border:1px solid var(--surface1); }
-  .submission-actions { display:flex; gap:0.5rem; margin-top:0.75rem; }
+  /* Hero Section */
+  .project-hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
 
-  .cta-section { text-align:center; padding:2rem; background:var(--base); border-radius:10px; }
+  @media (min-width: 768px) {
+    .project-hero {
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+  }
 
-  @media (max-width:768px){
-    .submission-card { grid-template-columns: 1fr; }
-    .submission-preview { order:-1; }
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .reading-time {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    color: var(--subtext1);
+  }
+  
+  .reading-time svg {
+    color: var(--accent);
+  }
+
+  .status {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: var(--radius-sm);
+  }
+
+  .status--active {
+    background: rgba(166, 227, 161, 0.2);
+    color: var(--green);
+  }
+
+  .status--completed {
+    background: rgba(137, 180, 250, 0.2);
+    color: var(--blue);
+  }
+
+  .status--experimental {
+    background: rgba(250, 179, 135, 0.2);
+    color: var(--peach);
+  }
+
+  .status--archived {
+    background: rgba(147, 153, 178, 0.2);
+    color: var(--subtext0);
+  }
+
+  .status--featured {
+    background: rgba(249, 115, 22, 0.2);
+    color: var(--orange);
+  }
+
+  .year {
+    font-size: 0.8rem;
+    color: var(--subtext0);
+  }
+
+  .hero-content h1 {
+    margin: 0 0 0.75rem;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .tagline {
+    margin: 0 0 1rem;
+    font-size: 1.125rem;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .description {
+    margin: 0 0 1.5rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--subtext1);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .hero-image {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--surface0);
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    transition: all 0.15s ease;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn--primary {
+    background: var(--accent);
+    color: var(--mantle);
+  }
+
+  .btn--primary:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+  }
+
+  .btn--secondary {
+    background: var(--surface0);
+    color: var(--text);
+  }
+
+  .btn--secondary:hover {
+    background: var(--surface1);
+  }
+
+  .btn--ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--surface1);
+  }
+
+  .btn--ghost:hover {
+    background: var(--surface0);
+    border-color: var(--surface1);
+  }
+
+  /* Sections */
+  .section {
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    margin: 0 0 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--surface0);
+  }
+
+  /* Features */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .feature-card {
+    padding: 1.5rem;
+    background: var(--base);
+    border: 1px solid var(--surface0);
+    border-radius: var(--radius-md);
+    transition: border-color 0.15s ease;
+  }
+
+  .feature-card:hover {
+    border-color: var(--surface1);
+  }
+
+  .feature-icon {
+    display: block;
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .feature-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .feature-card p {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--subtext0);
+  }
+
+  /* Tech Stack */
+  .stack-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .stack-badge {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: var(--surface0);
+    color: var(--text);
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    transition: border-color 0.15s ease;
+  }
+
+  .stack-badge:hover {
+    border-color: var(--accent);
+  }
+
+  .stack-badge[data-category="language"] {
+    border-left: 3px solid var(--blue);
+  }
+
+  .stack-badge[data-category="framework"] {
+    border-left: 3px solid var(--green);
+  }
+
+  .stack-badge[data-category="tool"] {
+    border-left: 3px solid var(--peach);
+  }
+
+  .stack-badge[data-category="frontend"] {
+    border-left: 3px solid var(--mauve);
+  }
+
+  .stack-badge[data-category="database"] {
+    border-left: 3px solid var(--yellow);
+  }
+
+  .stack-badge[data-category="data"] {
+    border-left: 3px solid var(--cyan);
+  }
+
+  .stack-badge[data-category="ml"] {
+    border-left: 3px solid var(--purple);
+  }
+
+  .stack-badge[data-category="viz"] {
+    border-left: 3px solid var(--pink);
+  }
+
+  /* Screenshots */
+  .screenshots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .screenshot {
+    margin: 0;
+  }
+
+  .screenshot img {
+    width: 100%;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--surface0);
+  }
+
+  .screenshot figcaption {
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--subtext0);
+    text-align: center;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--base);
+    border: 1px solid var(--surface0);
+    border-radius: var(--radius-lg);
+  }
+
+  .cta-content h2 {
+    margin: 0 0 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .cta-content p {
+    margin: 0 0 1.5rem;
+    color: var(--subtext1);
+  }
+
+  .cta-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
   }
 </style>
