@@ -1,5 +1,7 @@
 <script>
   import SEO from '$lib/components/SEO.svelte';
+  import LoadingState from '$lib/components/LoadingState.svelte';
+  import { onMount } from 'svelte';
 
   const project = {
     title: 'S&P 500 Market Prediction & Analysis',
@@ -12,6 +14,7 @@
     links: {
       demo: '#',
       github: 'https://github.com/djtsingh/Market-Prediction-2025',
+      kaggle: 'https://www.kaggle.com/code/djt5ingh/fortress-inference-kernel',
       docs: '#'
     }
   };
@@ -42,6 +45,15 @@
   const screenshots = [
     { src: '/projects/market-prediction.webp', alt: 'Market prediction analysis', caption: 'S&P 500 forecasting and analysis dashboard' }
   ];
+  
+  let loading = true;
+  
+  onMount(() => {
+    // Brief loading state for polished UX
+    setTimeout(() => {
+      loading = false;
+    }, 100);
+  });
 </script>
 
 <SEO 
@@ -100,6 +112,14 @@
               View Source
             </a>
           {/if}
+          {#if project.links.kaggle}
+            <a href={project.links.kaggle} class="btn btn--secondary" target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.5 6.2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-9.8 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm5.8 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z"/>
+              </svg>
+              Kaggle Notebook
+            </a>
+          {/if}
           {#if project.links.docs && project.links.docs !== '#'}
             <a href={project.links.docs} class="btn btn--ghost" target="_blank" rel="noopener noreferrer">
               Documentation
@@ -109,7 +129,7 @@
     </div>
     
     <div class="hero-image">
-      <img src={project.image} alt="{project.title} preview" />
+      <img src={project.image} alt="{project.title} preview" width="800" height="600" />
     </div>
   </header>
 
@@ -117,13 +137,21 @@
   <section class="section features-section">
     <h2 class="section-title">Features</h2>
     <div class="features-grid">
-      {#each features as feature}
-        <div class="feature-card">
-          <span class="feature-icon">{feature.icon}</span>
-          <h3>{feature.title}</h3>
-          <p>{feature.description}</p>
-        </div>
-      {/each}
+      {#if loading}
+        {#each Array(6) as _}
+          <div class="feature-card skeleton">
+            <LoadingState type="skeleton" size="small" />
+          </div>
+        {/each}
+      {:else}
+        {#each features as feature}
+          <div class="feature-card">
+            <span class="feature-icon">{feature.icon}</span>
+            <h3>{feature.title}</h3>
+            <p>{feature.description}</p>
+          </div>
+        {/each}
+      {/if}
     </div>
   </section>
 
@@ -131,9 +159,17 @@
   <section class="section stack-section">
     <h2 class="section-title">Tech Stack</h2>
     <div class="stack-grid">
-      {#each techStack as tech}
-        <span class="stack-badge" data-category={tech.category}>{tech.name}</span>
-      {/each}
+      {#if loading}
+        {#each Array(11) as _}
+          <span class="stack-badge skeleton">
+            <LoadingState type="skeleton" size="small" />
+          </span>
+        {/each}
+      {:else}
+        {#each techStack as tech}
+          <span class="stack-badge" data-category={tech.category}>{tech.name}</span>
+        {/each}
+      {/if}
     </div>
   </section>
 
@@ -518,5 +554,20 @@
     justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
+  }
+
+  /* Skeleton loading states */
+  .feature-card.skeleton {
+    padding: 1.5rem;
+    border: 1px solid var(--surface0);
+    border-radius: var(--radius-lg);
+    background: var(--surface0);
+  }
+
+  .stack-badge.skeleton {
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    background: var(--surface0);
+    border: 1px solid var(--surface1);
   }
 </style>

@@ -1,6 +1,7 @@
 <script>
   import SEO from '$lib/components/SEO.svelte';
-  import { onMount } from 'svelte';
+  import LoadingState from '$lib/components/LoadingState.svelte';
+  import { onMount, tick } from 'svelte';
   
   const project = {
     title: 'Janus',
@@ -54,7 +55,14 @@
     // Add more screenshots as needed
   ];
 
-  import { tick } from 'svelte';
+  let loading = true;
+  
+  onMount(() => {
+    // Brief loading state for polished UX
+    setTimeout(() => {
+      loading = false;
+    }, 100);
+  });
 
   // Ensure libraries are available before any code runs
   if (typeof window !== 'undefined') {
@@ -68,21 +76,15 @@
   let openButtonRef;
   let isNarrowScreen = false;
 
-  // Traffic visualization state
-  let stats = {
-    totalRequests: 0,
-    botsBlocked: 0,
-    usersVerified: 0,
-    activeChecks: 0,
-    avgScore: 0
-  };
-  let isRunning = true;
-  let speed = 1;
+  // Lazy-loaded simulator state - only initialized when simulator opens
+  let stats = null;
+  let isRunning = null;
+  let speed = null;
   let selectedParticle = null;
-  let particles = [];
+  let particles = null;
   let animationId = null;
-  let canvasRef;
-  let lastTime = 0;
+  let canvasRef = null;
+  let lastTime = null;
 
   // Particle types for the visualization
   const PARTICLE_TYPES = {
@@ -243,12 +245,39 @@
       simulatorCleanup = null;
       simulatorInitialized = false;
     }
+
+    // Reset lazy-loaded simulator state to free memory
+    stats = null;
+    isRunning = null;
+    speed = null;
+    selectedParticle = null;
+    particles = null;
+    animationId = null;
+    canvasRef = null;
+    lastTime = null;
+
     // restore focus to previous element
     try { if (previousActiveElement && typeof previousActiveElement.focus === 'function') previousActiveElement.focus(); } catch(e){}
   }
 
   function initSimulator() {
     simulatorInitialized = true;
+
+    // Initialize lazy-loaded simulator state
+    stats = {
+      totalRequests: 0,
+      botsBlocked: 0,
+      usersVerified: 0,
+      activeChecks: 0,
+      avgScore: 0
+    };
+    isRunning = true;
+    speed = 1;
+    selectedParticle = null;
+    particles = [];
+    animationId = null;
+    lastTime = 0;
+
     canvasRef = document.getElementById('traffic-canvas');
     if (!canvasRef) return;
 
@@ -516,7 +545,7 @@
     </div>
     
     <div class="hero-image">
-      <img src={project.image} alt="{project.title} preview" />
+      <img src={project.image} alt="{project.title} preview" width="800" height="600" />
     </div>
   </header>
 
@@ -524,13 +553,21 @@
   <section class="section features-section">
     <h2 class="section-title">Features</h2>
     <div class="features-grid">
-      {#each features as feature}
-        <div class="feature-card">
-          <span class="feature-icon">{feature.icon}</span>
-          <h3>{feature.title}</h3>
-          <p>{feature.description}</p>
-        </div>
-      {/each}
+      {#if loading}
+        {#each Array(4) as _}
+          <div class="feature-card skeleton">
+            <LoadingState type="skeleton" size="small" />
+          </div>
+        {/each}
+      {:else}
+        {#each features as feature}
+          <div class="feature-card">
+            <span class="feature-icon">{feature.icon}</span>
+            <h3>{feature.title}</h3>
+            <p>{feature.description}</p>
+          </div>
+        {/each}
+      {/if}
     </div>
   </section>
   {#if showSimulator}
@@ -552,16 +589,18 @@
               </div>
             </div>
             <div class="flex flex-wrap gap-2 md:gap-3 justify-center md:justify-end flex-shrink-0">
-              <button
-                on:click={() => isRunning = !isRunning}
-                class="px-4 py-2 md:px-6 md:py-2 rounded-lg font-semibold text-sm md:text-base transition-all {isRunning ? 'bg-amber-600 hover:bg-amber-700' : 'bg-green-600 hover:bg-green-700'} shadow-lg"
-              >
-                {isRunning ? 'Pause' : 'Start'}
-              </button>
+              {#if isRunning !== null}
+                <button
+                  on:click={() => isRunning = !isRunning}
+                  class="px-4 py-2 md:px-6 md:py-2 rounded-lg font-semibold text-sm md:text-base transition-all {isRunning ? 'bg-amber-600 hover:bg-amber-700' : 'bg-green-600 hover:bg-green-700'} shadow-lg"
+                >
+                  {isRunning ? 'Pause' : 'Start'}
+                </button>
+              {/if}
               <button
                 on:click={() => {
-                  particles = [];
-                  stats = { totalRequests: 0, botsBlocked: 0, usersVerified: 0, activeChecks: 0, avgScore: 0 };
+                  if (particles) particles = [];
+                  if (stats) stats = { totalRequests: 0, botsBlocked: 0, usersVerified: 0, activeChecks: 0, avgScore: 0 };
                   selectedParticle = null;
                 }}
                 class="px-4 py-2 md:px-6 md:py-2 bg-slate-700 hover:bg-slate-600 rounded-lg font-semibold text-sm md:text-base transition-all shadow-lg"
@@ -591,56 +630,69 @@
                 Live Statistics
               </h3>
               <div class="space-y-3">
-                <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
-                  <div class="flex items-center gap-3">
-                    <span class="text-blue-400">👥</span>
-                    <span class="text-sm text-slate-300">Total Requests</span>
+                {#if stats}
+                  <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
+                    <div class="flex items-center gap-3">
+                      <span class="text-blue-400">👥</span>
+                      <span class="text-sm text-slate-300">Total Requests</span>
+                    </div>
+                    <span class="text-xl font-bold text-blue-400">{stats.totalRequests}</span>
                   </div>
-                  <span class="text-xl font-bold text-blue-400">{stats.totalRequests}</span>
-                </div>
-                <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
-                  <div class="flex items-center gap-3">
-                    <span class="text-green-400">✅</span>
-                    <span class="text-sm text-slate-300">Users Verified</span>
+                  <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
+                    <div class="flex items-center gap-3">
+                      <span class="text-green-400">✅</span>
+                      <span class="text-sm text-slate-300">Users Verified</span>
+                    </div>
+                    <span class="text-xl font-bold text-green-400">{stats.usersVerified}</span>
                   </div>
-                  <span class="text-xl font-bold text-green-400">{stats.usersVerified}</span>
-                </div>
-                <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
-                  <div class="flex items-center gap-3">
-                    <span class="text-red-400">🚫</span>
-                    <span class="text-sm text-slate-300">Bots Blocked</span>
+                  <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
+                    <div class="flex items-center gap-3">
+                      <span class="text-red-400">🚫</span>
+                      <span class="text-sm text-slate-300">Bots Blocked</span>
+                    </div>
+                    <span class="text-xl font-bold text-red-400">{stats.botsBlocked}</span>
                   </div>
-                  <span class="text-xl font-bold text-red-400">{stats.botsBlocked}</span>
-                </div>
-                <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
-                  <div class="flex items-center gap-3">
-                    <span class="text-yellow-400">⚡</span>
-                    <span class="text-sm text-slate-300">Active Checks</span>
+                  <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
+                    <div class="flex items-center gap-3">
+                      <span class="text-yellow-400">⚡</span>
+                      <span class="text-sm text-slate-300">Active Checks</span>
+                    </div>
+                    <span class="text-xl font-bold text-yellow-400">{stats.activeChecks}</span>
                   </div>
-                  <span class="text-xl font-bold text-yellow-400">{stats.activeChecks}</span>
-                </div>
-                <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
-                  <div class="flex items-center gap-3">
-                    <span class="text-purple-400">📈</span>
-                    <span class="text-sm text-slate-300">Avg Score</span>
+                  <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
+                    <div class="flex items-center gap-3">
+                      <span class="text-purple-400">📈</span>
+                      <span class="text-sm text-slate-300">Avg Score</span>
+                    </div>
+                    <span class="text-xl font-bold text-purple-400">{Math.round(stats.avgScore)}</span>
                   </div>
-                  <span class="text-xl font-bold text-purple-400">{Math.round(stats.avgScore)}</span>
-                </div>
+                {:else}
+                  <div class="text-center text-slate-400 py-8">
+                    <div class="text-2xl mb-2">📊</div>
+                    <div>Initializing simulator...</div>
+                  </div>
+                {/if}
               </div>
             </div>
 
             <!-- Speed Control -->
             <div class="bg-slate-900 rounded-xl p-4 border border-slate-800 shadow-lg">
               <h3 class="text-lg font-bold mb-3">Simulation Speed</h3>
-              <input
-                type="range"
-                min="0.5"
-                max="3"
-                step="0.5"
-                bind:value={speed}
-                class="w-full"
-              />
-              <div class="text-center mt-2 text-cyan-400 font-mono">{speed}x</div>
+              {#if speed !== null}
+                <input
+                  type="range"
+                  min="0.5"
+                  max="3"
+                  step="0.5"
+                  bind:value={speed}
+                  class="w-full"
+                />
+                <div class="text-center mt-2 text-cyan-400 font-mono">{speed}x</div>
+              {:else}
+                <div class="text-center text-slate-400 py-4">
+                  <div class="text-sm">Loading controls...</div>
+                </div>
+              {/if}
             </div>
 
             <!-- Legend -->
@@ -721,9 +773,17 @@
   <section class="section stack-section">
     <h2 class="section-title">Tech Stack</h2>
     <div class="stack-grid">
-      {#each techStack as tech}
-        <span class="stack-badge" data-category={tech.category}>{tech.name}</span>
-      {/each}
+      {#if loading}
+        {#each Array(6) as _}
+          <span class="stack-badge skeleton">
+            <LoadingState type="skeleton" size="small" />
+          </span>
+        {/each}
+      {:else}
+        {#each techStack as tech}
+          <span class="stack-badge" data-category={tech.category}>{tech.name}</span>
+        {/each}
+      {/if}
     </div>
   </section>
 
@@ -1164,4 +1224,19 @@
   :global(.scrollbar-thumb-slate-600::-webkit-scrollbar-track) { background: #1e293b; }
   :global(.scrollbar-thumb-slate-600::-webkit-scrollbar-thumb) { background: #475569; border-radius: 3px; }
   :global(.scrollbar-thumb-slate-600::-webkit-scrollbar-thumb:hover) { background: #64748b; }
+
+  /* Skeleton loading states */
+  .feature-card.skeleton {
+    padding: 1.5rem;
+    border: 1px solid var(--surface0);
+    border-radius: var(--radius-lg);
+    background: var(--surface0);
+  }
+
+  .stack-badge.skeleton {
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    background: var(--surface0);
+    border: 1px solid var(--surface1);
+  }
 </style>

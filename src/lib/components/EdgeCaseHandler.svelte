@@ -45,7 +45,11 @@
   // Handle unhandled promise rejections
   function setupUnhandledRejectionHandler() {
     unhandledRejectionHandler = (event) => {
-      console.error('Unhandled promise rejection:', event.reason);
+      console.error('Unhandled promise rejection:', {
+        reason: event.reason,
+        promise: event.promise,
+        type: event.type
+      });
 
       // Prevent the default browser behavior (logging to console)
       event.preventDefault();
@@ -60,13 +64,24 @@
   // Handle global errors
   function setupGlobalErrorHandler() {
     globalErrorHandler = (message, source, lineno, colno, error) => {
-      console.error('Global error:', { message, source, lineno, colno, error });
+      console.error('Global error:', {
+        message: message || 'Unknown error',
+        source: source || 'Unknown source',
+        lineno: lineno || 'Unknown line',
+        colno: colno || 'Unknown column',
+        error: error ? {
+          name: error.name,
+          message: error.message,
+          stack: error.stack
+        } : null
+      });
 
       // Could send to error tracking service
       // sendErrorToService(error || message, 'global-error');
 
-      // Return true to prevent default browser error handling
-      return true;
+      // For debugging, don't prevent default browser error handling
+      // Return false to allow default browser error handling
+      return false;
     };
 
     window.onerror = globalErrorHandler;

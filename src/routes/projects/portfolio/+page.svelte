@@ -1,5 +1,7 @@
 <script>
   import SEO from '$lib/components/SEO.svelte';
+  import LoadingState from '$lib/components/LoadingState.svelte';
+  import { onMount } from 'svelte';
   
   const project = {
     title: 'Djx',
@@ -47,6 +49,15 @@
     { name: 'Vite', category: 'tool' },
     { name: 'GitHub Actions', category: 'tool' }
   ];
+  
+  let loading = true;
+  
+  onMount(() => {
+    // Brief loading state for polished UX
+    setTimeout(() => {
+      loading = false;
+    }, 100);
+  });
   
   const screenshots = [
     { src: '/projects/djx-cover.webp', alt: 'Djx portfolio homepage', caption: 'Main portfolio view' }
@@ -118,7 +129,7 @@
     </div>
     
     <div class="hero-image">
-      <img src={project.image} alt="{project.title} preview" />
+      <img src={project.image} alt="{project.title} preview" width="800" height="600" />
     </div>
   </header>
 
@@ -126,13 +137,21 @@
   <section class="section features-section">
     <h2 class="section-title">Features</h2>
     <div class="features-grid">
-      {#each features as feature}
-        <div class="feature-card">
-          <span class="feature-icon">{feature.icon}</span>
-          <h3>{feature.title}</h3>
-          <p>{feature.description}</p>
-        </div>
-      {/each}
+      {#if loading}
+        {#each Array(4) as _}
+          <div class="feature-card skeleton">
+            <LoadingState type="skeleton" size="small" />
+          </div>
+        {/each}
+      {:else}
+        {#each features as feature}
+          <div class="feature-card">
+            <span class="feature-icon">{feature.icon}</span>
+            <h3>{feature.title}</h3>
+            <p>{feature.description}</p>
+          </div>
+        {/each}
+      {/if}
     </div>
   </section>
 
@@ -140,9 +159,17 @@
   <section class="section stack-section">
     <h2 class="section-title">Tech Stack</h2>
     <div class="stack-grid">
-      {#each techStack as tech}
-        <span class="stack-badge" data-category={tech.category}>{tech.name}</span>
-      {/each}
+      {#if loading}
+        {#each Array(6) as _}
+          <span class="stack-badge skeleton">
+            <LoadingState type="skeleton" size="small" />
+          </span>
+        {/each}
+      {:else}
+        {#each techStack as tech}
+          <span class="stack-badge" data-category={tech.category}>{tech.name}</span>
+        {/each}
+      {/if}
     </div>
   </section>
 
@@ -510,5 +537,20 @@
     justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
+  }
+
+  /* Skeleton loading states */
+  .feature-card.skeleton {
+    padding: 1.5rem;
+    border: 1px solid var(--surface0);
+    border-radius: var(--radius-lg);
+    background: var(--surface0);
+  }
+
+  .stack-badge.skeleton {
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    background: var(--surface0);
+    border: 1px solid var(--surface1);
   }
 </style>
