@@ -112,7 +112,7 @@
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: var(--radius-md);
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     cursor: pointer;
     margin-top: 1rem;
   }

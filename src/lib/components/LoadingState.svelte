@@ -196,6 +196,7 @@
   .loading-text {
     color: var(--subtext0);
     font-size: 0.9rem;
+    font-weight: var(--font-weight-light);
     text-align: center;
     margin: 0;
   }

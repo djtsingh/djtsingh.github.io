@@ -270,7 +270,7 @@
   .status {
     padding: 0.25rem 0.75rem;
     font-size: 0.7rem;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border-radius: var(--radius-sm);
@@ -304,7 +304,7 @@
   .hero-content h1 {
     margin: 0 0 0.75rem;
     font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     color: var(--text);
   }
 
@@ -312,7 +312,7 @@
     margin: 0 0 1rem;
     font-size: 1.125rem;
     color: var(--accent);
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
   }
 
   .description {
@@ -347,7 +347,7 @@
     gap: 0.5rem;
     padding: 0.75rem 1.25rem;
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     border-radius: var(--radius-md);
     transition: all 0.15s ease;
     cursor: pointer;
@@ -392,7 +392,7 @@
   .section-title {
     margin: 0 0 1.5rem;
     font-size: 1.25rem;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     color: var(--text);
     display: flex;
     align-items: center;
@@ -434,7 +434,7 @@
   .feature-card h3 {
     margin: 0 0 0.5rem;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     color: var(--text);
   }
 
@@ -455,7 +455,7 @@
   .stack-badge {
     padding: 0.5rem 1rem;
     font-size: 0.8rem;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     background: var(--surface0);
     color: var(--text);
     border-radius: var(--radius-sm);
@@ -523,7 +523,7 @@
   .cta-content h2 {
     margin: 0 0 0.75rem;
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     color: var(--text);
   }
 

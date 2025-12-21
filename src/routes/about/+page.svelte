@@ -19,6 +19,7 @@
 />
 
 <div class="about-page">
+  <h1>About me</h1>
   <div class="about-grid">
     <!-- Portrait -->
     <div class="portrait">
@@ -135,6 +136,14 @@
     padding-top: 1.5rem;
   }
   
+  .about-page h1 {
+    font-size: 2.5rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--text);
+    margin-bottom: 2rem;
+    text-align: left;
+  }
+  
   .about-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -198,7 +207,7 @@
     gap: 0.5rem;
     padding: 0.65rem 1rem;
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     color: var(--text);
     background: transparent;
     border: 1px solid var(--surface1);
@@ -286,7 +295,7 @@
   
   .use-category h3 {
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     color: var(--text);
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
@@ -313,13 +322,14 @@
   }
   
   .tool-name {
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     color: var(--text);
     font-size: 0.9rem;
   }
   
   .tool-detail {
     font-size: 0.8rem;
+    font-weight: var(--font-weight-light);
     color: var(--subtext1);
     text-align: right;
     white-space: nowrap;

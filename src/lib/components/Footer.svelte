@@ -50,12 +50,13 @@
         title="System status and performance metrics"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M12 1v6m0 6v6"/>
-          <path d="m16.24 7.76-4.24 4.24-4.24-4.24"/>
-          <path d="m7.76 16.24 4.24-4.24 4.24 4.24"/>
+          <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5.5-2c.71-.72.53-1.7.53-1.7"/>
+          <path d="M15 6c0 2.5-1.5 4.5-3 4.5s-3-2-3-4.5 1.5-6 3-6 3 3.5 3 6Z"/>
+          <path d="M8.5 12.5c-1.5 1.26-2 5-2 5s3.74-.5 5.5-2c.71-.72.53-1.7.53-1.7"/>
+          <path d="M12 8v4"/>
+          <path d="M16 9.5c1.5 1.26 2 5 2 5s-3.74-.5-5.5-2c-.71-.72-.53-1.7-.53-1.7"/>
         </svg>
-        <span>All Services Nominal</span>
+        <span>All Systems Go!</span>
       </a>
     </div>
     
@@ -181,6 +182,7 @@
   .copyright {
     margin: 0;
     font-size: 0.85rem;
+    font-weight: var(--font-weight-light);
     color: var(--subtext0);
     white-space: nowrap;
   }
@@ -192,7 +194,7 @@
     padding: 0.4rem 0;
     background: transparent;
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     color: var(--text);
     text-decoration: none;
     transition: color 0.2s ease;
@@ -209,7 +211,7 @@
   }
   
   .carbon-rating {
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     color: #a6e3a1;
   }
   
@@ -225,7 +227,7 @@
     padding: 0.4rem 0;
     background: transparent;
     font-size: 0.8rem;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     color: var(--text);
     text-decoration: none;
     transition: color 0.2s ease;

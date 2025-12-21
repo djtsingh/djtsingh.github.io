@@ -112,7 +112,7 @@
   .kicker {
     margin: 0 0 0.75rem;
     font-size: 0.7rem;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     letter-spacing: 0.4em;
     text-transform: uppercase;
     color: var(--subtext1);
@@ -128,7 +128,7 @@
   .hero-title {
     margin: 0 0 1rem;
     font-size: clamp(1.75rem, 5vw, 2.75rem);
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     line-height: 1.15;
     color: var(--text);
   }
@@ -157,7 +157,7 @@
     gap: 0.5rem;
     padding: 0.65rem 1rem;
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     color: var(--text);
     background: transparent;
     border: 1px solid var(--surface1);

@@ -157,7 +157,7 @@
     padding: 8px 16px;
     border-radius: var(--radius-md);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     z-index: 1000;
     transition: top 0.2s ease;
     opacity: 0;  /* Make completely invisible */

@@ -79,7 +79,7 @@
   
   .digit {
     font-size: clamp(4rem, 15vw, 8rem);
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     color: var(--accent);
     line-height: 1;
     animation: fadeIn 0.5s ease-out;
@@ -108,7 +108,7 @@
   
   .error-title {
     font-size: 2rem;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     color: var(--text);
     margin: 0 0 1rem;
   }
@@ -187,7 +187,7 @@
     background: var(--accent);
     color: var(--crust);
     border-radius: var(--radius-md);
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }

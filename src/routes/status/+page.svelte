@@ -371,7 +371,7 @@
   }
 
   .status-text {
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     font-size: 1.1rem;
   }
 
@@ -402,7 +402,7 @@
 
   .metric-value {
     font-size: 2rem;
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     color: var(--accent);
     margin: 0.5rem 0;
   }
@@ -414,7 +414,7 @@
   }
 
   .metric-status {
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     font-size: 0.9rem;
   }
 

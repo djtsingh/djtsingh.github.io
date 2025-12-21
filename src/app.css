@@ -5,27 +5,70 @@
 
 /* Global styles and design tokens */
 
-/* Self-hosted fonts */
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: optional;
-  src: url('/fonts/jetbrainsmono-400.woff2') format('woff2');
+/* Self-hosted fonts with semantic weight variables */
+
+/* Font weight semantic variables */
+:root {
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 }
+
+/* ExtraLight (200) - Very subtle text */
 @font-face {
   font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-ExtraLight.woff') format('woff');
+  font-weight: var(--font-weight-extralight);
   font-style: normal;
-  font-weight: 500;
-  font-display: optional;
-  src: url('/fonts/jetbrainsmono-500.woff2') format('woff2');
+  font-display: swap;
 }
+
+/* Light (300) - Subtle text when needed */
 @font-face {
   font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-Light.woff') format('woff');
+  font-weight: var(--font-weight-light);
   font-style: normal;
-  font-weight: 700;
-  font-display: optional;
-  src: url('/fonts/jetbrainsmono-700.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* Regular (400) - Body text */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-Regular.woff') format('woff');
+  font-weight: var(--font-weight-regular);
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Medium (500) - Subtle emphasis */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-Medium.woff') format('woff');
+  font-weight: var(--font-weight-medium);
+  font-style: normal;
+  font-display: swap;
+}
+
+/* SemiBold (600) - Headings & Buttons */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-SemiBold.woff') format('woff');
+  font-weight: var(--font-weight-semibold);
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bold (700) - Strong emphasis */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-Bold.woff') format('woff');
+  font-weight: var(--font-weight-bold);
+  font-style: normal;
+  font-display: swap;
 }
 
 /* Design tokens */
@@ -170,6 +213,7 @@ html, body {
   width: 100%;
   overflow-x: hidden;
   font-family: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Monaco, monospace;
+  font-weight: var(--font-weight-regular);
   background-color: var(--mantle);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
@@ -228,7 +272,7 @@ button:active, .btn:active, a[class*="btn"]:active, a[class*="chip"]:active {
 .inline-link {
   position: relative;
   color: var(--accent);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   text-decoration: none;
   text-decoration-line: underline;
   text-decoration-style: solid;
@@ -268,7 +312,7 @@ button:active, .btn:active, a[class*="btn"]:active, a[class*="chip"]:active {
 .email-link {
   position: relative;
   color: var(--accent);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   text-decoration: underline;
   text-decoration-thickness: 1.5px;
   text-underline-offset: 3px;

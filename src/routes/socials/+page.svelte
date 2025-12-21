@@ -127,7 +127,7 @@
   .kicker {
     margin: 0 0 0.5rem;
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--accent);
@@ -140,7 +140,7 @@
     gap: 0.75rem;
     margin: 0 0 0.75rem;
     font-size: clamp(2rem, 5vw, 2.5rem);
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     color: var(--text);
   }
   
@@ -228,7 +228,7 @@
   .social-platform {
     margin: 0 0 0.25rem;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     color: var(--text);
     transition: color var(--duration-fast) var(--ease-smooth);
   }
@@ -288,7 +288,7 @@
   .qr-section h2 {
     margin: 0 0 0.5rem;
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     color: var(--text);
   }
 
