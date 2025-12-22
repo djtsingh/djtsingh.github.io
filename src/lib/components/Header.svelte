@@ -45,7 +45,7 @@
       <a href="/about" class:active={currentPath === '/about'}>About</a>
       <a href="/projects" class:active={currentPath === '/projects'}>Projects</a>
       <a href="/posts" class:active={currentPath === '/posts'}>Posts</a>
-      <a href="/assets/DJ_resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+      <a href="/assets/dj-web.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
       <button on:click={toggleMorePanel}>More...</button>
     </nav>
     
