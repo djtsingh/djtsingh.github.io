@@ -12,7 +12,22 @@
     loadTime: null
   };
 
-  // Web Vitals monitoring
+  // Send performance data to Google Analytics
+  function sendToAnalytics(metric, value, additionalData = {}) {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'performance_metric', {
+        event_category: 'Performance',
+        event_label: metric,
+        value: Math.round(value),
+        custom_map: {
+          metric_value: value,
+          ...additionalData
+        }
+      });
+    }
+  }
+
+  // Enhanced Web Vitals monitoring with GA tracking
   function initWebVitals() {
     // Largest Contentful Paint
     new PerformanceObserver((list) => {
@@ -20,6 +35,7 @@
       const lastEntry = entries[entries.length - 1];
       metrics.lcp = lastEntry.startTime;
       performanceMetrics.update(m => ({ ...m, lcp: metrics.lcp }));
+      sendToAnalytics('LCP', metrics.lcp, { element: lastEntry.element?.tagName });
     }).observe({ entryTypes: ['largest-contentful-paint'] });
 
     // First Input Delay
@@ -29,6 +45,7 @@
         if (entry.processingStart > 0) {
           metrics.fid = entry.processingStart - entry.startTime;
           performanceMetrics.update(m => ({ ...m, fid: metrics.fid }));
+          sendToAnalytics('FID', metrics.fid);
         }
       });
     }).observe({ entryTypes: ['first-input'] });
@@ -44,6 +61,7 @@
       });
       metrics.cls = clsValue;
       performanceMetrics.update(m => ({ ...m, cls: metrics.cls }));
+      sendToAnalytics('CLS', metrics.cls * 1000); // Convert to milliseconds for GA
     }).observe({ entryTypes: ['layout-shift'] });
 
     // First Contentful Paint
@@ -53,6 +71,7 @@
         if (entry.name === 'first-contentful-paint') {
           metrics.fcp = entry.startTime;
           performanceMetrics.update(m => ({ ...m, fcp: metrics.fcp }));
+          sendToAnalytics('FCP', metrics.fcp);
         }
       });
     }).observe({ entryTypes: ['paint'] });
@@ -85,6 +104,10 @@
         loadTime: metrics.loadTime,
         ttfb: metrics.ttfb
       }));
+
+      // Send to analytics
+      sendToAnalytics('Page_Load_Time', metrics.loadTime);
+      sendToAnalytics('TTFB', metrics.ttfb);
     }
   }
 

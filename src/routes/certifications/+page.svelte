@@ -196,7 +196,7 @@
       credentialId: '90518366',
       description: 'Expertise in using the Google Ads platform, skills in areas like Search, Display, Video, Shopping, Measurement, and Apps',
       badgeId: 'google-ads',
-      verifyUrl: '/assets/certs/gads.png',
+      verifyUrl: '#',
       skills: ['Keyword research ', 'Bidding Strategies', 'Promotion'],
       status: 'active',
       getImage: () => generateBadgeUrl('ads', 'Google', 'Ads Certified')

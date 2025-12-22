@@ -88,15 +88,51 @@
     }
   });
   
+  // Generate Organization schema
+  $: organizationSchema = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${siteConfig.url}/#organization`,
+    name: `${siteConfig.name} - Portfolio`,
+    url: siteConfig.url,
+    logo: `${siteConfig.url}/assets/optimized/dj-web.jpg`,
+    description: siteConfig.description,
+    founder: { '@id': `${siteConfig.url}/#person` },
+    sameAs: [
+      siteConfig.socials.github,
+      siteConfig.socials.linkedin,
+      siteConfig.socials.twitter
+    ]
+  });
+
   // Generate WebSite schema
   $: websiteSchema = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     '@id': `${siteConfig.url}/#website`,
     url: siteConfig.url,
-    name: `${siteConfig.name} - Portfolio`,
+    name: siteConfig.name,
     description: siteConfig.description,
-    author: { '@id': `${siteConfig.url}/#person` }
+    publisher: { '@id': `${siteConfig.url}/#organization` },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${siteConfig.url}/search?q={search_term_string}`,
+      'query-input': 'required name=search_term_string'
+    }
+  });
+
+  // Generate BreadcrumbList schema for navigation
+  $: breadcrumbSchema = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteConfig.url
+      }
+    ]
   });
 </script>
 
@@ -106,7 +142,7 @@
   <link rel="canonical" href={canonicalUrl} />
   
   <!-- Apple Touch Icon -->
-  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" href="/assets/optimized/apple-touch-icon.png" />
   
   <!-- Author & Creator -->
   <meta name="author" content={siteConfig.name} />
@@ -123,17 +159,32 @@
   <meta property="og:url" content={canonicalUrl} />
   <meta property="og:locale" content="en_US" />
   
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content={siteConfig.twitterHandle} />
-  <meta name="twitter:creator" content={siteConfig.twitterHandle} />
-  <meta name="twitter:title" content={pageTitle} />
-  <meta name="twitter:description" content={pageDescription} />
-  <meta name="twitter:image" content={fullImageUrl} />
+  <!-- Enhanced Meta Tags -->
+  <meta name="keywords" content="Daljeet Singh Lotey, software engineer, data science, portfolio, AI, machine learning, full-stack development, Python, JavaScript" />
+  <meta name="theme-color" content="#1e1e2e" />
+  <meta name="msapplication-TileColor" content="#1e1e2e" />
+  <meta name="application-name" content={siteConfig.name} />
+  
+  <!-- Additional Open Graph -->
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:alt" content={`${siteConfig.name} - ${siteConfig.jobTitle}`} />
+  
+  <!-- Twitter Card Enhancements -->
+  <meta name="twitter:image:alt" content={`${siteConfig.name} - ${siteConfig.jobTitle}`} />
+  
+  <!-- Article specific (for blog posts if added later) -->
+  {#if pageType === 'article'}
+    <meta property="article:author" content={siteConfig.name} />
+    <meta property="article:publisher" content={siteConfig.socials.linkedin} />
+  {/if}
   
   <!-- JSON-LD Structured Data -->
   {@html `<script type="application/ld+json">${personSchema}</script>`}
   {@html `<script type="application/ld+json">${websiteSchema}</script>`}
+  {@html `<script type="application/ld+json">${organizationSchema}</script>`}
+  {@html `<script type="application/ld+json">${breadcrumbSchema}</script>`}
   
   <!-- Robots -->
   {#if mergedMeta.noindex}

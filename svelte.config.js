@@ -18,7 +18,8 @@ const config = {
       entries: ['*']
     },
     serviceWorker: {
-      register: false // We'll add this later if needed
+      register: false,
+      files: (filename) => !filename.includes('node_modules')
     },
     csp: {
       mode: 'auto'

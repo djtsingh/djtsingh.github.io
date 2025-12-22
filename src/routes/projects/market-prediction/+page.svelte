@@ -129,7 +129,7 @@
     </div>
     
     <div class="hero-image">
-      <img src={project.image} alt="{project.title} preview" width="800" height="600" />
+      <img src={project.image} alt="{project.title} preview" width="800" height="600" loading="eager" fetchpriority="high" />
     </div>
   </header>
 
@@ -180,7 +180,7 @@
       <div class="screenshots-grid">
         {#each screenshots as screenshot}
           <figure class="screenshot">
-            <img src={screenshot.src} alt={screenshot.alt} />
+            <img src={screenshot.src} alt={screenshot.alt} loading="lazy" />
             {#if screenshot.caption}
               <figcaption>{screenshot.caption}</figcaption>
             {/if}

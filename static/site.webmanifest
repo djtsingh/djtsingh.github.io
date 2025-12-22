@@ -1,0 +1,43 @@
+{
+  "name": "Daljeet Singh Lotey - Portfolio",
+  "short_name": "Daljeet Singh",
+  "description": "Software engineer and CS grad specializing in full-stack development, data engineering, and AI. Portfolio showcasing projects in AI, data visualization, and experiments.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1e1e2e",
+  "theme_color": "#1e1e2e",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-US",
+  "categories": ["portfolio", "technology", "software-development"],
+  "icons": [
+    {
+      "src": "/assets/optimized/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/optimized/dj-web.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "About",
+      "short_name": "About",
+      "description": "Learn more about Daljeet Singh Lotey",
+      "url": "/about",
+      "icons": [{ "src": "/assets/optimized/dj-web.jpg", "sizes": "96x96" }]
+    },
+    {
+      "name": "Projects",
+      "short_name": "Projects",
+      "description": "View portfolio projects",
+      "url": "/projects",
+      "icons": [{ "src": "/assets/optimized/dj-web.jpg", "sizes": "96x96" }]
+    }
+  ]
+}

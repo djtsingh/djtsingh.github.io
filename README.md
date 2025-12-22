@@ -16,6 +16,24 @@ A modern, component-based portfolio built with SvelteKit and deployed to GitHub 
 
 ---
 
-## 📄 License
+## � Monitoring & Analytics
+
+### Google Analytics 4
+- **Tracking ID**: `G-84DNZR8VET`
+- **Web Vitals**: Automatic Core Web Vitals tracking (LCP, FID, CLS, FCP, TTFB)
+- **Custom Events**: Performance metrics, user interactions
+
+### Error Tracking
+- **Sentry**: Configured for client and server-side error tracking
+- **Environment Variables**: Set `PUBLIC_SENTRY_DSN` in production
+
+### Performance Monitoring
+- **Real-time Metrics**: Web Vitals, memory usage, load times
+- **Uptime Monitoring**: `/health` endpoint for uptime checks
+- **Bundle Analysis**: Automated bundle size tracking
+
+---
+
+## �📄 License
 
 MIT

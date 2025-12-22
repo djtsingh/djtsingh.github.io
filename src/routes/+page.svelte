@@ -50,7 +50,15 @@
       <article class="project-card">
         {#if project.slug}
           <a href="/projects/{project.slug}" class="project-link">
-            <img src={project.image} alt="{project.title} screenshot" class="project-img" />
+            <img 
+              src={project.image} 
+              alt="{project.title} screenshot" 
+              class="project-img"
+              width="400"
+              height="225"
+              loading="lazy"
+              decoding="async"
+            />
             <div class="project-content">
               <h3 class="project-title">{project.title}</h3>
               <p class="project-desc">{project.description}</p>
@@ -62,7 +70,15 @@
             </div>
           </a>
         {:else}
-          <img src={project.image} alt="{project.title} screenshot" class="project-img" />
+          <img 
+            src={project.image} 
+            alt="{project.title} screenshot" 
+            class="project-img"
+            width="400"
+            height="225"
+            loading="lazy"
+            decoding="async"
+          />
           <div class="project-content">
             <h3 class="project-title">{project.title}</h3>
             <p class="project-desc">{project.description}</p>

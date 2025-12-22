@@ -143,6 +143,23 @@
   Skip to main content
 </a>
 
+<!-- Skip to navigation link -->
+<a
+  href="#site-navigation"
+  class="skip-link"
+  data-skip-link
+  on:click={(e) => {
+    e.preventDefault();
+    const target = document.getElementById('site-navigation');
+    if (target) {
+      target.focus();
+      target.scrollIntoView({ behavior: prefs.reducedMotion ? 'auto' : 'smooth' });
+    }
+  }}
+>
+  Skip to navigation
+</a>
+
 <!-- Screen reader status announcements -->
 <div aria-live="polite" aria-atomic="true" class="sr-status" style="position: absolute; left: -10000px;"></div>
 

@@ -1,22 +1,30 @@
 <script>
   import { page } from '$app/stores';
-  import ThemeSelector from './ThemeSelector.svelte';
+  import UnifiedMenu from './UnifiedMenu.svelte';
   
-  let sidebarOpen = false;
-  let morePanelOpen = false;
+  let menuOpen = false;
   
-  function toggleSidebar() {
-    sidebarOpen = !sidebarOpen;
+  function toggleMenu() {
+    menuOpen = !menuOpen;
   }
   
-  function toggleMorePanel() {
-    morePanelOpen = !morePanelOpen;
+  function closeMenu() {
+    menuOpen = false;
   }
   
-  function closePanels() {
-    sidebarOpen = false;
-    morePanelOpen = false;
-  }
+  // Navigation items
+  const mainNavItems = [
+    { href: '/about', label: 'About' },
+    { href: '/projects', label: 'Projects' },
+    { href: '/posts', label: 'Posts' },
+    { href: '/assets/dj-web.pdf', label: 'Resume', external: true }
+  ];
+  
+  const moreNavItems = [
+    { href: '/journey', label: 'Journey' },
+    { href: '/certifications', label: 'Certifications' },
+    { href: '/socials', label: 'Socials' }
+  ];
   
   // Get current page name for terminal nav
   $: currentPath = $page.url.pathname;
@@ -26,83 +34,63 @@
   $: shortDisplayName = displayName ? '/' + displayName + '/' : '';
 </script>
 
-<header class="header">
+<header class="header" role="banner">
   <div class="container header-inner">
     <!-- Terminal nav -->
-    <nav class="terminal-nav">
-      <a href="/" class="tilde">$</a>
+    <nav class="terminal-nav" aria-label="Breadcrumb navigation">
+      <a href="/" class="tilde" aria-label="Go to home page">$</a>
       {#if pageName}
         <!-- Full path for wide screens -->
-        <span class="current-path full-path">{fullPath}</span>
+        <span class="current-path full-path" aria-hidden="true">{fullPath}</span>
         <!-- Shortened path for narrow screens -->
-        <span class="current-path short-path">{shortDisplayName}</span>
+        <span class="current-path short-path" aria-hidden="true">{shortDisplayName}</span>
       {/if}
-      <span class="cursor"></span>
+      <span class="cursor" aria-hidden="true"></span>
     </nav>
     
     <!-- Desktop nav -->
-    <nav class="desktop-nav">
-      <a href="/about" class:active={currentPath === '/about'}>About</a>
-      <a href="/projects" class:active={currentPath === '/projects'}>Projects</a>
-      <a href="/posts" class:active={currentPath === '/posts'}>Posts</a>
-      <a href="/assets/dj-web.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
-      <button on:click={toggleMorePanel}>More...</button>
+    <nav class="desktop-nav" role="navigation" aria-label="Main navigation" id="site-navigation">
+      {#each mainNavItems as item}
+        <a 
+          href={item.href} 
+          class:active={currentPath === item.href} 
+          target={item.external ? '_blank' : null} 
+          rel={item.external ? 'noopener noreferrer' : null}
+          aria-current={currentPath === item.href ? 'page' : null}
+        >
+          {item.label}
+          {#if item.external}
+            <span class="sr-only">(opens in new tab)</span>
+          {/if}
+        </a>
+      {/each}
+      <button 
+        on:click={toggleMenu} 
+        aria-expanded={menuOpen}
+        aria-controls="unified-menu"
+        aria-label="Open additional navigation menu"
+      >
+        More...
+      </button>
     </nav>
     
-    <!-- Mobile menu button -->
-    <button class="mobile-menu-btn" on:click={toggleSidebar} aria-label="Open menu">
-      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Mobile Menu Button (narrow screens only) -->
+    <button 
+      class="mobile-menu-btn" 
+      on:click={toggleMenu} 
+      aria-expanded={menuOpen}
+      aria-controls="unified-menu"
+      aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M3 6h18M3 12h18M3 18h18"></path>
       </svg>
     </button>
   </div>
 </header>
 
-<!-- Overlay -->
-{#if sidebarOpen || morePanelOpen}
-  <div class="overlay" on:click={closePanels} on:keydown={closePanels} role="button" tabindex="0"></div>
-{/if}
-
-<!-- Mobile Sidebar -->
-<aside class="sidebar" class:open={sidebarOpen}>
-  <div class="sidebar-header">
-    <span class="sidebar-title">Navigation</span>
-    <button class="close-btn" on:click={toggleSidebar} aria-label="Close menu">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 6L6 18M6 6l12 12"></path>
-      </svg>
-    </button>
-  </div>
-  <nav class="sidebar-nav">
-    <a href="/about" on:click={closePanels}>About</a>
-    <a href="/projects" on:click={closePanels}>Projects</a>
-    <a href="/posts" on:click={closePanels}>Posts</a>
-    <a href="/journey" on:click={closePanels}>Journey</a>
-    <a href="/certifications" on:click={closePanels}>Certifications</a>
-    <a href="/socials" on:click={closePanels}>Socials</a>
-    <a href="/assets/DJ_resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
-  </nav>
-  <div class="sidebar-footer">
-    <ThemeSelector />
-  </div>
-</aside>
-
-<!-- More Panel -->
-<aside class="more-panel" class:open={morePanelOpen}>
-  <div class="panel-header">
-    <strong>More</strong>
-    <button class="close-btn" on:click={toggleMorePanel} aria-label="Close">✕</button>
-  </div>
-  <div class="panel-content">
-    <nav class="more-nav">
-      <a href="/journey" on:click={closePanels}>Journey</a>
-      <a href="/certifications" on:click={closePanels}>Certifications</a>
-      <a href="/socials" on:click={closePanels}>Socials</a>
-    </nav>
-    <div class="more-divider"></div>
-    <ThemeSelector />
-  </div>
-</aside>
+<!-- Unified Menu -->
+<UnifiedMenu {menuOpen} {toggleMenu} {closeMenu} {mainNavItems} {moreNavItems} />
 
 <style>
   .header {
@@ -198,6 +186,8 @@
   
   .mobile-menu-btn {
     display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 0.5rem;
     background: transparent;
     border: none;
@@ -221,176 +211,17 @@
       display: none;
     }
   }
-  
-  /* Overlay */
-  .overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 110;
-    animation: fadeIn 0.2s ease;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      backdrop-filter: blur(0px);
-      -webkit-backdrop-filter: blur(0px);
-    }
-    to {
-      opacity: 1;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-  }
-  
-  /* Sidebar */
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 80%;
-    max-width: 320px;
-    background: var(--mantle);
-    border-right: 1px solid var(--surface0);
-    z-index: 120;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .sidebar.open {
-    transform: translateX(0);
-  }
-  
-  .sidebar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 4rem;
-    padding: 0 var(--gutter);
-    border-bottom: 1px solid var(--surface0);
-  }
-  
-  .sidebar-title {
-    color: var(--accent);
-    font-size: 1.125rem;
-    font-weight: 600;
-  }
-  
-  .close-btn {
-    background: transparent;
-    border: none;
-    color: var(--subtext1);
-    cursor: pointer;
-    padding: 4px;
-    border-radius: var(--radius-sm);
-    transition: color 0.15s ease;
-  }
-  
-  .close-btn:hover {
-    color: var(--red);
-  }
-  
-  .sidebar-nav {
-    flex: 1;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .sidebar-nav a {
-    display: block;
-    padding: 0.75rem 1rem;
-    border-radius: var(--radius-sm);
-    color: var(--text);
-    transition: background 0.15s ease, color 0.15s ease;
-  }
-  
-  .sidebar-nav a:hover {
-    background: var(--surface0);
-    color: var(--accent);
-  }
-  
-  .sidebar-footer {
-    padding: 1rem;
-    border-top: 1px solid var(--surface0);
-  }
-  
-  /* More Panel */
-  .more-panel {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 20%;
-    max-width: 360px;
-    min-width: 280px;
-    background: var(--mantle);
-    border-right: 1px solid var(--surface0);
-    z-index: 120;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-  }
-  
-  .more-panel.open {
-    transform: translateX(0);
-  }
-  
-  .panel-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 4rem;
-    padding: 0 1rem;
-    border-bottom: 1px solid var(--surface0);
-  }
-  
-  .panel-header strong {
-    color: var(--text);
-  }
-  
-  .panel-content {
-    padding: 1rem;
-    overflow-y: auto;
-    height: calc(100% - 4rem);
-  }
-  
-  .more-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .more-nav a {
-    display: block;
-    padding: 0.75rem 1rem;
-    border-radius: var(--radius-sm);
-    color: var(--text);
-    transition: background 0.15s ease, color 0.15s ease;
-  }
-  
-  .more-nav a:hover {
-    background: var(--surface0);
-    color: var(--accent);
-  }
-  
-  .more-divider {
+
+  /* Screen reader only text */
+  .sr-only {
+    position: absolute;
+    width: 1px;
     height: 1px;
-    background: var(--surface0);
-    margin: 1rem 0;
-  }
-  
-  @media (max-width: 640px) {
-    .more-panel {
-      width: 80%;
-      max-width: none;
-    }
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 </style>
