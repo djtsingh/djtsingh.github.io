@@ -2,5 +2,18 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  plugins: [sveltekit()]
+  plugins: [sveltekit()],
+  build: {
+    cssCodeSplit: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['svelte', '@sveltejs/kit']
+        }
+      }
+    }
+  },
+  css: {
+    devSourcemap: true
+  }
 });

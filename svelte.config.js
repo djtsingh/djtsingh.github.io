@@ -14,7 +14,14 @@ const config = {
       base: ""
     },
     prerender: {
-      handleHttpError: 'warn'
+      handleHttpError: 'warn',
+      entries: ['*']
+    },
+    serviceWorker: {
+      register: false // We'll add this later if needed
+    },
+    csp: {
+      mode: 'auto'
     }
   }
 };

@@ -41,23 +41,6 @@
   <div class="footer-card">
     <div class="footer-section footer-left">
       <p class="copyright">© {year} Daljeet Singh Lotey</p>
-      
-      <span class="separator">•</span>
-      
-      <a 
-        href="/status"
-        class="stat-badge"
-        title="System status and performance metrics"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5.5-2c.71-.72.53-1.7.53-1.7"/>
-          <path d="M15 6c0 2.5-1.5 4.5-3 4.5s-3-2-3-4.5 1.5-6 3-6 3 3.5 3 6Z"/>
-          <path d="M8.5 12.5c-1.5 1.26-2 5-2 5s3.74-.5 5.5-2c.71-.72.53-1.7.53-1.7"/>
-          <path d="M12 8v4"/>
-          <path d="M16 9.5c1.5 1.26 2 5 2 5s-3.74-.5-5.5-2c-.71-.72-.53-1.7-.53-1.7"/>
-        </svg>
-        <span>All Systems Go!</span>
-      </a>
     </div>
     
     <div class="footer-section footer-right">

@@ -19,7 +19,7 @@
 />
 
 <div class="about-page">
-  <h1>About me</h1>
+  <h1>About Me</h1>
   <div class="about-grid">
     <!-- Portrait -->
     <div class="portrait">
