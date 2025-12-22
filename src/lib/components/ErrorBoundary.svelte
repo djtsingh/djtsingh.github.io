@@ -2,10 +2,6 @@
   import { onMount } from 'svelte';
   import { dev } from '$app/environment';
 
-<script>
-  import { onMount } from 'svelte';
-  import { dev } from '$app/environment';
-
   // Simple error display component - can be triggered manually
   let hasError = false;
   let error = null;
@@ -43,8 +39,6 @@
     };
   });
 </script>
-
-
 
 {#if hasError}
   <div class="error-boundary" role="alert">

@@ -35,15 +35,34 @@
     knowsAbout: ['Software Engineering', 'Data Science', 'Machine Learning', 'Full-Stack Development', 'Python', 'JavaScript']
   };
 
-  /** @type {{ title?: string, description?: string, image?: string, type?: string, noindex?: boolean, canonical?: string }} */
+  // Meta props interface (for documentation)
+  // title?: string, description?: string, image?: string, type?: string, noindex?: boolean, canonical?: string
+  export let title = undefined;
+  export let description = undefined;
+  export let image = undefined;
+  export let type = undefined;
+  export let noindex = undefined;
+  export let canonical = undefined;
+
+  // For backward compatibility with meta object
   export let meta = {};
 
-  $: pageTitle = meta.title ? `${meta.title} — ${siteConfig.name}` : siteConfig.name;
-  $: pageDescription = meta.description || siteConfig.description;
-  $: pageImage = meta.image || siteConfig.image;
-  $: fullImageUrl = pageImage.startsWith('http') ? pageImage : `${siteConfig.url}${pageImage}`;
-  $: pageType = meta.type || 'website';
-  $: canonicalUrl = meta.canonical || siteConfig.url;
+  // Merge individual props with meta object (individual props take precedence)
+  $: mergedMeta = {
+    title: title ?? meta.title,
+    description: description ?? meta.description,
+    image: image ?? meta.image,
+    type: type ?? meta.type,
+    noindex: noindex ?? meta.noindex,
+    canonical: canonical ?? meta.canonical
+  };
+
+  $: pageTitle = mergedMeta.title ? `${mergedMeta.title} — ${siteConfig.name}` : siteConfig.name;
+  $: pageDescription = mergedMeta.description || siteConfig.description;
+  $: pageImage = mergedMeta.image || siteConfig.image;
+  $: fullImageUrl = pageImage.startsWith('http') || pageImage.startsWith('//') ? pageImage : `${siteConfig.url}${pageImage}`;
+  $: pageType = mergedMeta.type || 'website';
+  $: canonicalUrl = mergedMeta.canonical ? (mergedMeta.canonical.startsWith('http') ? mergedMeta.canonical : `${siteConfig.url}${mergedMeta.canonical}`) : siteConfig.url;
   
   // Generate JSON-LD Person schema
   $: personSchema = JSON.stringify({
@@ -117,7 +136,7 @@
   {@html `<script type="application/ld+json">${websiteSchema}</script>`}
   
   <!-- Robots -->
-  {#if meta.noindex}
+  {#if mergedMeta.noindex}
     <meta name="robots" content="noindex,follow" />
   {:else}
     <meta name="robots" content="index,follow" />
