@@ -1,6 +1,6 @@
 <script>
   import { page } from '$app/stores';
-  import { fade, fly } from 'svelte/transition';
+  import { fade } from 'svelte/transition';
   import '../app.css';
   import Header from '$lib/components/Header.svelte';
   import Footer from '$lib/components/Footer.svelte';
@@ -8,7 +8,6 @@
   import EdgeCaseHandler from '$lib/components/EdgeCaseHandler.svelte';
   
   const IS_PROD = import.meta.env.PROD;
-  $: pageKey = $page.url.pathname;
 </script>
 
 <svelte:head>
@@ -31,11 +30,9 @@
     <Header />
     
     <main class="main" id="main-content">
-      {#key pageKey}
-        <div class="page-transition" in:fly={{ y: 20, duration: 400, delay: 200 }} out:fade={{ duration: 200 }}>
-          <slot />
-        </div>
-      {/key}
+      <div class="page-transition" in:fade={{ duration: 200 }} out:fade={{ duration: 200 }}>
+        <slot />
+      </div>
     </main>
     
     <Footer />

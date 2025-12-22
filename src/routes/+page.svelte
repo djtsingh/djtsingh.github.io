@@ -109,22 +109,6 @@
     }
   }
   
-  .kicker {
-    margin: 0 0 0.75rem;
-    font-size: 0.7rem;
-    font-weight: var(--font-weight-semibold);
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    color: var(--subtext1);
-  }
-  
-  @media (max-width: 768px) {
-    .kicker {
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-    }
-  }
-  
   .hero-title {
     margin: 0 0 1rem;
     font-size: clamp(1.75rem, 5vw, 2.75rem);

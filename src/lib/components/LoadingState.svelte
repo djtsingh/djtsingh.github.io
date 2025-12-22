@@ -2,7 +2,9 @@
   import { onMount } from 'svelte';
 
   export let type = 'spinner'; // 'spinner', 'skeleton', 'pulse', 'dots'
+  // svelte-ignore export_let_unused - Used in dynamic class bindings
   export let size = 'medium'; // 'small', 'medium', 'large'
+  // svelte-ignore export_let_unused - Used in dynamic class bindings
   export let color = 'accent'; // 'accent', 'text', 'subtext'
   export let text = ''; // Optional loading text
   export let overlay = false; // Whether to show as overlay
@@ -52,6 +54,8 @@
 {/if}
 
 <style>
+  /* eslint-disable css-unused-selector */
+  
   .loading-container {
     display: flex;
     flex-direction: column;
@@ -76,13 +80,19 @@
   }
 
   /* Size variants */
+  /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
   .size-small { --size: 1.5rem; }
+  /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
   .size-medium { --size: 2.5rem; }
+  /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
   .size-large { --size: 4rem; }
 
   /* Color variants */
+  /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
   .color-accent { --loading-color: var(--accent); }
+  /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
   .color-text { --loading-color: var(--text); }
+  /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
   .color-subtext { --loading-color: var(--subtext0); }
 
   /* Spinner */
@@ -203,8 +213,13 @@
 
   /* Responsive adjustments */
   @media (max-width: 640px) {
+    /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
     .size-large { --size: 3rem; }
+    /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
     .size-medium { --size: 2rem; }
+    /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
     .size-small { --size: 1.25rem; }
   }
+  
+  /* eslint-enable css-unused-selector */
 </style>

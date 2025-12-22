@@ -33,7 +33,7 @@
       </p>
 
       <p>
-      I’m a total builder at heart, I love picking up new tech and seeing what I can create with it. That curiosity is what drove me to build <a href="/projects/janus" class="inline-link">Janus</a> to stop bots, dive deep into computer vision for my <a href="#" class="inline-link">research</a> paper, and why I'm currently obsessing over data patterns for my <a href="/projects/market-prediction" class="inline-link">market prediction</a> project. I just really enjoy the process of learning, breaking things, and making them work better.
+      I’m a total builder at heart, I love picking up new tech and seeing what I can create with it. That curiosity is what drove me to build <a href="/projects/janus" class="inline-link">Janus</a> to stop bots, dive deep into computer vision for my research paper, and why I'm currently obsessing over data patterns for my <a href="/projects/market-prediction" class="inline-link">market prediction</a> project. I just really enjoy the process of learning, breaking things, and making them work better.
       </p>
 
       <div class="about-sub">

@@ -14,6 +14,16 @@ export default defineConfig({
     }
   },
   css: {
-    devSourcemap: true
+    devSourcemap: true,
+    // Exclude critical CSS from build since it's inlined
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@use "sass:math";'
+      }
+    }
+  },
+  // Exclude critical CSS file from processing since it's inlined
+  optimizeDeps: {
+    exclude: ['src/lib/assets/critical.css']
   }
 });

@@ -22,7 +22,8 @@
   $: currentPath = $page.url.pathname;
   $: pageName = currentPath === '/' ? '' : currentPath.replace('/', '').replace('.html', '');
   $: displayName = pageName.includes('/') ? pageName.split('/').pop() : pageName;
-  $: fullPath = pageName;
+  $: fullPath = pageName ? '/' + pageName + '/' : '';
+  $: shortDisplayName = displayName ? '/' + displayName + '/' : '';
 </script>
 
 <header class="header">
@@ -31,11 +32,10 @@
     <nav class="terminal-nav">
       <a href="/" class="tilde">$</a>
       {#if pageName}
-        <span class="separator">/</span>
         <!-- Full path for wide screens -->
         <span class="current-path full-path">{fullPath}</span>
         <!-- Shortened path for narrow screens -->
-        <span class="current-path short-path">{displayName}</span>
+        <span class="current-path short-path">{shortDisplayName}</span>
       {/if}
       <span class="cursor"></span>
     </nav>
@@ -140,10 +140,6 @@
   
   .tilde:hover {
     opacity: 0.7;
-  }
-  
-  .separator {
-    color: var(--subtext1);
   }
   
   .current-path {

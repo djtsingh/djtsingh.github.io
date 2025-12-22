@@ -21,6 +21,8 @@
 </div>
 
 <style>
+  /* eslint-disable css-unused-selector */
+  
   .posts-page {
     display: flex;
     align-items: center;
@@ -78,6 +80,7 @@
     z-index: 0;
   }
   
+  /* svelte-ignore css_unused_selector - Used in template for chip text spans */
   .chip span {
     position: relative;
     z-index: 1;
@@ -96,4 +99,6 @@
   .chip:active {
     transform: translateY(0);
   }
+  
+  /* eslint-enable css-unused-selector */
 </style>

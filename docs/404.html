@@ -8,32 +8,50 @@
     <!-- Critical font preloads only -->
     <link rel="preload" href="/fonts/JetBrainsMono-Regular.woff" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/fonts/JetBrainsMono-SemiBold.woff" as="font" type="font/woff" crossorigin />
+
+    <!-- Inline critical CSS for above-the-fold content -->
+    <style>
+      /* Critical CSS - Above the fold styles */
+      *,:before,:after{--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: rgb(59 130 246 / .5);--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x: 0;--tw-border-spacing-y: 0;--tw-translate-x: 0;--tw-translate-y: 0;--tw-rotate: 0;--tw-skew-x: 0;--tw-scale-x: 1;--tw-scale-y: 1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness: proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width: 0px;--tw-ring-offset-color: #fff;--tw-ring-color: rgb(59 130 246 / .5);--tw-ring-offset-shadow: 0 0 #0000;--tw-ring-shadow: 0 0 #0000;--tw-shadow: 0 0 #0000;--tw-shadow-colored: 0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }*,:before,:after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}:before,:after{--tw-content: ""}html,:host{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,samp,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dl,dd,h1,h2,h3,h4,h5,h6,hr,figure,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}ol,ul,menu{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}button,[role=button]{cursor:pointer}:disabled{cursor:default}img,svg,video,canvas,audio,iframe,embed,object{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}
+
+      /* Critical theme variables and base styles */
+      :root{--font-weight-extralight: 200;--font-weight-light: 300;--font-weight-regular: 400;--font-weight-medium: 500;--font-weight-semibold: 600;--font-weight-bold: 700}@font-face{font-family:JetBrains Mono;src:url(./fonts/JetBrainsMono-Regular.woff) format("woff");font-weight:var(--font-weight-regular);font-style:normal;font-display:swap}@font-face{font-family:JetBrains Mono;src:url(./fonts/JetBrainsMono-SemiBold.woff) format("woff");font-weight:var(--font-weight-semibold);font-style:normal;font-display:swap}:root{--crust: #11111b;--mantle: #181825;--base: #1e1e2e;--surface0: #313244;--surface1: #45475a;--surface2: #585b70;--text: #cdd6f4;--subtext0: #bac2de;--subtext1: #a6adc8;--mantle-rgb: 24, 24, 37;--base-rgb: 30, 30, 46;--surface0-rgb: 49, 50, 68;--surface1-rgb: 69, 71, 90;--rosewater: #f5e0dc;--flamingo: #f2cdcd;--pink: #f5c2e7;--mauve: #cba6f7;--red: #f38ba8;--maroon: #eba0ac;--peach: #fab387;--yellow: #f9e2af;--green: #a6e3a1;--teal: #94e2d5;--sky: #89dceb;--sapphire: #74c7ec;--blue: #89b4fa;--lavender: #b4befe;--accent: var(--sapphire);--accent-rgb: 116, 199, 236;--container-max: 1280px;--gutter: 32px;--space-1: 4px;--space-2: 8px;--space-3: 12px;--space-4: 16px;--space-5: 24px;--space-6: 32px;--radius-sm: 6px;--radius-md: 12px;--radius-lg: 20px;--radius-full: 9999px;--ease-smooth: cubic-bezier(.4, 0, .2, 1);--ease-spring: cubic-bezier(.175, .885, .32, 1.275);--duration-fast: .2s;--duration-normal: .3s;--duration-slow: .4s;--breakpoint-sm: 640px;--breakpoint-md: 768px}.mocha{--base: #1e1e2e;--mantle: #181825;--text: #cdd6f4;--subtext0: #bac2de;--subtext1: #a6adc8;--surface0: #313244;--surface1: #45475a;--mantle-rgb: 24, 24, 37;--base-rgb: 30, 30, 46;--surface0-rgb: 49, 50, 68;--surface1-rgb: 69, 71, 90}*,*:before,*:after{box-sizing:border-box}::-moz-selection{background-color:rgba(var(--accent-rgb),.3);color:var(--accent)}::selection{background-color:rgba(var(--accent-rgb),.3);color:var(--accent)}html,body{margin:0;padding:0;width:100%;overflow-x:hidden;font-family:JetBrains Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,monospace;font-weight:var(--font-weight-regular);background-color:var(--mantle);color:var(--text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;text-size-adjust:100%;font-size:17px}@media(max-width:768px){html,body{font-size:16px}}
+
+      /* Critical layout and hero styles */
+      .app.svelte-12qhfyh{display:flex;flex-direction:column;min-height:100vh}.main.svelte-12qhfyh{flex:1;width:100%;padding-top:4.5rem}.page-transition.svelte-12qhfyh{width:100%;max-width:var(--container-max);margin:0 auto;padding:1rem var(--gutter)}@media(min-width:768px){.page-transition.svelte-12qhfyh{padding:1.5rem 2rem}}.hero.svelte-1uha8ag{padding:2rem 0 3rem}@media(max-width:768px){.hero.svelte-1uha8ag{padding-left:5px;padding-right:5px}}.hero-card.svelte-1uha8ag{padding:2rem 2.5rem 2rem 2rem}@media(max-width:768px){.hero-card.svelte-1uha8ag{padding:1rem 1.5rem 1rem 1rem}}.hero-title.svelte-1uha8ag{margin:0 0 1rem;font-size:clamp(1.75rem,5vw,2.75rem);font-weight:var(--font-weight-bold);line-height:1.15;color:var(--text)}.hero-title.svelte-1uha8ag .accent:where(.svelte-1uha8ag){color:var(--accent)}.hero-text.svelte-1uha8ag{margin:0 0 1.5rem;max-width:75ch;font-size:1rem;line-height:1.7;color:var(--subtext1)}.hero-chips.svelte-1uha8ag{display:flex;flex-wrap:wrap;gap:.5rem}.chip.svelte-1uha8ag{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1rem;font-size:.875rem;font-weight:var(--font-weight-medium);color:var(--text);background:transparent;border:1px solid var(--surface1);border-radius:var(--radius-full);text-decoration:none;position:relative;overflow:hidden;transition:all .2s ease}.chip.svelte-1uha8ag:before{content:"";position:absolute;inset:0;background:var(--accent);opacity:0;transition:opacity .2s ease;z-index:0}.chip.svelte-1uha8ag svg:where(.svelte-1uha8ag),.chip.svelte-1uha8ag span:where(.svelte-1uha8ag){position:relative;z-index:1}.chip.svelte-1uha8ag svg:where(.svelte-1uha8ag){flex-shrink:0;transition:transform .2s ease}.chip.svelte-1uha8ag:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 12px #00000026}.chip.svelte-1uha8ag:hover:before{opacity:.1}.chip.svelte-1uha8ag:hover svg:where(.svelte-1uha8ag){transform:scale(1.1)}.chip.svelte-1uha8ag:active{transform:translateY(0)}
+    </style>
+
+    <!-- Load non-critical CSS asynchronously -->
+    <link rel="preload" href="/_app/immutable/assets/0.ToKGUsBn.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/_app/immutable/assets/0.ToKGUsBn.css"></noscript>
+
+    <link rel="preload" href="/_app/immutable/assets/2.C4TiDhv_.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/_app/immutable/assets/2.C4TiDhv_.css"></noscript>
+
+    <!-- Load LoadingState CSS only when needed (lazy) -->
+    <link rel="prefetch" href="/_app/immutable/assets/LoadingState.DROKuyza.css">
+
     
-    
-		<link rel="modulepreload" href="/_app/immutable/entry/start.DNXvpIBm.js">
-		<link rel="modulepreload" href="/_app/immutable/chunks/Bcq83ktV.js">
-		<link rel="modulepreload" href="/_app/immutable/chunks/hQJwhqqj.js">
-		<link rel="modulepreload" href="/_app/immutable/chunks/CzHG70EU.js">
-		<link rel="modulepreload" href="/_app/immutable/chunks/Ca18MIYq.js">
-		<link rel="modulepreload" href="/_app/immutable/entry/app.xR4b247T.js">
-		<link rel="modulepreload" href="/_app/immutable/chunks/DfpJ-R8G.js">
-		<link rel="modulepreload" href="/_app/immutable/chunks/B12O2M8n.js">
-		<link rel="modulepreload" href="/_app/immutable/chunks/DfWBeC-b.js">
-		<link rel="modulepreload" href="/_app/immutable/chunks/CwouVW0w.js">
+		<link rel="modulepreload" href="/_app/immutable/entry/start.C5O5FVaD.js">
+		<link rel="modulepreload" href="/_app/immutable/chunks/BqKy4eZP.js">
+		<link rel="modulepreload" href="/_app/immutable/chunks/By3Dcrng.js">
+		<link rel="modulepreload" href="/_app/immutable/chunks/tXRsNkdW.js">
+		<link rel="modulepreload" href="/_app/immutable/entry/app.DOpqp5dK.js">
+		<link rel="modulepreload" href="/_app/immutable/chunks/DsnmJJEf.js">
   </head>
   <body data-sveltekit-preload-data="hover">
     <div style="display: contents">
 			<script>
 				{
-					__sveltekit_oo7utt = {
+					__sveltekit_4ylsi = {
 						base: ""
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("/_app/immutable/entry/start.DNXvpIBm.js"),
-						import("/_app/immutable/entry/app.xR4b247T.js")
+						import("/_app/immutable/entry/start.C5O5FVaD.js"),
+						import("/_app/immutable/entry/app.DOpqp5dK.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element);
 					});

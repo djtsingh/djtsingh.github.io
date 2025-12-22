@@ -108,6 +108,8 @@
     </div>
   {/if}
 </div><style>
+  /* eslint-disable css-unused-selector */
+  
   .projects-page {
     max-width: 1100px;
     margin: 0 auto;
@@ -310,6 +312,7 @@
     z-index: 0;
   }
   
+  /* svelte-ignore css_unused_selector - Used in template for chip text spans */
   .chip span {
     position: relative;
     z-index: 1;
@@ -368,4 +371,6 @@
   .project-link:hover .view-project {
     transform: translateX(4px);
   }
+  
+  /* eslint-enable css-unused-selector */
 </style>
