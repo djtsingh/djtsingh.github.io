@@ -3,15 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-
-
-/* Global styles and design tokens */
-
-/* Self-hosted fonts with semantic weight variables */
-
-/* Font weight semantic variables */
 :root {
   --font-weight-extralight: 200;
   --font-weight-light: 300;
@@ -75,7 +66,7 @@
   font-display: swap;
 }
 
-/* Design tokens */
+/* Design tokens - BASE MOCHA THEME (Dark) */
 :root {
   --crust: #11111b;
   --mantle: #181825;
@@ -86,14 +77,14 @@
   --text: #cdd6f4;
   --subtext0: #bac2de;
   --subtext1: #a6adc8;
-  
+
   /* RGB values for transparency */
   --mantle-rgb: 24, 24, 37;
   --base-rgb: 30, 30, 46;
   --surface0-rgb: 49, 50, 68;
   --surface1-rgb: 69, 71, 90;
-  
-  /* Accent colors */
+
+  /* Accent colors - Mocha (Dark theme) */
   --rosewater: #f5e0dc;
   --flamingo: #f2cdcd;
   --pink: #f5c2e7;
@@ -108,10 +99,27 @@
   --sapphire: #74c7ec;
   --blue: #89b4fa;
   --lavender: #b4befe;
-  
+
+  /* RGB variants for transparency */
+  --rosewater-rgb: 245, 224, 220;
+  --flamingo-rgb: 242, 205, 205;
+  --pink-rgb: 245, 194, 231;
+  --mauve-rgb: 203, 166, 247;
+  --red-rgb: 243, 139, 168;
+  --maroon-rgb: 235, 160, 172;
+  --peach-rgb: 250, 179, 135;
+  --yellow-rgb: 249, 226, 175;
+  --green-rgb: 166, 227, 161;
+  --teal-rgb: 148, 226, 213;
+  --sky-rgb: 137, 220, 235;
+  --sapphire-rgb: 116, 199, 236;
+  --blue-rgb: 137, 180, 250;
+  --lavender-rgb: 180, 190, 254;
+
   --accent: var(--sapphire);
-  --accent-rgb: 116, 199, 236; /* sapphire RGB */
-  
+  --accent-rgb: var(--sapphire-rgb);
+  --accent-bright: #8dd4f5;
+
   /* Spacing */
   --container-max: 1280px;
   --gutter: 32px;
@@ -121,84 +129,243 @@
   --space-4: 16px;
   --space-5: 24px;
   --space-6: 32px;
-  
+
   /* Radii */
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 20px;
   --radius-full: 9999px;
-  
+
   /* Animation */
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   --duration-fast: 0.2s;
   --duration-normal: 0.3s;
   --duration-slow: 0.4s;
-  
+
   /* Breakpoints (for reference in media queries) */
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
 }
 
-/* Theme variants */
+/* ============================= */
+/* LATTE THEME (Light) */
+/* ============================= */
 .latte {
-  --base: #eff1f5;
+  --crust: #dce0e8;
   --mantle: #e6e9ef;
+  --base: #eff1f5;
+  --surface0: #ccd0da;
+  --surface1: #bcc0cc;
+  --surface2: #acb0be;
   --text: #4c4f69;
   --subtext0: #5c5f77;
   --subtext1: #6c6f85;
-  --surface0: #ccd0da;
-  --surface1: #bcc0cc;
-  
+
   --mantle-rgb: 230, 233, 239;
   --base-rgb: 239, 241, 245;
   --surface0-rgb: 204, 208, 218;
   --surface1-rgb: 188, 192, 204;
+
+  /* Accent colors - Latte (darkened for contrast on light bg) */
+  --rosewater: #dc8a78;
+  --flamingo: #dd7878;
+  --pink: #ea76cb;
+  --mauve: #8839ef;
+  --red: #d20f39;
+  --maroon: #e64553;
+  --peach: #fe640b;
+  --yellow: #df8e1d;
+  --green: #40a02b;
+  --teal: #179299;
+  --sky: #04a5e5;
+  --sapphire: #209fb5;
+  --blue: #1e66f5;
+  --lavender: #7287fd;
+
+  --rosewater-rgb: 220, 138, 120;
+  --flamingo-rgb: 221, 120, 120;
+  --pink-rgb: 234, 118, 203;
+  --mauve-rgb: 136, 57, 239;
+  --red-rgb: 210, 15, 57;
+  --maroon-rgb: 230, 69, 83;
+  --peach-rgb: 254, 100, 11;
+  --yellow-rgb: 223, 142, 29;
+  --green-rgb: 64, 160, 43;
+  --teal-rgb: 23, 146, 153;
+  --sky-rgb: 4, 165, 229;
+  --sapphire-rgb: 32, 159, 181;
+  --blue-rgb: 30, 102, 245;
+  --lavender-rgb: 114, 135, 253;
+
+  --accent: var(--sapphire);
+  --accent-rgb: var(--sapphire-rgb);
+  --accent-bright: #0c8ba8;
 }
 
+/* ============================= */
+/* FRAPPE THEME (Medium Dark) */
+/* ============================= */
 .frappe {
-  --base: #303446;
+  --crust: #232634;
   --mantle: #292c3c;
+  --base: #303446;
+  --surface0: #414559;
+  --surface1: #51576d;
+  --surface2: #626880;
   --text: #c6d0f5;
   --subtext0: #a5adce;
   --subtext1: #b5bfe2;
-  --surface0: #414559;
-  --surface1: #51576d;
-  
+
   --mantle-rgb: 41, 44, 60;
   --base-rgb: 48, 52, 70;
   --surface0-rgb: 65, 69, 89;
   --surface1-rgb: 81, 87, 109;
+
+  /* Accent colors - Frappe (slightly brighter than Mocha) */
+  --rosewater: #f2d5cf;
+  --flamingo: #eebebe;
+  --pink: #f4b8e4;
+  --mauve: #ca9ee6;
+  --red: #e78284;
+  --maroon: #ea999c;
+  --peach: #ef9f76;
+  --yellow: #e5c890;
+  --green: #a6d189;
+  --teal: #81c8be;
+  --sky: #99d1db;
+  --sapphire: #85c1dc;
+  --blue: #8caaee;
+  --lavender: #babbf1;
+
+  --rosewater-rgb: 242, 213, 207;
+  --flamingo-rgb: 238, 190, 190;
+  --pink-rgb: 244, 184, 228;
+  --mauve-rgb: 202, 158, 230;
+  --red-rgb: 231, 130, 132;
+  --maroon-rgb: 234, 153, 156;
+  --peach-rgb: 239, 159, 118;
+  --yellow-rgb: 229, 200, 144;
+  --green-rgb: 166, 209, 137;
+  --teal-rgb: 129, 200, 190;
+  --sky-rgb: 153, 209, 219;
+  --sapphire-rgb: 133, 193, 220;
+  --blue-rgb: 140, 170, 238;
+  --lavender-rgb: 186, 187, 241;
+
+  --accent: var(--sapphire);
+  --accent-rgb: var(--sapphire-rgb);
+  --accent-bright: #a0d4ec;
 }
 
+/* ============================= */
+/* MACCHIATO THEME (Medium Dark) */
+/* ============================= */
 .macchiato {
-  --base: #24273a;
+  --crust: #181926;
   --mantle: #1e2030;
+  --base: #24273a;
+  --surface0: #363a4f;
+  --surface1: #494d64;
+  --surface2: #5b6078;
   --text: #cad3f5;
   --subtext0: #a5adcb;
   --subtext1: #b8c0e0;
-  --surface0: #363a4f;
-  --surface1: #494d64;
-  
+
   --mantle-rgb: 30, 32, 48;
   --base-rgb: 36, 39, 58;
   --surface0-rgb: 54, 58, 79;
   --surface1-rgb: 73, 77, 100;
+
+  /* Accent colors - Macchiato (balanced brightness) */
+  --rosewater: #f4dbd6;
+  --flamingo: #f0c6c6;
+  --pink: #f5bde6;
+  --mauve: #c6a0f6;
+  --red: #ed8796;
+  --maroon: #ee99a0;
+  --peach: #f5a97f;
+  --yellow: #eed49f;
+  --green: #a6da95;
+  --teal: #8bd5ca;
+  --sky: #91d7e3;
+  --sapphire: #7dc4e4;
+  --blue: #8aadf4;
+  --lavender: #b7bdf8;
+
+  --rosewater-rgb: 244, 219, 214;
+  --flamingo-rgb: 240, 198, 198;
+  --pink-rgb: 245, 189, 230;
+  --mauve-rgb: 198, 160, 246;
+  --red-rgb: 237, 135, 150;
+  --maroon-rgb: 238, 153, 160;
+  --peach-rgb: 245, 169, 127;
+  --yellow-rgb: 238, 212, 159;
+  --green-rgb: 166, 218, 149;
+  --teal-rgb: 139, 213, 202;
+  --sky-rgb: 145, 215, 227;
+  --sapphire-rgb: 125, 196, 228;
+  --blue-rgb: 138, 173, 244;
+  --lavender-rgb: 183, 189, 248;
+
+  --accent: var(--sapphire);
+  --accent-rgb: var(--sapphire-rgb);
+  --accent-bright: #97d7f0;
 }
 
+/* ============================= */
+/* MOCHA THEME (Dark - Default) */
+/* ============================= */
 .mocha {
-  --base: #1e1e2e;
+  --crust: #11111b;
   --mantle: #181825;
+  --base: #1e1e2e;
+  --surface0: #313244;
+  --surface1: #45475a;
+  --surface2: #585b70;
   --text: #cdd6f4;
   --subtext0: #bac2de;
   --subtext1: #a6adc8;
-  --surface0: #313244;
-  --surface1: #45475a;
-  
+
   --mantle-rgb: 24, 24, 37;
   --base-rgb: 30, 30, 46;
   --surface0-rgb: 49, 50, 68;
   --surface1-rgb: 69, 71, 90;
+
+  /* Accent colors - Mocha (same as root) */
+  --rosewater: #f5e0dc;
+  --flamingo: #f2cdcd;
+  --pink: #f5c2e7;
+  --mauve: #cba6f7;
+  --red: #f38ba8;
+  --maroon: #eba0ac;
+  --peach: #fab387;
+  --yellow: #f9e2af;
+  --green: #a6e3a1;
+  --teal: #94e2d5;
+  --sky: #89dceb;
+  --sapphire: #74c7ec;
+  --blue: #89b4fa;
+  --lavender: #b4befe;
+
+  --rosewater-rgb: 245, 224, 220;
+  --flamingo-rgb: 242, 205, 205;
+  --pink-rgb: 245, 194, 231;
+  --mauve-rgb: 203, 166, 247;
+  --red-rgb: 243, 139, 168;
+  --maroon-rgb: 235, 160, 172;
+  --peach-rgb: 250, 179, 135;
+  --yellow-rgb: 249, 226, 175;
+  --green-rgb: 166, 227, 161;
+  --teal-rgb: 148, 226, 213;
+  --sky-rgb: 137, 220, 235;
+  --sapphire-rgb: 116, 199, 236;
+  --blue-rgb: 137, 180, 250;
+  --lavender-rgb: 180, 190, 254;
+
+  --accent: var(--sapphire);
+  --accent-rgb: var(--sapphire-rgb);
+  --accent-bright: #8dd4f5;
 }
 
 /* Base styles */
@@ -218,8 +385,8 @@ html, body {
   overflow-x: hidden;
   font-family: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Monaco, monospace;
   font-weight: var(--font-weight-regular);
-  line-height: 1.5; /* 24px at 16px font-size */
-  letter-spacing: 0; /* normal */
+  line-height: 1.5;
+  letter-spacing: 0;
   background-color: var(--mantle);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
@@ -227,6 +394,7 @@ html, body {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   font-size: 17px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 @media (max-width: 768px) {
@@ -237,18 +405,18 @@ html, body {
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-  line-height: 1.25; /* tight: 1.2-1.3 range */
-  letter-spacing: -0.025em; /* slightly tighter */
+  line-height: 1.25;
+  letter-spacing: -0.025em;
   font-weight: var(--font-weight-semibold);
 }
 
 p, .paragraph {
-  line-height: 1.7; /* relaxed: 1.6-1.75 range */
+  line-height: 1.7;
 }
 
 /* All caps text */
 .uppercase, .all-caps {
-  letter-spacing: 0.05em; /* slightly wider */
+  letter-spacing: 0.05em;
 }
 
 a {
@@ -290,7 +458,7 @@ button:active, .btn:active, a[class*="btn"]:active, a[class*="chip"]:active {
   animation: springBounce 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Inline link styling - modern underline with subtle background glow */
+/* Inline link styling */
 .inline-link {
   position: relative;
   color: var(--accent);
@@ -356,3 +524,34 @@ button:active, .btn:active, a[class*="btn"]:active, a[class*="chip"]:active {
 .bg-mantle { background-color: var(--mantle); }
 .bg-base { background-color: var(--base); }
 .bg-surface0 { background-color: var(--surface0); }
+
+/* Color utilities for all accent colors */
+.text-rosewater { color: var(--rosewater); }
+.text-flamingo { color: var(--flamingo); }
+.text-pink { color: var(--pink); }
+.text-mauve { color: var(--mauve); }
+.text-red { color: var(--red); }
+.text-maroon { color: var(--maroon); }
+.text-peach { color: var(--peach); }
+.text-yellow { color: var(--yellow); }
+.text-green { color: var(--green); }
+.text-teal { color: var(--teal); }
+.text-sky { color: var(--sky); }
+.text-sapphire { color: var(--sapphire); }
+.text-blue { color: var(--blue); }
+.text-lavender { color: var(--lavender); }
+
+.bg-rosewater { background-color: var(--rosewater); }
+.bg-flamingo { background-color: var(--flamingo); }
+.bg-pink { background-color: var(--pink); }
+.bg-mauve { background-color: var(--mauve); }
+.bg-red { background-color: var(--red); }
+.bg-maroon { background-color: var(--maroon); }
+.bg-peach { background-color: var(--peach); }
+.bg-yellow { background-color: var(--yellow); }
+.bg-green { background-color: var(--green); }
+.bg-teal { background-color: var(--teal); }
+.bg-sky { background-color: var(--sky); }
+.bg-sapphire { background-color: var(--sapphire); }
+.bg-blue { background-color: var(--blue); }
+.bg-lavender { background-color: var(--lavender); }

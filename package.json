@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "vite dev",
-    "build": "node generate-sitemap.js && node optimize-images.js && vite build",
+    "build": "node build-script/optimize-images.js && vite build",
     "preview": "vite preview",
-    "optimize-images": "node optimize-images.js",
-    "generate-sitemap": "node generate-sitemap.js"
+    "optimize-images": "node build-script/optimize-images.js"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.10",
@@ -27,6 +26,8 @@
   "type": "module",
   "dependencies": {
     "@sentry/sveltekit": "^10.32.1",
+    "leaflet": "^1.9.4",
+    "lucide-svelte": "^0.562.0",
     "web-vitals": "^5.1.0"
   }
 }

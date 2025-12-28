@@ -1,16 +1,10 @@
 <script>
   import SEO from '$lib/components/SEO.svelte';
+  import Widgets from '$lib/components/Widgets.svelte';
   import { projects } from '$lib/data/projects.js';
   
   const featuredProjects = projects.filter(p => p.featured);
 </script>
-
-<SEO 
-  title="Daljeet Singh Lotey"
-  description="Software engineer and CS grad specializing in full-stack development, data engineering, and AI | Building scalable systems and innovative solutions."
-  canonical="https://djtsingh.github.io/"
-  type="website"
-/>
 
 <section class="hero">
   <div class="hero-card">
@@ -102,6 +96,11 @@
     </a>
   </div>
 </section>
+
+<!-- Interactive Widgets Section -->
+<div class="widgets-fullwidth-container">
+  <Widgets />
+</div>
 
 <style>
   .hero {
@@ -369,5 +368,12 @@
     color: var(--accent);
     background: rgba(var(--accent-rgb), 0.15);
     border-radius: var(--radius-sm);
+  }
+
+  .widgets-fullwidth-container {
+    width: 100%;
+    /* No max-width to span full width like footer */
+    margin: 0;
+    padding: 0; /* Set padding to 0 */
   }
 </style>

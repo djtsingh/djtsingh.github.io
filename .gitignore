@@ -31,3 +31,4 @@ Thumbs.db
 *.swo
 
 local-no-commit/
+build script/

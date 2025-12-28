@@ -213,12 +213,8 @@
 
   /* Responsive adjustments */
   @media (max-width: 640px) {
-    /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
+    /* svelte-ignore css-unused-selector */
     .size-large { --size: 3rem; }
-    /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
-    .size-medium { --size: 2rem; }
-    /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
-    .size-small { --size: 1.25rem; }
   }
   
   /* eslint-enable css-unused-selector */

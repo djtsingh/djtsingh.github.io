@@ -3,7 +3,7 @@
 </script>
 
 <SEO 
-  title="Posts | Daljeet Singh Lotey"
+  title="Daljeet Singh Lotey - Posts"
   description="Posts by Daljeet Singh Lotey | software engineering, design, and technical experiments (under development)."
   canonical="https://djtsingh.github.io/posts"
   type="website"
@@ -78,12 +78,6 @@
     opacity: 0;
     transition: opacity 0.2s ease;
     z-index: 0;
-  }
-  
-  /* svelte-ignore css_unused_selector - Used in template for chip text spans */
-  .chip span {
-    position: relative;
-    z-index: 1;
   }
   
   .chip:hover {

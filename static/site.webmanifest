@@ -3,7 +3,7 @@
   "short_name": "Daljeet Singh",
   "description": "Software engineer and CS grad specializing in full-stack development, data engineering, and AI. Portfolio showcasing projects in AI, data visualization, and experiments.",
   "start_url": "/",
-  "display": "standalone",
+  "display": "browser",
   "background_color": "#1e1e2e",
   "theme_color": "#1e1e2e",
   "orientation": "portrait-primary",

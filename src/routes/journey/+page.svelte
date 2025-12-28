@@ -3,7 +3,7 @@
 </script>
 
 <SEO 
-  title="Journey | Daljeet Singh Lotey"
+  title="Daljeet Singh Lotey - Journey"
   description="Career timeline and educational journey of Daljeet Singh Lotey"
   canonical="https://djtsingh.github.io/journey"
 />

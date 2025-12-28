@@ -57,7 +57,13 @@ export default defineConfig({
   },
   // Performance optimizations
   optimizeDeps: {
-    exclude: ['src/lib/assets/critical.css']
+    exclude: ['src/lib/assets/critical.css'],
+    include: ['phosphor-svelte']
+  },
+
+  // Ensure packages with Svelte sources are pre-bundled for dev and not externalized for SSR
+  ssr: {
+    noExternal: ['phosphor-svelte']
   },
   esbuild: {
     // Minimize bundle size

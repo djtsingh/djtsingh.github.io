@@ -5,70 +5,70 @@
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
   <url>
-    <loc>https://djtsingh.github.io</loc>
+    <loc>https://www.daljeetsingh.me</loc>
     <lastmod>2025-12-22T16:28:39.041Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://djtsingh.github.io/about</loc>
+    <loc>https://www.daljeetsingh.me/about</loc>
     <lastmod>2025-12-22T16:28:39.041Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://djtsingh.github.io/certifications</loc>
+    <loc>https://www.daljeetsingh.me/certifications</loc>
     <lastmod>2025-12-22T16:28:39.041Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://djtsingh.github.io/journey</loc>
+    <loc>https://www.daljeetsingh.me/journey</loc>
     <lastmod>2025-12-22T16:28:39.041Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://djtsingh.github.io/posts</loc>
+    <loc>https://www.daljeetsingh.me/posts</loc>
     <lastmod>2025-12-22T16:28:39.041Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://djtsingh.github.io/projects</loc>
+    <loc>https://www.daljeetsingh.me/projects</loc>
     <lastmod>2025-12-22T16:28:39.041Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://djtsingh.github.io/socials</loc>
+    <loc>https://www.daljeetsingh.me/socials</loc>
     <lastmod>2025-12-22T16:28:39.041Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://djtsingh.github.io/projects/portfolio</loc>
+    <loc>https://www.daljeetsingh.me/projects/portfolio</loc>
     <lastmod>2025-12-22T16:28:39.041Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://djtsingh.github.io/projects/janus</loc>
+    <loc>https://www.daljeetsingh.me/projects/janus</loc>
     <lastmod>2025-12-22T16:28:39.041Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://djtsingh.github.io/projects/market-prediction</loc>
+    <loc>https://www.daljeetsingh.me/projects/market-prediction</loc>
     <lastmod>2025-12-22T16:28:39.041Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

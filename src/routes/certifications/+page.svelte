@@ -2,29 +2,6 @@
   import SEO from '$lib/components/SEO.svelte';
   import { onMount } from 'svelte';
 
-  /*
-   * DYNAMIC CERTIFICATION ASSET MANAGEMENT SYSTEM
-   *
-   * This system eliminates manual image file management by:
-   * 1. Dynamic badge generation using Shields.io for standard certifications
-   * 2. API integration ready for services like Credly, LinkedIn, Microsoft Learn
-   * 3. Automatic fallback to generated placeholder images
-   * 4. Error handling with graceful degradation
-   *
-   * Benefits:
-   * - No more manual image uploads for each certification
-   * - Consistent branding and styling across badges
-   * - Automatic updates when certification data changes
-   * - Reduced bundle size (no static image assets needed)
-   * - Future-ready for API integrations
-   *
-   * Usage:
-   * - Use 'getImage' function for dynamic badges (Shields.io)
-   * - Use 'image' property for custom/local certificate images
-   * - System automatically falls back to generated placeholders
-   */
-
-  // Dynamic badge generation function with enhanced styling
   function generateBadgeUrl(badgeId, issuer, title) {
     // Using Shields.io for dynamic badge generation with premium styling
     const label = encodeURIComponent(issuer);
@@ -205,7 +182,7 @@
 </script>
 
 <SEO 
-  title="Certifications | Daljeet Singh Lotey"
+  title="Daljeet Singh Lotey - Certifications"
   description="Professional certifications and credentials earned by Daljeet Singh Lotey in cloud computing, machine learning, and software development."
   canonical="https://djtsingh.github.io/certifications"
   type="website"

@@ -1,8 +1,12 @@
 <script>
   import { performanceMetrics } from '$lib/stores/performance.js';
   import { dev } from '$app/environment';
+  import { ChevronUp, ChevronDown } from 'lucide-svelte';
 
-  $: metrics = $performanceMetrics;
+  let metrics = $derived(performanceMetrics);
+
+  // Minimize state
+  let isMinimized = $state(false);
 
   // Only show in development
   if (!dev) {
@@ -11,8 +15,18 @@
 </script>
 
 {#if dev}
-<div class="performance-dashboard">
-  <h3>Performance Metrics</h3>
+<div class="performance-dashboard" class:minimized={isMinimized}>
+  <div class="dashboard-header">
+    <h3>Performance Metrics</h3>
+    <button class="minimize-btn" on:click={() => isMinimized = !isMinimized} aria-label={isMinimized ? 'Expand metrics' : 'Minimize metrics'}>
+      {#if isMinimized}
+        <ChevronUp size={16} />
+      {:else}
+        <ChevronDown size={16} />
+      {/if}
+    </button>
+  </div>
+  {#if !isMinimized}
   <div class="metrics-grid">
     <div class="metric">
       <span class="label">LCP</span>
@@ -55,6 +69,7 @@
       </div>
     {/if}
   </div>
+  {/if}
 </div>
 {/if}
 
@@ -71,12 +86,47 @@
     font-size: 0.875rem;
     z-index: 1000;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .performance-dashboard.minimized {
+    padding: 0.75rem 1rem;
+    max-width: 200px;
+  }
+
+  .dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+
+  .performance-dashboard.minimized .dashboard-header {
+    margin-bottom: 0;
   }
 
   .performance-dashboard h3 {
-    margin: 0 0 0.5rem 0;
+    margin: 0;
     font-size: 1rem;
     font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .minimize-btn {
+    background: transparent;
+    border: none;
+    color: var(--subtext1);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .minimize-btn:hover {
+    background: var(--surface0);
     color: var(--text);
   }
 

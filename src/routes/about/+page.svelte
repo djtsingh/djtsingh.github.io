@@ -12,7 +12,7 @@
 </script>
 
 <SEO 
-  title="About | Daljeet Singh Lotey"
+  title="About Me | Daljeet Singh Lotey"
   description="About Daljeet Singh Lotey | Software Engineering and Data Science. Background in data, algorithms and full-stack engineering."
   canonical="https://djtsingh.github.io/about"
   type="profile"
@@ -294,24 +294,50 @@
   
   .uses-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    font-size: 16px;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    font-size: 13px;
   }
-  
-  @media (max-width: 768px) {
+
+  @media (min-width: 640px) {
     .uses-grid {
-      font-size: inherit;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      font-size: 14px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .uses-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      font-size: 14px;
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .uses-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      font-size: 15px;
     }
   }
   
   .use-category h3 {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: var(--font-weight-semibold);
     color: var(--text);
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.25rem;
     border-bottom: 2px solid var(--accent);
+  }
+
+  @media (min-width: 640px) {
+    .use-category h3 {
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+    }
   }
   
   .use-list {
@@ -324,9 +350,16 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    padding: 0.6rem 0;
+    padding: 0.3rem 0;
     border-bottom: 1px solid var(--surface0);
-    gap: 1rem;
+    gap: 0.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .use-list li {
+      padding: 0.4rem 0;
+      gap: 0.75rem;
+    }
   }
   
   .use-list li:last-child {

@@ -1,42 +1,32 @@
 <script>
-  // Site-wide SEO defaults - Your Personal Brand Configuration
   export const siteConfig = {
-    // Core Identity
     name: 'Daljeet Singh Lotey',
     givenName: 'Daljeet Singh',
     familyName: 'Lotey',
     jobTitle: 'Software Engineering & Data Science',
     
-    // URLs
     url: 'https://djtsingh.github.io',
     alternateUrl: 'https://www.daljeetsingh.me',
     
-    // Descriptions (various lengths for different platforms)
-    description: 'Daljeet Singh Lotey — Software Engineering and Data Science. Portfolio showcasing projects in AI, data visualization, and experiments.',
+    description: 'Daljeet Singh Lotey | Software Engineering and Data Science. Portfolio showcasing projects in AI, data visualization, and experiments.',
     shortBio: 'CS grad building software that matters. Data, algorithms, and full-stack engineering.',
     
-    // Media
     image: '/assets/dj-web.jpg',
     
-    // Social Handles (consistent across platforms)
     twitterHandle: '@djt5ingh',
     githubHandle: 'djtsingh',
     linkedinHandle: 'djtsingh',
     
-    // Social URLs
     socials: {
       github: 'https://github.com/djtsingh',
       linkedin: 'https://www.linkedin.com/in/djtsingh/',
       twitter: 'https://x.com/djt5ingh'
     },
     
-    // Professional Info
-    alumniOf: 'Computer Science Graduate',
+    alumniOf: 'Amity University Computer Science Graduate',
     knowsAbout: ['Software Engineering', 'Data Science', 'Machine Learning', 'Full-Stack Development', 'Python', 'JavaScript']
   };
 
-  // Meta props interface (for documentation)
-  // title?: string, description?: string, image?: string, type?: string, noindex?: boolean, canonical?: string
   export let title = undefined;
   export let description = undefined;
   export let image = undefined;
@@ -44,10 +34,8 @@
   export let noindex = undefined;
   export let canonical = undefined;
 
-  // For backward compatibility with meta object
   export let meta = {};
 
-  // Merge individual props with meta object (individual props take precedence)
   $: mergedMeta = {
     title: title ?? meta.title,
     description: description ?? meta.description,
@@ -64,7 +52,6 @@
   $: pageType = mergedMeta.type || 'website';
   $: canonicalUrl = mergedMeta.canonical ? (mergedMeta.canonical.startsWith('http') ? mergedMeta.canonical : `${siteConfig.url}${mergedMeta.canonical}`) : siteConfig.url;
   
-  // Generate JSON-LD Person schema
   $: personSchema = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -88,7 +75,6 @@
     }
   });
   
-  // Generate Organization schema
   $: organizationSchema = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -105,7 +91,6 @@
     ]
   });
 
-  // Generate WebSite schema
   $: websiteSchema = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -121,7 +106,6 @@
     }
   });
 
-  // Generate BreadcrumbList schema for navigation
   $: breadcrumbSchema = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -165,16 +149,13 @@
   <meta name="msapplication-TileColor" content="#1e1e2e" />
   <meta name="application-name" content={siteConfig.name} />
   
-  <!-- Additional Open Graph -->
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:alt" content={`${siteConfig.name} - ${siteConfig.jobTitle}`} />
   
-  <!-- Twitter Card Enhancements -->
   <meta name="twitter:image:alt" content={`${siteConfig.name} - ${siteConfig.jobTitle}`} />
   
-  <!-- Article specific (for blog posts if added later) -->
   {#if pageType === 'article'}
     <meta property="article:author" content={siteConfig.name} />
     <meta property="article:publisher" content={siteConfig.socials.linkedin} />

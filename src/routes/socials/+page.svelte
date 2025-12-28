@@ -39,7 +39,6 @@
     }
   ];
   
-  // Email obfuscation
   const emailParts = ['daljeetsingh-', 'outlook', 'com'];
   
   function handleEmailClick(e) {
@@ -50,7 +49,7 @@
 </script>
 
 <SEO 
-  title="Socials | Daljeet Singh Lotey"
+  title="Daljeet Singh Lotey - Socials"
   description="Connect with Daljeet Singh Lotey on various platforms | GitHub, LinkedIn, Twitter, and more."
   canonical="https://djtsingh.github.io/socials"
   type="website"

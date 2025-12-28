@@ -7,6 +7,7 @@
   import SEO from '$lib/components/SEO.svelte';
   import EdgeCaseHandler from '$lib/components/EdgeCaseHandler.svelte';
   import PerformanceDashboard from '$lib/components/PerformanceDashboard.svelte';
+  import PageWrapper from '$lib/components/PageWrapper.svelte';
   
   const IS_PROD = import.meta.env.PROD;
 </script>
@@ -58,9 +59,11 @@
     <Header />
     
     <main class="main" id="main-content" tabindex="-1">
-      <div class="page-transition" in:fade={{ duration: 200 }} out:fade={{ duration: 200 }}>
-        <slot />
-      </div>
+      <PageWrapper>
+        <div class="page-transition" in:fade={{ duration: 200 }} out:fade={{ duration: 200 }}>
+          <slot />
+        </div>
+      </PageWrapper>
     </main>
     
     <Footer />
@@ -82,16 +85,5 @@
     padding-top: 4.5rem;
   }
   
-  .page-transition {
-    width: 100%;
-    max-width: var(--container-max);
-    margin: 0 auto;
-    padding: 1rem var(--gutter);
-  }
-  
-  @media (min-width: 768px) {
-    .page-transition {
-      padding: 1.5rem 2rem;
-    }
-  }
+  /* Page wrapper handled by src/lib/components/PageWrapper.svelte */
 </style>
