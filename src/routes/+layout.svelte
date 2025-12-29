@@ -24,8 +24,9 @@
     </script>
     
     <!-- Web Vitals Performance Monitoring -->
-    <script>
-      import { onCLS, onFID, onFCP, onLCP, onTTFB } from 'web-vitals';
+    <script type="module">
+      // Load web-vitals from CDN
+      import { onCLS, onFID, onFCP, onLCP, onTTFB } from 'https://unpkg.com/web-vitals@5.1.0/dist/web-vitals.es5.min.js';
 
       function sendToGoogleAnalytics({ name, delta, value, id }) {
         // Send to Google Analytics
