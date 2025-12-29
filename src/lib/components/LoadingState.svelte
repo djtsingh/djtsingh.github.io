@@ -213,7 +213,7 @@
 
   /* Responsive adjustments */
   @media (max-width: 640px) {
-    /* svelte-ignore css-unused-selector */
+    /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
     .size-large { --size: 3rem; }
   }
   

@@ -1,0 +1,82 @@
+{
+  "framework": "svelte",
+  "frameworkVersion": "5.x",
+  "projectName": "Daljeet Singh Lotey - Portfolio",
+  "projectVersion": "1.0.0",
+  "devtools": {
+    "enabled": true,
+    "port": 5173,
+    "host": "localhost"
+  },
+  "components": {
+    "basePath": "src/lib/components",
+    "extensions": [".svelte"]
+  },
+  "routes": {
+    "basePath": "src/routes",
+    "extensions": [".svelte", ".js", ".ts"]
+  },
+  "stores": {
+    "basePath": "src/lib/stores",
+    "extensions": [".js", ".ts"]
+  },
+  "utils": {
+    "basePath": "src/lib",
+    "extensions": [".js", ".ts"]
+  },
+  "pages": {
+    "basePath": "src/routes",
+    "extensions": [".svelte"]
+  },
+  "layouts": {
+    "basePath": "src/routes",
+    "extensions": [".svelte"]
+  },
+  "errorPages": {
+    "basePath": "src/routes",
+    "extensions": [".svelte"]
+  },
+  "serverHooks": {
+    "basePath": "src/hooks.server.js"
+  },
+  "clientHooks": {
+    "basePath": "src/hooks.client.js"
+  },
+  "serviceWorker": {
+    "basePath": "src/service-worker.js"
+  },
+  "appTemplate": {
+    "basePath": "src/app.html"
+  },
+  "buildConfig": {
+    "adapter": "@sveltejs/adapter-static",
+    "target": "#svelte",
+    "prerender": {
+      "enabled": true,
+      "entries": ["*"]
+    }
+  },
+  "packageManager": "npm",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "node build-script/optimize-images.js && vite build",
+    "preview": "vite preview",
+    "optimize-images": "node build-script/optimize-images.js"
+  },
+  "dependencies": {
+    "svelte": "^5.46.0",
+    "@sveltejs/kit": "^2.49.2",
+    "@sveltejs/adapter-static": "^3.0.10",
+    "vite": "^7.2.7",
+    "tailwindcss": "^3.4.0"
+  },
+  "devDependencies": {
+    "@sentry/sveltekit": "^10.32.1",
+    "leaflet": "^1.9.4",
+    "lucide-svelte": "^0.562.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.38",
+    "rollup-plugin-visualizer": "^6.0.5",
+    "sharp": "^0.34.5"
+  }
+}

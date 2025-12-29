@@ -122,7 +122,7 @@
     justify-content: space-between;
     gap: 2rem;
     padding: 1.25rem 1.5rem;
-    background: var(--base);
+    background: var(--crust);
     border: 1px solid var(--surface0);
     border-radius: var(--radius-lg);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);

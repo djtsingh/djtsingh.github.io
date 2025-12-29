@@ -3,7 +3,7 @@
   import ThemeSelector from './ThemeSelector.svelte';
 
   export let menuOpen = false;
-  export let toggleMenu = () => {};
+  export const toggleMenu = () => {};
   export let closeMenu = () => {};
   export let mainNavItems = [];
   export let moreNavItems = [];
@@ -71,13 +71,13 @@
 {/if}
 
 <!-- Unified Slide Menu -->
-<aside 
-  class="unified-menu" 
-  class:open={menuOpen} 
-  role="dialog" 
-  aria-modal="true" 
-  aria-labelledby="menu-title" 
-  id="unified-menu" 
+<div
+  class="unified-menu"
+  class:open={menuOpen}
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="menu-title"
+  id="unified-menu"
   bind:this={menuElement}
 >
   <div class="menu-header">
@@ -104,7 +104,7 @@
     </button>
   </div>
 
-  <nav class="menu-nav" role="navigation" aria-label="Site navigation">
+  <nav class="menu-nav" aria-label="Site navigation">
     <!-- Main Navigation -->
     {#if mainNavItems.length > 0}
       <div class="nav-section main-nav">
@@ -153,7 +153,7 @@
   <div class="menu-footer">
     <ThemeSelector />
   </div>
-</aside>
+</div>
 
 <style>
   /* Overlay */

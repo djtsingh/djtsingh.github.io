@@ -11,7 +11,7 @@
     description: 'Daljeet Singh Lotey | Software Engineering and Data Science. Portfolio showcasing projects in AI, data visualization, and experiments.',
     shortBio: 'CS grad building software that matters. Data, algorithms, and full-stack engineering.',
     
-    image: '/assets/dj-web.jpg',
+    image: '/assets/optimized/dj-web.jpg',
     
     twitterHandle: '@djt5ingh',
     githubHandle: 'djtsingh',

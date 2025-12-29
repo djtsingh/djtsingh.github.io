@@ -18,7 +18,7 @@
 <div class="performance-dashboard" class:minimized={isMinimized}>
   <div class="dashboard-header">
     <h3>Performance Metrics</h3>
-    <button class="minimize-btn" on:click={() => isMinimized = !isMinimized} aria-label={isMinimized ? 'Expand metrics' : 'Minimize metrics'}>
+    <button class="minimize-btn" onclick={() => isMinimized = !isMinimized} aria-label={isMinimized ? 'Expand metrics' : 'Minimize metrics'}>
       {#if isMinimized}
         <ChevronUp size={16} />
       {:else}

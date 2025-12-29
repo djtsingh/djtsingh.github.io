@@ -842,6 +842,7 @@
     outline-offset: 2px;
   }
 
+  /* svelte-ignore css-unused-selector - Used in time display component */
   .time-icon {
     color: var(--accent);
     flex-shrink: 0;
@@ -849,6 +850,7 @@
     transition: all 0.3s ease;
   }
 
+  /* svelte-ignore css-unused-selector - Used in time display hover state */
   .time-display:hover .time-icon {
     transform: scale(1.1);
   }

@@ -34,7 +34,7 @@
   $: shortDisplayName = displayName ? '/' + displayName + '/' : '';
 </script>
 
-<header class="header" role="banner">
+<header class="header">
   <div class="container header-inner">
     <!-- Terminal nav -->
     <nav class="terminal-nav" aria-label="Breadcrumb navigation">
@@ -49,7 +49,7 @@
     </nav>
     
     <!-- Desktop nav -->
-    <nav class="desktop-nav" role="navigation" aria-label="Main navigation" id="site-navigation">
+    <nav class="desktop-nav" aria-label="Main navigation" id="site-navigation">
       {#each mainNavItems as item}
         <a 
           href={item.href} 
