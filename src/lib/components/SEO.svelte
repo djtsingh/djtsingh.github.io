@@ -45,7 +45,7 @@
     canonical: canonical ?? meta.canonical
   };
 
-  $: pageTitle = mergedMeta.title ? `${mergedMeta.title} — ${siteConfig.name}` : siteConfig.name;
+  $: pageTitle = mergedMeta.title || siteConfig.name;
   $: pageDescription = mergedMeta.description || siteConfig.description;
   $: pageImage = mergedMeta.image || siteConfig.image;
   $: fullImageUrl = pageImage.startsWith('http') || pageImage.startsWith('//') ? pageImage : `${siteConfig.url}${pageImage}`;
