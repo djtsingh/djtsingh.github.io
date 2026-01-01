@@ -1,9 +1,21 @@
 <script>
+  import { onMount } from 'svelte';
   import SEO from '$lib/components/SEO.svelte';
-  import Widgets from '$lib/components/Widgets.svelte';
   import { projects } from '$lib/data/projects.js';
   
   const featuredProjects = projects.filter(p => p.featured);
+  
+  // Lazy load Widgets component after initial render
+  let Widgets = $state(null);
+  let showWidgets = $state(false);
+  
+  onMount(async () => {
+    // Delay widget loading to prioritize hero content
+    await new Promise(resolve => setTimeout(resolve, 100));
+    const module = await import('$lib/components/Widgets.svelte');
+    Widgets = module.default;
+    showWidgets = true;
+  });
 </script>
 
 <section class="hero">
@@ -40,19 +52,36 @@
     </h2>
   </div>
   <div class="projects-grid">
-    {#each featuredProjects as project}
+    {#each featuredProjects as project, index}
       <article class="project-card">
         {#if project.slug}
           <a href="/projects/{project.slug}" class="project-link">
-            <img 
-              src={project.image} 
-              alt="{project.title} screenshot" 
-              class="project-img"
-              width="400"
-              height="225"
-              loading="lazy"
-              decoding="async"
-            />
+            <picture>
+              <source
+                type="image/avif"
+                srcset="{project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-sm.avif')} 400w,
+                        {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-md.avif')} 800w,
+                        {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-lg.avif')} 1200w"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+              />
+              <source
+                type="image/webp"
+                srcset="{project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-sm.webp')} 400w,
+                        {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-md.webp')} 800w,
+                        {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-lg.webp')} 1200w"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+              />
+              <img 
+                src={project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-md.webp')}
+                alt="{project.title} screenshot" 
+                class="project-img"
+                width="400"
+                height="225"
+                loading={index === 0 ? 'eager' : 'lazy'}
+                fetchpriority={index === 0 ? 'high' : 'auto'}
+                decoding="async"
+              />
+            </picture>
             <div class="project-content">
               <h3 class="project-title">{project.title}</h3>
               <p class="project-desc">{project.description}</p>
@@ -64,15 +93,32 @@
             </div>
           </a>
         {:else}
-          <img 
-            src={project.image} 
-            alt="{project.title} screenshot" 
-            class="project-img"
-            width="400"
-            height="225"
-            loading="lazy"
-            decoding="async"
-          />
+          <picture>
+            <source
+              type="image/avif"
+              srcset="{project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-sm.avif')} 400w,
+                      {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-md.avif')} 800w,
+                      {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-lg.avif')} 1200w"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+            />
+            <source
+              type="image/webp"
+              srcset="{project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-sm.webp')} 400w,
+                      {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-md.webp')} 800w,
+                      {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-lg.webp')} 1200w"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
+            />
+            <img 
+              src={project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-md.webp')}
+              alt="{project.title} screenshot" 
+              class="project-img"
+              width="400"
+              height="225"
+              loading={index === 0 ? 'eager' : 'lazy'}
+              fetchpriority={index === 0 ? 'high' : 'auto'}
+              decoding="async"
+            />
+          </picture>
           <div class="project-content">
             <h3 class="project-title">{project.title}</h3>
             <p class="project-desc">{project.description}</p>
@@ -99,7 +145,9 @@
 
 <!-- Interactive Widgets Section -->
 <div class="widgets-fullwidth-container">
-  <Widgets />
+  {#if showWidgets && Widgets}
+    <svelte:component this={Widgets} />
+  {/if}
 </div>
 
 <style>

@@ -5,17 +5,28 @@ import { visualizer } from 'rollup-plugin-visualizer';
 export default defineConfig({
   plugins: [sveltekit()],
   build: {
-    // cssCodeSplit: true, // Disabled to fix preload issues
+    cssMinify: 'lightningcss', // Faster CSS minification
+    cssCodeSplit: false, // Prevent unused CSS preload warnings
     rollupOptions: {
       output: {
         manualChunks: (id) => {
           // Vendor libraries
           if (id.includes('node_modules')) {
+            // Separate heavy dependencies
+            if (id.includes('leaflet')) {
+              return 'vendor-leaflet';
+            }
+            if (id.includes('lucide-svelte')) {
+              return 'vendor-icons';
+            }
             if (id.includes('svelte')) {
               return 'vendor-svelte';
             }
             if (id.includes('@sveltejs/kit')) {
               return 'vendor-sveltekit';
+            }
+            if (id.includes('@sentry')) {
+              return 'vendor-sentry';
             }
             return 'vendor-other';
           }
@@ -23,6 +34,11 @@ export default defineConfig({
           // Large components and utilities
           if (id.includes('components/LoadingState') || id.includes('components/SEO')) {
             return 'ui-components';
+          }
+          
+          // Lazy-loaded widgets
+          if (id.includes('components/Widgets') || id.includes('components/LazyMap') || id.includes('components/GitGraph')) {
+            return 'widgets';
           }
           
           // Project pages (split large ones)
@@ -39,7 +55,7 @@ export default defineConfig({
       plugins: [
         visualizer({
           filename: 'dist/bundle-analysis.html',
-          open: true,
+          open: false, // Don't auto-open browser during build
           gzipSize: true,
           brotliSize: true
         })
@@ -58,12 +74,12 @@ export default defineConfig({
   // Performance optimizations
   optimizeDeps: {
     exclude: ['src/lib/assets/critical.css'],
-    include: ['phosphor-svelte']
+    include: ['lucide-svelte']
   },
 
   // Ensure packages with Svelte sources are pre-bundled for dev and not externalized for SSR
   ssr: {
-    noExternal: ['phosphor-svelte']
+    noExternal: ['lucide-svelte', 'leaflet']
   },
   esbuild: {
     // Minimize bundle size

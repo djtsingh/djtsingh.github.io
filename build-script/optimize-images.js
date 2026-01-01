@@ -6,13 +6,17 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const inputDir = path.join(__dirname, 'static/assets');
-const outputDir = path.join(__dirname, 'static/assets/optimized');
+const inputDir = path.join(__dirname, '..', 'static/assets');
+const outputDir = path.join(__dirname, '..', 'static/assets/optimized');
+const projectsInputDir = path.join(__dirname, '..', 'static/projects');
+const projectsOutputDir = path.join(__dirname, '..', 'static/projects/optimized');
 
-// Ensure output directory exists
-if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir, { recursive: true });
-}
+// Ensure output directories exist
+[outputDir, projectsOutputDir].forEach(dir => {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+});
 
 // Check if optimized version needs updating
 function needsOptimization(inputPath, outputPath) {
@@ -26,8 +30,8 @@ function needsOptimization(inputPath, outputPath) {
   return inputStats.mtime > outputStats.mtime; // Source is newer than optimized
 }
 
-// Image optimization function
-async function optimizeImage(inputPath, outputPath, format, quality = 80) {
+// Image optimization function with optional resize
+async function optimizeImage(inputPath, outputPath, format, quality = 80, width = null) {
   if (!needsOptimization(inputPath, outputPath)) {
     console.log(`⏭️  Skipped (already optimized): ${path.basename(outputPath)}`);
     return;
@@ -35,6 +39,14 @@ async function optimizeImage(inputPath, outputPath, format, quality = 80) {
   
   try {
     let pipeline = sharp(inputPath);
+
+    // Resize if width is specified
+    if (width) {
+      pipeline = pipeline.resize(width, null, { 
+        fit: 'inside',
+        withoutEnlargement: true 
+      });
+    }
 
     if (format === 'webp') {
       pipeline = pipeline.webp({ quality, effort: 6 });
@@ -55,6 +67,10 @@ async function optimizeImage(inputPath, outputPath, format, quality = 80) {
 
 // Process all images
 async function processImages() {
+  console.log('📸 Optimizing images...\n');
+  
+  // Process assets folder
+  console.log('🖼️  Processing /assets...');
   const files = fs.readdirSync(inputDir);
 
   for (const file of files) {
@@ -79,8 +95,50 @@ async function processImages() {
       }
     }
   }
+  
+  // Process project images with responsive sizes
+  console.log('\n🎨 Processing /projects with responsive sizes...');
+  if (fs.existsSync(projectsInputDir)) {
+    const projectFiles = fs.readdirSync(projectsInputDir);
+    
+    for (const file of projectFiles) {
+      const ext = path.extname(file).toLowerCase();
+      const baseName = path.basename(file, ext);
+      
+      if (['.jpg', '.jpeg', '.png', '.webp'].includes(ext)) {
+        const inputPath = path.join(projectsInputDir, file);
+        
+        // Responsive sizes: mobile (400px), tablet (800px), desktop (1200px)
+        const sizes = [
+          { width: 400, suffix: '-sm', quality: 85 },
+          { width: 800, suffix: '-md', quality: 85 },
+          { width: 1200, suffix: '-lg', quality: 80 }
+        ];
+        
+        for (const { width, suffix, quality } of sizes) {
+          // WebP format (best for web)
+          await optimizeImage(
+            inputPath,
+            path.join(projectsOutputDir, `${baseName}${suffix}.webp`),
+            'webp',
+            quality,
+            width
+          );
+          
+          // AVIF format (even better compression, newer browsers)
+          await optimizeImage(
+            inputPath,
+            path.join(projectsOutputDir, `${baseName}${suffix}.avif`),
+            'avif',
+            quality - 10,
+            width
+          );
+        }
+      }
+    }
+  }
 
-  console.log('🎉 Image optimization complete!');
+  console.log('\n🎉 Image optimization complete!');
 }
 
 processImages();

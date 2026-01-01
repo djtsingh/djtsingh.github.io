@@ -1,7 +1,23 @@
 <script>
   import { onMount } from 'svelte';
   import { browser } from '$app/environment';
-  import { Coffee, Code, Bug, GitBranch, Zap, Activity, CloudSun, RefreshCw, MapPin, Calendar, Mail, Terminal, Package, Github, Sun, Moon } from 'lucide-svelte';
+  // Tree-shakeable icon imports for better performance
+  import Coffee from 'lucide-svelte/icons/coffee';
+  import Code from 'lucide-svelte/icons/code';
+  import Bug from 'lucide-svelte/icons/bug';
+  import GitBranch from 'lucide-svelte/icons/git-branch';
+  import Zap from 'lucide-svelte/icons/zap';
+  import Activity from 'lucide-svelte/icons/activity';
+  import CloudSun from 'lucide-svelte/icons/cloud-sun';
+  import RefreshCw from 'lucide-svelte/icons/refresh-cw';
+  import MapPin from 'lucide-svelte/icons/map-pin';
+  import Calendar from 'lucide-svelte/icons/calendar';
+  import Mail from 'lucide-svelte/icons/mail';
+  import Terminal from 'lucide-svelte/icons/terminal';
+  import Package from 'lucide-svelte/icons/package';
+  import Github from 'lucide-svelte/icons/github';
+  import Sun from 'lucide-svelte/icons/sun';
+  import Moon from 'lucide-svelte/icons/moon';
   // Import LazyMap directly for now to test
   import LazyMap from '$lib/components/LazyMap.svelte';
 

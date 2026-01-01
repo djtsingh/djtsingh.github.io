@@ -1,7 +1,8 @@
 <script>
   import { performanceMetrics } from '$lib/stores/performance.js';
   import { dev } from '$app/environment';
-  import { ChevronUp, ChevronDown } from 'lucide-svelte';
+  import ChevronUp from 'lucide-svelte/icons/chevron-up';
+  import ChevronDown from 'lucide-svelte/icons/chevron-down';
 
   let metrics = $derived(performanceMetrics);
 

@@ -2,7 +2,7 @@
 <script>
   import { onMount } from 'svelte';
   import { browser } from '$app/environment';
-  import { GitBranch } from 'lucide-svelte';
+  import GitBranch from 'lucide-svelte/icons/git-branch';
 
   let canvasRef;
   let containerRef;

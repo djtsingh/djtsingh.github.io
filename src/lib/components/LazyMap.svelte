@@ -1,7 +1,5 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
-  // Import Leaflet CSS at the top
-  import 'leaflet/dist/leaflet.css';
 
   let mapContainer;
   let map;
@@ -10,7 +8,8 @@
 
   onMount(async () => {
     try {
-      // Dynamically import Leaflet only when component mounts
+      // Dynamically import Leaflet CSS and JS only when component mounts
+      await import('leaflet/dist/leaflet.css');
       const leafletModule = await import('leaflet');
 
       const L = leafletModule.default;
