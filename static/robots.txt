@@ -1,2 +1,7 @@
-# Cloudflare handles bot blocking - minimal config
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+Disallow: /_app/
+
+# Sitemaps
 Sitemap: https://www.daljeetsingh.me/sitemap.xml

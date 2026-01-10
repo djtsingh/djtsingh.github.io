@@ -230,7 +230,7 @@
   <footer class="post-footer">
     <!-- Share buttons -->
     <div class="footer-share">
-      <h4>Enjoyed this article? Share it!</h4>
+      <h2 class="footer-heading">Enjoyed this article? Share it!</h2>
       <ShareButtons 
         title={metadata.title} 
         url="/posts/{metadata.slug}"
@@ -240,7 +240,7 @@
     <!-- Tags -->
     {#if metadata.tags?.length}
       <div class="footer-tags">
-        <h4>Topics</h4>
+        <h2 class="footer-heading">Topics</h2>
         <div class="tags-list">
           {#each metadata.tags as tag}
             <a href="/posts?tag={encodeURIComponent(tag)}" class="tag-link">{tag}</a>
@@ -605,12 +605,11 @@
     text-align: center;
   }
   
-  .footer-share h4,
-  .footer-tags h4 {
+  .footer-heading {
     margin: 0 0 1rem;
     font-size: 1rem;
     font-weight: 600;
-    color: var(--subtext1);
+    color: var(--text);
   }
   
   .tags-list {

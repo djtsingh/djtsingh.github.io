@@ -31,7 +31,7 @@
 
 <nav class="toc" aria-label="Table of contents">
   <div class="toc-header">
-    <h4 class="toc-title">
+    <span class="toc-title" role="heading" aria-level="2">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="8" x2="21" y1="6" y2="6"/>
         <line x1="8" x2="21" y1="12" y2="12"/>
@@ -41,7 +41,7 @@
         <line x1="3" x2="3.01" y1="18" y2="18"/>
       </svg>
       On this page
-    </h4>
+    </span>
     <button 
       class="toc-toggle"
       on:click={() => isExpanded = !isExpanded}

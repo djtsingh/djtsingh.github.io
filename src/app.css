@@ -133,7 +133,7 @@
   --surface2: #acb0be;
   --text: #4c4f69;
   --subtext0: #5c5f77;
-  --subtext1: #6c6f85;
+  --subtext1: #5c5f77; /* Improved contrast - same as subtext0 */
 
   --mantle-rgb: 230, 233, 239;
   --base-rgb: 239, 241, 245;

@@ -45,13 +45,13 @@
 {#if posts.length > 0}
   <section class="related-posts">
     <div class="section-header">
-      <h3 class="section-title">
+      <h2 class="section-title">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
           <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
         </svg>
         {title}
-      </h3>
+      </h2>
       
       {#if canNavigate}
         <div class="nav-buttons">
@@ -105,7 +105,7 @@
                 {#if post.tags?.length}
                   <span class="card-tag">{post.tags[0]}</span>
                 {/if}
-                <h4 class="card-title">{post.title}</h4>
+                <h3 class="card-title">{post.title}</h3>
                 <p class="card-meta">
                   {formatDate(post.date, { month: 'short', day: 'numeric' })}
                   {#if post.readingTime}

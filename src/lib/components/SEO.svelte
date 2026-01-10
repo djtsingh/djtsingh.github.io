@@ -1,4 +1,5 @@
 <script>
+  import { page } from '$app/stores';
   import { siteConfig } from '$lib/config/site.js';
 
   export let title = undefined;
@@ -24,7 +25,10 @@
   $: pageImage = mergedMeta.image || siteConfig.image;
   $: fullImageUrl = pageImage.startsWith('http') || pageImage.startsWith('//') ? pageImage : `${siteConfig.url}${pageImage}`;
   $: pageType = mergedMeta.type || 'website';
-  $: canonicalUrl = mergedMeta.canonical ? (mergedMeta.canonical.startsWith('http') ? mergedMeta.canonical : `${siteConfig.url}${mergedMeta.canonical}`) : siteConfig.url;
+  // Use explicit canonical, or derive from current page URL
+  $: canonicalUrl = mergedMeta.canonical 
+    ? (mergedMeta.canonical.startsWith('http') ? mergedMeta.canonical : `${siteConfig.url}${mergedMeta.canonical}`) 
+    : `${siteConfig.url}${$page.url.pathname}`;
   
   $: personSchema = JSON.stringify({
     '@context': 'https://schema.org',

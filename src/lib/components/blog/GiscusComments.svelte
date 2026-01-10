@@ -72,12 +72,12 @@
 
 <section class="comments-section" aria-labelledby="comments-heading">
   <div class="comments-header">
-    <h3 id="comments-heading" class="comments-title">
+    <h2 id="comments-heading" class="comments-title">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
       </svg>
       Comments
-    </h3>
+    </h2>
     <p class="comments-subtitle">
       Join the discussion • Powered by <a href="https://giscus.app" target="_blank" rel="noopener noreferrer">Giscus</a>
     </p>
