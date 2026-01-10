@@ -118,12 +118,16 @@
     display: flex;
     align-items: center;
     gap: 2px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     user-select: none;
+    min-width: 0;
+    max-width: 50%;
+    overflow: hidden;
   }
   
   .tilde {
     color: var(--accent);
+    flex-shrink: 0;
   }
   
   .tilde:hover {
@@ -132,6 +136,9 @@
   
   .current-path {
     color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   /* Responsive path display */
@@ -144,6 +151,11 @@
   }
   
   @media (min-width: 640px) {
+    .terminal-nav {
+      font-size: 1rem;
+      max-width: none;
+    }
+    
     .full-path {
       display: inline;
     }

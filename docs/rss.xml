@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" 
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Daljeet Singh Lotey - Blog</title>
+    <description>Daljeet Singh Lotey | Software Engineering and Data Science. Portfolio showcasing projects in AI, data visualization, and experiments.</description>
+    <link>https://www.daljeetsingh.me/posts</link>
+    <atom:link href="https://www.daljeetsingh.me/rss.xml" rel="self" type="application/rss+xml"/>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 10 Jan 2026 06:57:56 GMT</lastBuildDate>
+    <generator>SvelteKit</generator>
+    <image>
+      <url>https://www.daljeetsingh.me/assets/optimized/dj-web.webp</url>
+      <title>Daljeet Singh Lotey</title>
+      <link>https://www.daljeetsingh.me</link>
+    </image>
+    <item>
+      <title>Building a Modern Blog with SvelteKit</title>
+      <description>A deep dive into creating a feature-rich, performant blog system using SvelteKit, mdsvex, and modern web technologies.</description>
+      <link>https://www.daljeetsingh.me/posts/building-modern-blog-sveltekit</link>
+      <guid isPermaLink="true">https://www.daljeetsingh.me/posts/building-modern-blog-sveltekit</guid>
+      <pubDate>Sat, 10 Jan 2026 00:00:00 GMT</pubDate>
+      <category>SvelteKit</category>
+      <category>Web Development</category>
+      <category>Tutorial</category>
+      <media:content url="https://www.daljeetsingh.me/assets/blog/optimized/how-to-start-a-new-blog-lg.webp" medium="image"/>
+    </item>
+    <item>
+      <title>How to Get Internship as CS Student 2026</title>
+      <description>Practical Steps, Resume Tips, and Networking Tricks to land an Internship as a Fresh CS student.</description>
+      <link>https://www.daljeetsingh.me/posts/how-to-get-internship-as-cs-student-2026</link>
+      <guid isPermaLink="true">https://www.daljeetsingh.me/posts/how-to-get-internship-as-cs-student-2026</guid>
+      <pubDate>Sat, 10 Jan 2026 00:00:00 GMT</pubDate>
+      <category>Tech Internships</category>
+      <category>CS graduate</category>
+      <category>Tutorial</category>
+      <media:content url="https://www.daljeetsingh.me/assets/blog/optimized/how-to-get-internship-as-cs-student-2026-lg.webp" medium="image"/>
+    </item>
+    <item>
+      <title>Mastering CSS Animations with Anime.js</title>
+      <description>Learn how to create smooth, performant animations using Anime.js and CSS. From basic transitions to complex orchestrated sequences.</description>
+      <link>https://www.daljeetsingh.me/posts/mastering-css-animations-animejs</link>
+      <guid isPermaLink="true">https://www.daljeetsingh.me/posts/mastering-css-animations-animejs</guid>
+      <pubDate>Thu, 08 Jan 2026 00:00:00 GMT</pubDate>
+      <category>Animation</category>
+      <category>JavaScript</category>
+      <category>CSS</category>
+      <category>Tutorial</category>
+      <media:content url="https://www.daljeetsingh.me/assets/blog/optimized/mastering-css-animations-animejs-lg.webp" medium="image"/>
+    </item>
+    <item>
+      <title>Python Data Science: From Zero to Analysis</title>
+      <description>A comprehensive guide to getting started with data science using Python. Learn pandas, numpy, and visualization libraries.</description>
+      <link>https://www.daljeetsingh.me/posts/python-data-science-zero-to-analysis</link>
+      <guid isPermaLink="true">https://www.daljeetsingh.me/posts/python-data-science-zero-to-analysis</guid>
+      <pubDate>Mon, 05 Jan 2026 00:00:00 GMT</pubDate>
+      <category>Python</category>
+      <category>Data Science</category>
+      <category>Tutorial</category>
+      <category>Machine Learning</category>
+      <media:content url="https://www.daljeetsingh.me/assets/blog/optimized/py-data-science-lg.webp" medium="image"/>
+    </item>
+    <item>
+      <title>The Art of Clean Code</title>
+      <description>Principles and practices for writing maintainable, readable code. From naming conventions to architectural patterns.</description>
+      <link>https://www.daljeetsingh.me/posts/art-of-clean-code</link>
+      <guid isPermaLink="true">https://www.daljeetsingh.me/posts/art-of-clean-code</guid>
+      <pubDate>Fri, 02 Jan 2026 00:00:00 GMT</pubDate>
+      <category>Software Engineering</category>
+      <category>Best Practices</category>
+      <category>Clean Code</category>
+      <media:content url="https://www.daljeetsingh.me/assets/blog/optimized/the-art-of-clean-code-lg.webp" medium="image"/>
+    </item>
+    <item>
+      <title>Understanding Modern JavaScript: ES2024 and Beyond</title>
+      <description>Explore the latest JavaScript features including array grouping, decorators, and the pipeline operator. Stay ahead with modern JS.</description>
+      <link>https://www.daljeetsingh.me/posts/understanding-modern-javascript-es2024</link>
+      <guid isPermaLink="true">https://www.daljeetsingh.me/posts/understanding-modern-javascript-es2024</guid>
+      <pubDate>Sun, 28 Dec 2025 00:00:00 GMT</pubDate>
+      <category>JavaScript</category>
+      <category>Web Development</category>
+      <category>ES2024</category>
+      <media:content url="https://www.daljeetsingh.me/assets/blog/optimized/modern-javascript-lg.webp" medium="image"/>
+    </item>
+  </channel>
+</rss>

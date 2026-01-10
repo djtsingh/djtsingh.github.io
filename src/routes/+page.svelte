@@ -56,22 +56,11 @@
       <article class="project-card">
         {#if project.slug}
           <a href="/projects/{project.slug}" class="project-link">
-            <picture>
-              <source
-                type="image/avif"
-                srcset="{project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-sm.avif')} 400w,
-                        {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-md.avif')} 800w,
-                        {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-lg.avif')} 1200w"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
-              />
-              <source
-                type="image/webp"
-                srcset="{project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-sm.webp')} 400w,
-                        {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-md.webp')} 800w,
-                        {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-lg.webp')} 1200w"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
-              />
-              <img 
+            <img
+              srcset="{project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-sm.webp')} 400w,
+                      {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-md.webp')} 800w,
+                      {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-lg.webp')} 1200w"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px" 
                 src={project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-md.webp')}
                 alt="{project.title} screenshot" 
                 class="project-img"
@@ -80,8 +69,7 @@
                 loading={index === 0 ? 'eager' : 'lazy'}
                 fetchpriority={index === 0 ? 'high' : 'auto'}
                 decoding="async"
-              />
-            </picture>
+            />
             <div class="project-content">
               <h3 class="project-title">{project.title}</h3>
               <p class="project-desc">{project.description}</p>
@@ -93,22 +81,11 @@
             </div>
           </a>
         {:else}
-          <picture>
-            <source
-              type="image/avif"
-              srcset="{project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-sm.avif')} 400w,
-                      {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-md.avif')} 800w,
-                      {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-lg.avif')} 1200w"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
-            />
-            <source
-              type="image/webp"
-              srcset="{project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-sm.webp')} 400w,
-                      {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-md.webp')} 800w,
-                      {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-lg.webp')} 1200w"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
-            />
-            <img 
+          <img
+            srcset="{project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-sm.webp')} 400w,
+                    {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-md.webp')} 800w,
+                    {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-lg.webp')} 1200w"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px" 
               src={project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-md.webp')}
               alt="{project.title} screenshot" 
               class="project-img"
@@ -118,7 +95,6 @@
               fetchpriority={index === 0 ? 'high' : 'auto'}
               decoding="async"
             />
-          </picture>
           <div class="project-content">
             <h3 class="project-title">{project.title}</h3>
             <p class="project-desc">{project.description}</p>

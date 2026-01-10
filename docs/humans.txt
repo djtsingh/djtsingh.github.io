@@ -1,14 +1,14 @@
 /* TEAM */
 Name: Daljeet Singh Lotey
 Role: Creator, Developer, Designer
-Site: https://djtsingh.github.io
+Site: https://www.daljeetsingh.me
 Twitter: @djt5ingh
 GitHub: djtsingh
 LinkedIn: djtsingh
 Location: India
 
 /* SITE */
-Last updated: 2024-12-04
+Last updated: 2026-01-10
 Language: English
 Standards: HTML5, CSS3, ES6+
 Framework: SvelteKit

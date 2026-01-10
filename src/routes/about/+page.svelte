@@ -23,19 +23,15 @@
   <div class="about-grid">
     <!-- Portrait -->
     <div class="portrait">
-      <picture>
-        <source srcset="/assets/optimized/dj-web.avif" type="image/avif" />
-        <source srcset="/assets/optimized/dj-web.webp" type="image/webp" />
-        <img 
-          src="/assets/optimized/dj-web.jpg" 
-          alt="Animated Portrait of Daljeet Singh Lotey" 
-          class="portrait-img"
-          loading="lazy"
-          decoding="async"
-          width="400"
-          height="400"
-        />
-      </picture>
+      <img 
+        src="/assets/optimized/dj-web.webp" 
+        alt="Animated Portrait of Daljeet Singh Lotey" 
+        class="portrait-img"
+        loading="lazy"
+        decoding="async"
+        width="400"
+        height="400"
+      />
     </div>
 
     <!-- Content -->

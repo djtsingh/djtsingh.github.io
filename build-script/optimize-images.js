@@ -6,15 +6,32 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const inputDir = path.join(__dirname, '..', 'static/assets');
-const outputDir = path.join(__dirname, '..', 'static/assets/optimized');
-const projectsInputDir = path.join(__dirname, '..', 'static/projects');
-const projectsOutputDir = path.join(__dirname, '..', 'static/projects/optimized');
+// Configuration
+const FOLDERS_TO_PROCESS = [
+  {
+    input: path.join(__dirname, '..', 'static/assets'),
+    output: path.join(__dirname, '..', 'static/assets/optimized'),
+    recursive: false, // Only root level files
+    responsiveSizes: false
+  },
+  {
+    input: path.join(__dirname, '..', 'static/assets/blog'),
+    output: path.join(__dirname, '..', 'static/assets/blog/optimized'),
+    recursive: false,
+    responsiveSizes: true // Blog images get responsive sizes
+  },
+  {
+    input: path.join(__dirname, '..', 'static/projects'),
+    output: path.join(__dirname, '..', 'static/projects/optimized'),
+    recursive: false,
+    responsiveSizes: true
+  }
+];
 
 // Ensure output directories exist
-[outputDir, projectsOutputDir].forEach(dir => {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+FOLDERS_TO_PROCESS.forEach(({ output }) => {
+  if (!fs.existsSync(output)) {
+    fs.mkdirSync(output, { recursive: true });
   }
 });
 
@@ -59,86 +76,72 @@ async function optimizeImage(inputPath, outputPath, format, quality = 80, width 
     }
 
     await pipeline.toFile(outputPath);
-    console.log(`✅ Optimized: ${outputPath}`);
+    console.log(`✅ Optimized: ${path.relative(process.cwd(), outputPath)}`);
   } catch (error) {
     console.error(`❌ Error optimizing ${inputPath}:`, error.message);
   }
 }
 
-// Process all images
-async function processImages() {
-  console.log('📸 Optimizing images...\n');
+// Process images in a folder
+async function processFolder(config) {
+  const { input, output, responsiveSizes } = config;
   
-  // Process assets folder
-  console.log('🖼️  Processing /assets...');
-  const files = fs.readdirSync(inputDir);
+  if (!fs.existsSync(input)) {
+    console.log(`⚠️  Folder not found: ${input}`);
+    return;
+  }
 
+  console.log(`\n📁 Processing: ${path.relative(process.cwd(), input)}`);
+  const files = fs.readdirSync(input);
+  
   for (const file of files) {
     const ext = path.extname(file).toLowerCase();
     const baseName = path.basename(file, ext);
-
-    if (['.jpg', '.jpeg', '.png'].includes(ext)) {
-      const inputPath = path.join(inputDir, file);
-
-      // Generate WebP
-      await optimizeImage(inputPath, path.join(outputDir, `${baseName}.webp`), 'webp', 85);
-
-      // Generate AVIF
-      await optimizeImage(inputPath, path.join(outputDir, `${baseName}.avif`), 'avif', 75);
-
-      // Generate optimized JPG fallback
-      await optimizeImage(inputPath, path.join(outputDir, `${baseName}.jpg`), 'jpg', 85);
-
-      // Generate optimized PNG for icons
-      if (ext === '.png') {
-        await optimizeImage(inputPath, path.join(outputDir, `${baseName}.png`), 'png', 80);
-      }
-    }
-  }
-  
-  // Process project images with responsive sizes
-  console.log('\n🎨 Processing /projects with responsive sizes...');
-  if (fs.existsSync(projectsInputDir)) {
-    const projectFiles = fs.readdirSync(projectsInputDir);
+    const inputPath = path.join(input, file);
     
-    for (const file of projectFiles) {
-      const ext = path.extname(file).toLowerCase();
-      const baseName = path.basename(file, ext);
+    // Skip directories and non-image files
+    if (fs.statSync(inputPath).isDirectory()) continue;
+    if (!['.jpg', '.jpeg', '.png', '.webp'].includes(ext)) continue;
+
+    if (responsiveSizes) {
+      // Generate responsive sizes (for blog and project images)
+      const sizes = [
+        { width: 480, suffix: '-sm', quality: 85 },
+        { width: 800, suffix: '-md', quality: 85 },
+        { width: 1200, suffix: '-lg', quality: 80 }
+      ];
       
-      if (['.jpg', '.jpeg', '.png', '.webp'].includes(ext)) {
-        const inputPath = path.join(projectsInputDir, file);
-        
-        // Responsive sizes: mobile (400px), tablet (800px), desktop (1200px)
-        const sizes = [
-          { width: 400, suffix: '-sm', quality: 85 },
-          { width: 800, suffix: '-md', quality: 85 },
-          { width: 1200, suffix: '-lg', quality: 80 }
-        ];
-        
-        for (const { width, suffix, quality } of sizes) {
-          // WebP format (best for web)
-          await optimizeImage(
-            inputPath,
-            path.join(projectsOutputDir, `${baseName}${suffix}.webp`),
-            'webp',
-            quality,
-            width
-          );
-          
-          // AVIF format (even better compression, newer browsers)
-          await optimizeImage(
-            inputPath,
-            path.join(projectsOutputDir, `${baseName}${suffix}.avif`),
-            'avif',
-            quality - 10,
-            width
-          );
-        }
+      for (const { width, suffix, quality } of sizes) {
+        await optimizeImage(
+          inputPath,
+          path.join(output, `${baseName}${suffix}.webp`),
+          'webp',
+          quality,
+          width
+        );
+      }
+    } else {
+      // Single optimized version (for icons, small assets)
+      await optimizeImage(inputPath, path.join(output, `${baseName}.webp`), 'webp', 85);
+      
+      if (ext === '.png') {
+        await optimizeImage(inputPath, path.join(output, `${baseName}.png`), 'png', 80);
+      } else {
+        await optimizeImage(inputPath, path.join(output, `${baseName}.jpg`), 'jpg', 85);
       }
     }
   }
+}
 
-  console.log('\n🎉 Image optimization complete!');
+// Main process
+async function processImages() {
+  console.log('📸 Starting image optimization...\n');
+  
+  for (const config of FOLDERS_TO_PROCESS) {
+    await processFolder(config);
+  }
+
+  console.log('\n🎉 Image optimization complete!\n');
 }
 
 processImages();
