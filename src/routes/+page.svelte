@@ -56,20 +56,7 @@
       <article class="project-card">
         {#if project.slug}
           <a href="/projects/{project.slug}" class="project-link">
-            <img
-              srcset="{project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-sm.webp')} 400w,
-                      {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-md.webp')} 800w,
-                      {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-lg.webp')} 1200w"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px" 
-                src={project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-md.webp')}
-                alt="{project.title} screenshot" 
-                class="project-img"
-                width="400"
-                height="225"
-                loading={index === 0 ? 'eager' : 'lazy'}
-                fetchpriority={index === 0 ? 'high' : 'auto'}
-                decoding="async"
-            />
+            <img src={project.image} alt="{project.title} screenshot" class="project-img" />
             <div class="project-content">
               <h3 class="project-title">{project.title}</h3>
               <p class="project-desc">{project.description}</p>
@@ -81,20 +68,7 @@
             </div>
           </a>
         {:else}
-          <img
-            srcset="{project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-sm.webp')} 400w,
-                    {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-md.webp')} 800w,
-                    {project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-lg.webp')} 1200w"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px" 
-              src={project.image.replace('/projects/', '/projects/optimized/').replace('.webp', '-md.webp')}
-              alt="{project.title} screenshot" 
-              class="project-img"
-              width="400"
-              height="225"
-              loading={index === 0 ? 'eager' : 'lazy'}
-              fetchpriority={index === 0 ? 'high' : 'auto'}
-              decoding="async"
-            />
+          <img src={project.image} alt="{project.title} screenshot" class="project-img" />
           <div class="project-content">
             <h3 class="project-title">{project.title}</h3>
             <p class="project-desc">{project.description}</p>
@@ -323,7 +297,7 @@
   
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 1.5rem;
   }
   
@@ -339,7 +313,8 @@
   
   .project-card:hover {
     transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-lg), 0 0 0 1px rgba(var(--accent-rgb), 0.15);
+    border-color: rgba(var(--accent-rgb), 0.3);
   }
   
   .project-link {
@@ -376,6 +351,10 @@
     font-size: 0.875rem;
     line-height: 1.6;
     color: var(--subtext0);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   
   .project-tags {

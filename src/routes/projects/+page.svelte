@@ -17,7 +17,7 @@
 <SEO 
   title="Daljeet Singh Lotey - Projects"
   description="Projects by Daljeet Singh Lotey | tools, experiments and open-source work in AI, visualization and systems engineering."
-  canonical="https://djtsingh.github.io/projects"
+  canonical="https://www.daljeetsingh.me/projects"
   type="website"
 />
 
@@ -81,7 +81,12 @@
         {:else}
           <img src={project.image} alt="{project.title} screenshot" class="project-img" />
           <div class="project-content">
-            <h3 class="project-title">{project.title}</h3>
+            <h3 class="project-title">
+              {project.title}
+              {#if project.featured}
+                <span class="featured-badge">Featured</span>
+              {/if}
+            </h3>
             <p class="project-desc">{project.description}</p>
             <div class="project-tags">
               {#each project.tags as tag}
@@ -95,6 +100,12 @@
                 {/if}
                 {#if project.links.demo}
                   <a href={project.links.demo} class="chip">Demo</a>
+                {/if}
+                {#if project.links.course}
+                  <a href={project.links.course} target="_blank" rel="noopener noreferrer" class="chip">Course</a>
+                {/if}
+                {#if project.links.kaggle}
+                  <a href={project.links.kaggle} target="_blank" rel="noopener noreferrer" class="chip">Kaggle</a>
                 {/if}
                 {#if project.links.source}
                   <a href={project.links.source} target="_blank" rel="noopener noreferrer" class="chip">Source</a>
@@ -263,6 +274,10 @@
     font-size: 0.875rem;
     line-height: 1.6;
     color: var(--subtext0);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   
   .project-tags {
