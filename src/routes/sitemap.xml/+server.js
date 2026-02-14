@@ -39,11 +39,13 @@ export async function GET() {
     { path: '/posts', priority: 0.9, changefreq: 'weekly', lastmod: blogPosts[0]?.date || new Date().toISOString() },
     { path: '/certifications', priority: 0.8, changefreq: 'monthly' },
     { path: '/journey', priority: 0.8, changefreq: 'monthly' },
+    { path: '/developer-dashboard', priority: 0.8, changefreq: 'monthly' },
     { path: '/socials', priority: 0.7, changefreq: 'monthly' },
     { path: '/projects', priority: 0.8, changefreq: 'monthly' },
     { path: '/projects/portfolio', priority: 0.7, changefreq: 'monthly' },
     { path: '/projects/janus', priority: 0.7, changefreq: 'monthly' },
     { path: '/projects/market-prediction', priority: 0.7, changefreq: 'monthly' },
+    { path: '/projects/drisht', priority: 0.8, changefreq: 'monthly' },
   ];
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>

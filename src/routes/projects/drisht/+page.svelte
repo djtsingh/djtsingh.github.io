@@ -134,17 +134,6 @@
 
   <!-- Hero Header -->
   <header class="paper-header">
-    <div class="header-decoration">
-      <div class="decoration-line"></div>
-      <div class="decoration-circle"></div>
-      <div class="decoration-line"></div>
-    </div>
-    
-    <div class="paper-badge">
-      <span class="badge-icon">🎓</span>
-      <span>Bachelor's Thesis Research • {project.year}</span>
-    </div>
-    
     <h1 class="paper-title">
       <span class="title-main">{project.title}</span>
     </h1>
@@ -519,42 +508,6 @@
     border-bottom: 1px solid var(--surface0);
     margin-bottom: 3rem;
     position: relative;
-  }
-
-  .header-decoration {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .decoration-line {
-    height: 2px;
-    width: 60px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  }
-
-  .decoration-circle {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 10px var(--accent);
-  }
-
-  .paper-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1.25rem;
-    background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.15), rgba(var(--accent-rgb), 0.05));
-    border: 1px solid rgba(var(--accent-rgb), 0.3);
-    border-radius: var(--radius-full);
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--accent);
-    margin-bottom: 1.5rem;
   }
 
   .paper-title {
