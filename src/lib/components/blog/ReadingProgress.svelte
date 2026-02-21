@@ -21,11 +21,6 @@
   >
     <div class="progress-glow"></div>
   </div>
-  
-  <!-- Progress percentage indicator -->
-  <div class="progress-indicator" class:show={progress > 5}>
-    <span class="progress-text">{Math.round(progress)}%</span>
-  </div>
 </div>
 
 <style>
@@ -84,32 +79,5 @@
     );
     filter: blur(4px);
     pointer-events: none;
-  }
-  
-  .progress-indicator {
-    position: fixed;
-    top: 12px;
-    right: 16px;
-    padding: 0.35rem 0.65rem;
-    background: rgba(var(--base-rgb), 0.9);
-    backdrop-filter: blur(8px);
-    border: 1px solid var(--surface1);
-    border-radius: var(--radius-full);
-    opacity: 0;
-    transform: translateY(-10px) scale(0.9);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1001;
-  }
-  
-  .progress-indicator.show {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  
-  .progress-text {
-    font-size: 0.7rem;
-    font-weight: 600;
-    color: var(--accent);
-    font-variant-numeric: tabular-nums;
   }
 </style>

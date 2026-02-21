@@ -19,7 +19,6 @@
 />
 
 <div class="about-page">
-  <h1>About Me</h1>
   <div class="about-grid">
     <!-- Portrait -->
     <div class="portrait">
@@ -37,7 +36,7 @@
     <!-- Content -->
     <div class="about-content">
       <p class="about-lead">
-        Hey! I am Daljeet Singh Lotey <a href="/socials" class="inline-link">(@djtsingh)</a>. I build software that matters: from scalable systems, to creative tools and experiments <a href="/projects" class="inline-link">(cool projects)</a> in my free time. I'm a recent CS grad with a background in data, algorithms, and full-stack engineering.
+        Hey! I am Daljeet Singh Lotey <a href="/connect" class="inline-link">(@djtsingh)</a>. I build software that matters: from scalable systems, to creative tools and experiments <a href="/projects" class="inline-link">(cool projects)</a> in my free time. I'm a recent CS grad with a background in data, algorithms, and full-stack engineering.
       </p>
 
       <p>
@@ -142,14 +141,6 @@
     max-width: 1100px;
     margin: 0 auto;
     padding-top: 1.5rem;
-  }
-  
-  .about-page h1 {
-    font-size: 2.5rem;
-    font-weight: var(--font-weight-bold);
-    color: var(--text);
-    margin-bottom: 2rem;
-    text-align: left;
   }
   
   .about-grid {

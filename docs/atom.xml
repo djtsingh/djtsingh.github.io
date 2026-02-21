@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>https://www.daljeetsingh.me/</id>
+  <title>Daljeet Singh Lotey - Blog</title>
+  <subtitle>Daljeet Singh Lotey | Software Engineering and Data Science. Portfolio showcasing projects in AI, data visualization, and experiments.</subtitle>
+  <link href="https://www.daljeetsingh.me/posts" rel="alternate" type="text/html"/>
+  <link href="https://www.daljeetsingh.me/atom.xml" rel="self" type="application/atom+xml"/>
+  <updated>2026-01-10T00:00:00.000Z</updated>
+  <generator uri="https://kit.svelte.dev/" version="2.0">SvelteKit</generator>
+  <icon>https://www.daljeetsingh.me/assets/favicon.ico</icon>
+  <logo>https://www.daljeetsingh.me/assets/optimized/dj-web.webp</logo>
+  <rights>© 2026 Daljeet Singh Lotey. All rights reserved.</rights>
+  <author>
+    <name>Daljeet Singh Lotey</name>
+    <uri>https://www.daljeetsingh.me</uri>
+  </author>
+  <entry>
+    <id>https://www.daljeetsingh.me/posts/building-modern-blog-sveltekit</id>
+    <title type="html">Building a Modern Blog with SvelteKit</title>
+    <link href="https://www.daljeetsingh.me/posts/building-modern-blog-sveltekit" rel="alternate" type="text/html"/>
+    <published>2026-01-10T00:00:00.000Z</published>
+    <updated>2026-01-10T00:00:00.000Z</updated>
+    <author>
+      <name>Daljeet Singh Lotey</name>
+    </author>
+    <summary type="html">A deep dive into creating a feature-rich, performant blog system using SvelteKit, mdsvex, and modern web technologies.</summary>
+    <category term="SvelteKit"/>
+    <category term="Web Development"/>
+    <category term="Tutorial"/>
+    <link href="https://www.daljeetsingh.me/assets/blog/optimized/how-to-start-a-new-blog-lg.webp" rel="enclosure" type="image/webp"/>
+  </entry>
+  <entry>
+    <id>https://www.daljeetsingh.me/posts/how-to-get-internship-as-cs-student-2026</id>
+    <title type="html">How to Get Internship as CS Student 2026</title>
+    <link href="https://www.daljeetsingh.me/posts/how-to-get-internship-as-cs-student-2026" rel="alternate" type="text/html"/>
+    <published>2026-01-10T00:00:00.000Z</published>
+    <updated>2026-01-10T00:00:00.000Z</updated>
+    <author>
+      <name>Daljeet Singh Lotey</name>
+    </author>
+    <summary type="html">Practical Steps, Resume Tips, and Networking Tricks to land an Internship as a Fresh CS student.</summary>
+    <category term="Tech Internships"/>
+    <category term="CS graduate"/>
+    <category term="Tutorial"/>
+    <link href="https://www.daljeetsingh.me/assets/blog/optimized/how-to-get-internship-as-cs-student-2026-lg.webp" rel="enclosure" type="image/webp"/>
+  </entry>
+  <entry>
+    <id>https://www.daljeetsingh.me/posts/mastering-css-animations-animejs</id>
+    <title type="html">Mastering CSS Animations with Anime.js</title>
+    <link href="https://www.daljeetsingh.me/posts/mastering-css-animations-animejs" rel="alternate" type="text/html"/>
+    <published>2026-01-08T00:00:00.000Z</published>
+    <updated>2026-01-08T00:00:00.000Z</updated>
+    <author>
+      <name>Daljeet Singh Lotey</name>
+    </author>
+    <summary type="html">Learn how to create smooth, performant animations using Anime.js and CSS. From basic transitions to complex orchestrated sequences.</summary>
+    <category term="Animation"/>
+    <category term="JavaScript"/>
+    <category term="CSS"/>
+    <category term="Tutorial"/>
+    <link href="https://www.daljeetsingh.me/assets/blog/optimized/mastering-css-animations-animejs-lg.webp" rel="enclosure" type="image/webp"/>
+  </entry>
+  <entry>
+    <id>https://www.daljeetsingh.me/posts/python-data-science-zero-to-analysis</id>
+    <title type="html">Python Data Science: From Zero to Analysis</title>
+    <link href="https://www.daljeetsingh.me/posts/python-data-science-zero-to-analysis" rel="alternate" type="text/html"/>
+    <published>2026-01-05T00:00:00.000Z</published>
+    <updated>2026-01-05T00:00:00.000Z</updated>
+    <author>
+      <name>Daljeet Singh Lotey</name>
+    </author>
+    <summary type="html">A comprehensive guide to getting started with data science using Python. Learn pandas, numpy, and visualization libraries.</summary>
+    <category term="Python"/>
+    <category term="Data Science"/>
+    <category term="Tutorial"/>
+    <category term="Machine Learning"/>
+    <link href="https://www.daljeetsingh.me/assets/blog/optimized/py-data-science-lg.webp" rel="enclosure" type="image/webp"/>
+  </entry>
+  <entry>
+    <id>https://www.daljeetsingh.me/posts/art-of-clean-code</id>
+    <title type="html">The Art of Clean Code</title>
+    <link href="https://www.daljeetsingh.me/posts/art-of-clean-code" rel="alternate" type="text/html"/>
+    <published>2026-01-02T00:00:00.000Z</published>
+    <updated>2026-01-02T00:00:00.000Z</updated>
+    <author>
+      <name>Daljeet Singh Lotey</name>
+    </author>
+    <summary type="html">Principles and practices for writing maintainable, readable code. From naming conventions to architectural patterns.</summary>
+    <category term="Software Engineering"/>
+    <category term="Best Practices"/>
+    <category term="Clean Code"/>
+    <link href="https://www.daljeetsingh.me/assets/blog/optimized/the-art-of-clean-code-lg.webp" rel="enclosure" type="image/webp"/>
+  </entry>
+  <entry>
+    <id>https://www.daljeetsingh.me/posts/understanding-modern-javascript-es2024</id>
+    <title type="html">Understanding Modern JavaScript: ES2024 and Beyond</title>
+    <link href="https://www.daljeetsingh.me/posts/understanding-modern-javascript-es2024" rel="alternate" type="text/html"/>
+    <published>2025-12-28T00:00:00.000Z</published>
+    <updated>2025-12-28T00:00:00.000Z</updated>
+    <author>
+      <name>Daljeet Singh Lotey</name>
+    </author>
+    <summary type="html">Explore the latest JavaScript features including array grouping, decorators, and the pipeline operator. Stay ahead with modern JS.</summary>
+    <category term="JavaScript"/>
+    <category term="Web Development"/>
+    <category term="ES2024"/>
+    <link href="https://www.daljeetsingh.me/assets/blog/optimized/modern-javascript-lg.webp" rel="enclosure" type="image/webp"/>
+  </entry>
+</feed>

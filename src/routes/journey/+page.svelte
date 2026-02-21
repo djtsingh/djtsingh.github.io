@@ -9,7 +9,8 @@
 />
 
 <div class="journey-page">
-  <div class="journey-header">
+  <header class="page-header">
+    <p class="kicker">Career & Education</p>
     <h1>
       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"/>
@@ -29,10 +30,8 @@
       </svg>
       <span>My Journey</span>
     </h1>
-    <p class="journey-lead">
-      A timeline of my career, education, and key milestones in software engineering and computer science.
-    </p>
-  </div>
+    <p class="lead">A timeline of my career, education, and key milestones in software engineering.</p>
+  </header>
   
   <!-- Timeline Section -->
   <section class="timeline-section">
@@ -74,34 +73,46 @@
   .journey-page {
     max-width: 900px;
     margin: 0 auto;
-    padding: 3rem 1rem 5rem;
+    padding: 0 1rem 5rem;
   }
   
-  .journey-header {
-    margin-bottom: 5rem;
+  .page-header {
+    margin-bottom: 3rem;
     text-align: center;
   }
-  
-  .journey-header h1 {
+
+  .kicker {
+    margin: 0 0 0.5rem;
+    font-size: 0.75rem;
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .page-header h1 {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 700;
-    background: linear-gradient(135deg, var(--text), var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin: 0 0 1rem;
+    margin: 0 0 0.75rem;
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    font-weight: var(--font-weight-bold);
+    color: var(--text);
   }
-  
-  .journey-lead {
-    font-size: 1.15rem;
+
+  .page-header h1 svg {
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .lead {
+    margin: 0;
+    max-width: 55ch;
+    margin-inline: auto;
+    font-size: 1rem;
+    line-height: 1.6;
     color: var(--subtext1);
-    line-height: 1.7;
-    max-width: 650px;
-    margin: 0 auto;
   }
   
   .timeline-section {
@@ -291,10 +302,6 @@
   @media (max-width: 640px) {
     .journey-page {
       padding: 2rem 1rem 3rem;
-    }
-    
-    .journey-header {
-      margin-bottom: 3rem;
     }
     
     .timeline {

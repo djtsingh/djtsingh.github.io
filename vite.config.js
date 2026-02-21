@@ -1,9 +1,25 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 import { visualizer } from 'rollup-plugin-visualizer';
+import { imagetools } from 'vite-imagetools';
 
 export default defineConfig({
-  plugins: [sveltekit()],
+  plugins: [
+    sveltekit(),
+    imagetools({
+      // Default transformations for responsive images
+      defaultDirectives: (url) => {
+        // Don't process already optimized images
+        if (url.pathname.includes('/optimized/')) {
+          return new URLSearchParams();
+        }
+        return new URLSearchParams({
+          format: 'webp',
+          quality: '80'
+        });
+      }
+    })
+  ],
   build: {
     cssMinify: 'lightningcss', // Faster CSS minification
     cssCodeSplit: false, // Prevent unused CSS preload warnings

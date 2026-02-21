@@ -3,14 +3,22 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- Security Headers via Meta Tags -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
+    
     <link rel="icon" href="%sveltekit.assets%/assets/favicon.ico" />
     <link rel="author" href="%sveltekit.assets%/humans.txt" type="text/plain" />
     
     <!-- Web App Manifest -->
     <link rel="manifest" href="%sveltekit.assets%/site.webmanifest" />
     
-    <!-- RSS Feed -->
-    <link rel="alternate" type="application/rss+xml" title="Daljeet Singh's Blog" href="/rss.xml" />
+    <!-- RSS & Atom Feeds -->
+    <link rel="alternate" type="application/rss+xml" title="Daljeet Singh's Blog (RSS)" href="/rss.xml" />
+    <link rel="alternate" type="application/atom+xml" title="Daljeet Singh's Blog (Atom)" href="/atom.xml" />
     
     <!-- Preload critical resources for LCP -->
     <link rel="preload" href="%sveltekit.assets%/fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin />

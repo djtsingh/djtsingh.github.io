@@ -3,14 +3,22 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- Security Headers via Meta Tags -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
+    
     <link rel="icon" href="/assets/favicon.ico" />
     <link rel="author" href="/humans.txt" type="text/plain" />
     
     <!-- Web App Manifest -->
     <link rel="manifest" href="/site.webmanifest" />
     
-    <!-- RSS Feed -->
-    <link rel="alternate" type="application/rss+xml" title="Daljeet Singh's Blog" href="/rss.xml" />
+    <!-- RSS & Atom Feeds -->
+    <link rel="alternate" type="application/rss+xml" title="Daljeet Singh's Blog (RSS)" href="/rss.xml" />
+    <link rel="alternate" type="application/atom+xml" title="Daljeet Singh's Blog (Atom)" href="/atom.xml" />
     
     <!-- Preload critical resources for LCP -->
     <link rel="preload" href="/fonts/JetBrainsMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
@@ -34,27 +42,27 @@
 
     
 		<link href="/_app/immutable/assets/widgets.DSoj_Gdv.css" rel="stylesheet">
-		<link rel="modulepreload" href="/_app/immutable/entry/start.BrltQdd0.js">
-		<link rel="modulepreload" href="/_app/immutable/chunks/BKMHs2B4.js">
+		<link rel="modulepreload" href="/_app/immutable/entry/start.DNn6YJ9Y.js">
+		<link rel="modulepreload" href="/_app/immutable/chunks/kTElviCp.js">
 		<link rel="modulepreload" href="/_app/immutable/chunks/BIog8MdI.js">
 		<link rel="modulepreload" href="/_app/immutable/chunks/Dr1isfBO.js">
-		<link rel="modulepreload" href="/_app/immutable/entry/app.D788o7j-.js">
-		<link rel="modulepreload" href="/_app/immutable/chunks/B9l0KFlQ.js">
-		<link rel="modulepreload" href="/_app/immutable/chunks/Cls12wB-.js">
+		<link rel="modulepreload" href="/_app/immutable/entry/app.wnnvHw9t.js">
+		<link rel="modulepreload" href="/_app/immutable/chunks/BHJl1neQ.js">
+		<link rel="modulepreload" href="/_app/immutable/chunks/Bu-hBS92.js">
   </head>
   <body data-sveltekit-preload-data="hover">
     <div style="display: contents">
 			<script>
 				{
-					__sveltekit_1li1n7b = {
+					__sveltekit_dco2qa = {
 						base: ""
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("/_app/immutable/entry/start.BrltQdd0.js"),
-						import("/_app/immutable/entry/app.D788o7j-.js")
+						import("/_app/immutable/entry/start.DNn6YJ9Y.js"),
+						import("/_app/immutable/entry/app.wnnvHw9t.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element);
 					});

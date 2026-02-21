@@ -1,105 +1,42 @@
 <script>
   import SEO from '$lib/components/SEO.svelte';
-  import { onMount } from 'svelte';
 
-  function generateBadgeUrl(badgeId, issuer, title) {
-    // Using Shields.io for dynamic badge generation with premium styling
-    const label = encodeURIComponent(issuer);
-    const message = encodeURIComponent(title.length > 20 ? title.substring(0, 17) + '...' : title);
-    const color = getIssuerColor(issuer);
-    const logo = getIssuerLogo(issuer);
-    const logoColor = 'white';
+  // Issuer branding configuration
+  const issuerBranding = {
+    'GitHub': {
+      logo: 'https://img.icons8.com/fluency/96/github.png',
+      color: '#f5c2e7',
+      gradient: 'linear-gradient(135deg, #24292e 0%, #1b1f23 100%)'
+    },
+    'Microsoft': {
+      logo: 'https://img.icons8.com/fluency/96/microsoft.png',
+      color: '#89b4fa',
+      gradient: 'linear-gradient(135deg, #0078d4 0%, #005a9e 100%)'
+    },
+    'Google': {
+      logo: 'https://img.icons8.com/fluency/96/google-logo.png',
+      color: '#fab387',
+      gradient: 'linear-gradient(135deg, #4285f4 0%, #34a853 50%, #fbbc04 100%)'
+    },
+    'Scrum.org': {
+      logo: 'https://img.icons8.com/color/96/scrum.png',
+      color: '#a6e3a1',
+      gradient: 'linear-gradient(135deg, #6db33f 0%, #4a9c2d 100%)'
+    },
+    'Quibus Trainings': {
+      logo: null,
+      color: '#f9e2af',
+      gradient: 'linear-gradient(135deg, #ff6b35 0%, #e55a2b 100%)'
+    }
+  };
 
-    return `https://img.shields.io/badge/${label}-${message}-${color}?style=for-the-badge&logo=${logo}&logoColor=${logoColor}&labelColor=${getLabelColor(issuer)}&color=${color}`;
-  }
-
-  function getIssuerColor(issuer) {
-    const colors = {
-      'GitHub': '24292e',
-      'Microsoft': '0078d4',
-      'Google': '4285f4',
-      'Scrum.org': '6db33f',
-      'Quibus Trainings': 'ff6b35'
+  function getIssuerBranding(issuer) {
+    const key = Object.keys(issuerBranding).find(k => issuer.includes(k));
+    return issuerBranding[key] || { 
+      logo: null, 
+      color: '#cdd6f4', 
+      gradient: 'linear-gradient(135deg, #6b7280 0%, #4b5563 100%)' 
     };
-    return colors[issuer] || '6b7280';
-  }
-
-  function getLabelColor(issuer) {
-    const labelColors = {
-      'GitHub': '333333',
-      'Microsoft': 'ffffff',
-      'Google': 'ffffff',
-      'Scrum.org': 'ffffff',
-      'Quibus Trainings': 'ffffff'
-    };
-    return labelColors[issuer] || '374151';
-  }
-
-  function getIssuerLogo(issuer) {
-    const logos = {
-      'GitHub': 'github',
-      'Microsoft': 'microsoft',
-      'Google': 'google',
-      'Scrum.org': 'scrummethodology'
-    };
-    return logos[issuer] || '';
-  }
-
-  // Fallback image generation for certificates
-  function generateCertImage(title, issuer, date) {
-    // Using a service like DummyImage or similar for placeholder cert images
-    const width = 400;
-    const height = 250;
-    const bgColor = 'f8fafc';
-    const textColor = '1e293b';
-    const encodedTitle = encodeURIComponent(title);
-    const encodedIssuer = encodeURIComponent(issuer);
-
-    return `https://via.placeholder.com/${width}x${height}/${bgColor}/${textColor}?text=${encodedTitle}+by+${encodedIssuer}`;
-  }
-
-  // API integration for badge fetching (future enhancement)
-  async function fetchBadgeFromAPI(badgeId, issuer) {
-    try {
-      // Example API endpoints for different issuers
-      const apiEndpoints = {
-        'microsoft': `https://learn.microsoft.com/api/credentials/badge/${badgeId}`,
-        'github': `https://api.github.com/repos/badges/${badgeId}`,
-        'google': `https://www.credential.net/api/badge/${badgeId}`
-      };
-
-      const endpoint = apiEndpoints[issuer.toLowerCase()];
-      if (!endpoint) return null;
-
-      const response = await fetch(endpoint);
-      if (!response.ok) return null;
-
-      const data = await response.json();
-      return data.badgeUrl || data.imageUrl;
-    } catch (error) {
-      console.warn(`Failed to fetch badge for ${badgeId}:`, error);
-      return null;
-    }
-  }
-
-  // Enhanced image loading with fallback and error handling
-  function getCertImage(cert) {
-    if (cert.getImage) {
-      return cert.getImage();
-    }
-    if (cert.image) {
-      return cert.image;
-    }
-    // Fallback to generated certificate image
-    return generateCertImage(cert.title, cert.issuer, cert.date);
-  }
-
-  // Image error handler for fallback
-  function handleImageError(event, cert) {
-    const img = event.target;
-    if (img.src !== generateCertImage(cert.title, cert.issuer, cert.date)) {
-      img.src = generateCertImage(cert.title, cert.issuer, cert.date);
-    }
   }
 
   const certifications = [
@@ -109,49 +46,40 @@
       date: 'October 2025',
       credentialId: 'ABCEFAD48C0C88871FE123XYZ',
       description: 'Validates the ability to use the AI-driven coding tool effectively and responsibly',
-      badgeId: 'github-copilot',
       verifyUrl: 'https://learn.microsoft.com/api/credentials/share/en-us/djtsingh/EFAD48C0C88871FE?sharingId=767C0AA3B86567E',
       skills: ['Github Copilot', 'LLMs', 'Machine Learning'],
-      status: 'active',
-      // Dynamic badge generation - no more manual image files!
-      getImage: () => generateBadgeUrl('github-copilot', 'GitHub', 'Co-Pilot Certified')
+      status: 'active'
     },
     {
-      title: 'Microsoft Ai Essentials: Workloads & Machine learning',
+      title: 'Microsoft AI Essentials',
       issuer: 'Microsoft',
       date: 'January 2025',
       credentialId: '51f8092c0b4794c6fa809efe68011abe',
-      description: 'MS Azure AI: Workloads and machine learning on azure',
-      badgeId: 'microsoft-azure-ai',
+      description: 'Workloads and machine learning on Azure cloud platform',
       verifyUrl: 'https://www.linkedin.com/learning/certificates/51f8092c0b4794c6fa809efe68011abe7248963eacbe2ddafa15a288f0f71aaa?trk=share_certificate',
-      skills: ['Azure AI', 'Cloud Infrastructure', 'Machine Learning on Azure'],
-      status: 'active',
-      getImage: () => generateBadgeUrl('azure-ai', 'Microsoft', 'AI Essentials')
+      skills: ['Azure AI', 'Cloud Infrastructure', 'Machine Learning'],
+      status: 'active'
     },
     {
       title: 'Digital Marketing Mastery',
-      issuer: 'Quibus Trainings, Jaipur',
+      issuer: 'Quibus Trainings',
       date: 'May 2021',
       credentialId: 'ML2023456',
-      description: 'Expertise in online strategies like SEO, content creation, social media management, and email marketing to achieve business goals such as increasing brand awareness, driving traffic, and improving ROI',
-      badgeId: 'digital-marketing',
+      description: 'SEO, content creation, social media management, and email marketing expertise',
       verifyUrl: '/assets/certs/dgm-quibus.png',
       skills: ['Marketing Strategy', 'SEO', 'Business Development'],
       status: 'active',
-      // Keep local image for custom certificates
       image: '/assets/certs/digi-m.png'
     },
     {
       title: 'Google Analytics',
       issuer: 'Google',
-      date: 'September 28, 2021',
+      date: 'September 2021',
       credentialId: '90724027',
-      description: 'Google Analytics (GA4), covering setup, data collection, reporting, and marketing effectiveness',
-      badgeId: 'google-analytics',
+      description: 'GA4 setup, data collection, reporting, and marketing effectiveness',
       verifyUrl: '/assets/certs/Ganalytics.pdf',
-      skills: ['Tracking & Analysis', 'Insights', 'Marketing strategy'],
-      status: 'active',
-      getImage: () => generateBadgeUrl('analytics', 'Google', 'Analytics')
+      skills: ['Tracking & Analysis', 'Insights', 'Marketing Strategy'],
+      status: 'active'
     },
     {
       title: 'Professional Scrum Master I',
@@ -159,8 +87,6 @@
       date: 'March 2023',
       credentialId: 'PSM789012',
       description: 'Demonstrates fundamental understanding of Scrum framework',
-      badgeId: 'scrum-master',
-      certificateUrl: '#',
       verifyUrl: '#',
       skills: ['Agile', 'Scrum', 'Project Management'],
       status: 'active',
@@ -171,12 +97,10 @@
       issuer: 'Google',
       date: 'September 2022',
       credentialId: '90518366',
-      description: 'Expertise in using the Google Ads platform, skills in areas like Search, Display, Video, Shopping, Measurement, and Apps',
-      badgeId: 'google-ads',
+      description: 'Expertise in Search, Display, Video, Shopping, and measurement strategies',
       verifyUrl: '#',
-      skills: ['Keyword research ', 'Bidding Strategies', 'Promotion'],
-      status: 'active',
-      getImage: () => generateBadgeUrl('ads', 'Google', 'Ads Certified')
+      skills: ['Keyword Research', 'Bidding Strategies', 'Promotion'],
+      status: 'active'
     }
   ];
 </script>
@@ -218,30 +142,38 @@
 
   <div class="certs-grid">
     {#each certifications as cert}
+      {@const branding = getIssuerBranding(cert.issuer)}
       <article class="cert-card" data-status={cert.status}>
-        <div class="cert-image">
-          <img src={getCertImage(cert)} alt="{cert.title} certificate" on:error={(e) => handleImageError(e, cert)} />
-          <div class="cert-overlay">
-            <div class="cert-actions">
-              {#if cert.certificateUrl && cert.certificateUrl !== '#'}
-                <a href={cert.certificateUrl} target="_blank" rel="noopener noreferrer" class="cert-btn" title="View Certificate">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
-                    <circle cx="12" cy="12" r="3"/>
-                  </svg>
-                  View
-                </a>
+        <div class="cert-visual" style="--issuer-color: {branding.color}; --issuer-gradient: {branding.gradient}">
+          {#if cert.image}
+            <img src={cert.image} alt="{cert.title} certificate" class="cert-image-actual" />
+          {:else}
+            <div class="cert-badge-visual">
+              <div class="badge-pattern"></div>
+              {#if branding.logo}
+                <img src={branding.logo} alt="{cert.issuer}" class="issuer-logo" loading="lazy" />
+              {:else}
+                <div class="issuer-initial">{cert.issuer.charAt(0)}</div>
               {/if}
-              {#if cert.verifyUrl && cert.verifyUrl !== '#'}
-                <a href={cert.verifyUrl} target="_blank" rel="noopener noreferrer" class="cert-btn" title="Verify Certificate">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                    <path d="m9 11 3 3L22 4"/>
-                  </svg>
-                  Verify
-                </a>
-              {/if}
+              <div class="badge-ribbon">
+                <svg viewBox="0 0 100 100" width="60" height="60">
+                  <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+                  <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.2"/>
+                  <path d="M50 20 L55 35 L70 35 L58 45 L63 60 L50 52 L37 60 L42 45 L30 35 L45 35 Z" fill="currentColor" opacity="0.15"/>
+                </svg>
+              </div>
             </div>
+          {/if}
+          <div class="cert-overlay">
+            {#if cert.verifyUrl && cert.verifyUrl !== '#'}
+              <a href={cert.verifyUrl} target="_blank" rel="noopener noreferrer" class="cert-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                  <path d="m9 11 3 3L22 4"/>
+                </svg>
+                Verify
+              </a>
+            {/if}
           </div>
         </div>
         
@@ -393,114 +325,102 @@
     opacity: 0.7;
   }
 
-  .cert-image {
+  /* Premium Certificate Visual */
+  .cert-visual {
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 10;
     background: var(--surface0);
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
   }
 
-  .cert-image img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    border-radius: var(--radius-md);
-  }
-
-  /* Specific styling for badge images */
-  .cert-image img[src*="shields.io"] {
-    max-width: 90%;
-    max-height: 55%;
-    object-fit: contain;
-    border-radius: 12px;
-    box-shadow:
-      0 4px 20px rgba(0, 0, 0, 0.15),
-      0 2px 8px rgba(0, 0, 0, 0.1),
-      0 0 0 1px rgba(255, 255, 255, 0.1);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    filter: brightness(1.02) contrast(1.05);
-    backdrop-filter: blur(10px);
-  }
-
-  .cert-image img[src*="shields.io"]:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.2),
-      0 4px 16px rgba(0, 0, 0, 0.15),
-      0 0 0 1px rgba(255, 255, 255, 0.2),
-      0 0 20px rgba(59, 130, 246, 0.1);
-    filter: brightness(1.05) contrast(1.08) saturate(1.1);
-  }
-
-  /* Add a subtle glow effect for different issuers */
-  .cert-image img[src*="github"] {
-    box-shadow:
-      0 4px 20px rgba(0, 0, 0, 0.15),
-      0 2px 8px rgba(0, 0, 0, 0.1),
-      0 0 0 1px rgba(255, 255, 255, 0.1),
-      0 0 8px rgba(24, 23, 23, 0.2);
-  }
-
-  .cert-image img[src*="microsoft"] {
-    box-shadow:
-      0 4px 20px rgba(0, 0, 0, 0.15),
-      0 2px 8px rgba(0, 0, 0, 0.1),
-      0 0 0 1px rgba(255, 255, 255, 0.1),
-      0 0 8px rgba(0, 120, 212, 0.15);
-  }
-
-  .cert-card:hover .cert-image img[src*="shields.io"] {
-    transform: translateY(-3px) scale(1.03);
-    box-shadow:
-      0 12px 40px rgba(0, 0, 0, 0.25),
-      0 6px 20px rgba(0, 0, 0, 0.2),
-      0 0 0 1px rgba(255, 255, 255, 0.3),
-      0 0 30px rgba(59, 130, 246, 0.15);
-    filter: brightness(1.08) contrast(1.1) saturate(1.15);
-  }
-
-  /* Specific styling for certificate images */
-  .cert-image img:not([src*="shields.io"]) {
+  .cert-image-actual {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
 
+  .cert-badge-visual {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--issuer-gradient);
+    position: relative;
+  }
+
+  .badge-pattern {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(255,255,255,0.05) 0%, transparent 40%);
+    opacity: 0.8;
+  }
+
+  .issuer-logo {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+    z-index: 1;
+    transition: transform 0.3s ease;
+  }
+
+  .cert-card:hover .issuer-logo {
+    transform: scale(1.1);
+  }
+
+  .issuer-initial {
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.2);
+    z-index: 1;
+  }
+
+  .badge-ribbon {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    color: rgba(255,255,255,0.4);
+  }
+
   .cert-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     transition: opacity 0.2s ease;
+    backdrop-filter: blur(2px);
   }
 
   .cert-card:hover .cert-overlay {
     opacity: 1;
   }
 
-  .cert-actions {
-    display: flex;
-    gap: 0.75rem;
-  }
-
   .cert-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.75rem 1.25rem;
+    padding: 0.65rem 1.25rem;
     background: var(--accent);
-    color: var(--mantle);
+    color: var(--crust);
     border-radius: var(--radius-md);
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     font-weight: 500;
+    text-decoration: none;
     transition: all 0.15s ease;
   }
 

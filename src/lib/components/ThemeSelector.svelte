@@ -3,10 +3,10 @@
   import { onMount } from 'svelte';
   
   const themes = [
-    { id: 'latte', name: 'Latte', emoji: '☕' },
-    { id: 'frappe', name: 'Frappé', emoji: '🥤' },
-    { id: 'macchiato', name: 'Macchiato', emoji: '🍵' },
-    { id: 'mocha', name: 'Mocha', emoji: '🌙' }
+    { id: 'latte', name: 'Latte' },
+    { id: 'frappe', name: 'Frappé' },
+    { id: 'macchiato', name: 'Macchiato' },
+    { id: 'mocha', name: 'Mocha' }
   ];
   
   const accents = [
@@ -83,8 +83,7 @@
           aria-label="Select {theme.name} theme"
           aria-pressed={currentTheme === theme.id}
         >
-          <span class="theme-emoji" aria-hidden="true">{theme.emoji}</span>
-          <span class="theme-name">{theme.name}</span>
+          {theme.name}
         </button>
       {/each}
     </div>
@@ -148,34 +147,24 @@
     color: var(--accent);
   }
   
-  /* Theme Grid - 3 columns with last item centered below */
+  /* Theme Grid - 2x2 layout */
   .theme-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.375rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
   }
   
   .theme-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.35rem;
-    padding: 0.5rem 0.4rem;
-    font-size: 0.7rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
     font-weight: 500;
     background: var(--surface0);
-    color: var(--text);
+    color: var(--subtext1);
     border: 1px solid var(--surface2);
     border-radius: var(--radius-sm);
     cursor: pointer;
     transition: all 0.15s ease;
-    position: relative;
-    white-space: nowrap;
-  }
-  
-  /* Center the 4th theme button */
-  .theme-btn:last-child {
-    grid-column: 2;
+    text-align: center;
   }
   
   .theme-btn:hover {
@@ -193,16 +182,6 @@
   
   .theme-btn:active {
     transform: scale(0.97);
-  }
-
-  .theme-emoji {
-    font-size: 0.9rem;
-    line-height: 1;
-  }
-
-  .theme-name {
-    font-size: 0.65rem;
-    display: none;
   }
   
   /* Accent Grid */
@@ -254,39 +233,10 @@
     transform: scale(0.95);
   }
 
-  /* Wider screens - show theme names */
-  @media (min-width: 360px) {
-    .theme-name {
-      display: inline;
-    }
-    
+  @media (min-width: 400px) {
     .accent-btn {
       width: 28px;
       height: 28px;
-    }
-  }
-
-  @media (min-width: 400px) {
-    .theme-grid {
-      gap: 0.5rem;
-    }
-    
-    .theme-btn {
-      padding: 0.6rem 0.5rem;
-      font-size: 0.75rem;
-    }
-    
-    .theme-emoji {
-      font-size: 1rem;
-    }
-    
-    .theme-name {
-      font-size: 0.7rem;
-    }
-    
-    .accent-btn {
-      width: 30px;
-      height: 30px;
     }
     
     .accent-grid {

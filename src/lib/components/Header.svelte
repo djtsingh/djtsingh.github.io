@@ -23,8 +23,7 @@
   const moreNavItems = [
     { href: '/journey', label: 'Journey' },
     { href: '/certifications', label: 'Certifications' },
-    { href: '/developer-dashboard', label: 'Dashboard' },
-    { href: '/socials', label: 'Socials' }
+    { href: '/connect', label: 'Connect' }
   ];
   
   // Get current page name for terminal nav

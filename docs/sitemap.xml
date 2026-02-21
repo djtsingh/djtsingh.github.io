@@ -8,7 +8,7 @@
   <!-- Static Pages -->
   <url>
     <loc>https://www.daljeetsingh.me</loc>
-    <lastmod>2026-02-14T10:02:04.154Z</lastmod>
+    <lastmod>2026-02-21T13:03:51.846Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1</priority>
   </url>
@@ -42,17 +42,10 @@
   </url>
 
   <url>
-    <loc>https://www.daljeetsingh.me/developer-dashboard</loc>
+    <loc>https://www.daljeetsingh.me/connect</loc>
     <lastmod>2025-12-22T00:00:00.000Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.daljeetsingh.me/socials</loc>
-    <lastmod>2025-12-22T00:00:00.000Z</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
 
   <url>
