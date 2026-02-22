@@ -201,7 +201,7 @@
             View on GitHub
           </a>
         {/if}
-        <a href="/about" class="btn btn--ghost">Contact Me</a>
+        <a href="/connect" class="btn btn--ghost">Let's Connect</a>
       </div>
     </div>
   </section>

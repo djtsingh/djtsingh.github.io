@@ -456,8 +456,8 @@
         <a href={project.doi} class="cta-btn cta-btn--secondary" target="_blank" rel="noopener noreferrer">
           <span>🔗</span> TechRxiv
         </a>
-        <a href="/about" class="cta-btn cta-btn--ghost">
-          <span>💬</span> Contact
+        <a href="/connect" class="cta-btn cta-btn--ghost">
+          <span>💬</span> Connect
         </a>
       </div>
     </div>

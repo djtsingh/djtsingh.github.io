@@ -63,6 +63,22 @@
           <span>Email</span>
         </a>
       </div>
+
+      <a href="/connect" class="connect-cta">
+        <span class="connect-cta-content">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <span>Let's Connect</span>
+        </span>
+        <svg class="connect-cta-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"/>
+          <path d="m12 5 7 7-7 7"/>
+        </svg>
+      </a>
     </div>
   </div>
   
@@ -252,6 +268,64 @@
     transform: scale(1.1);
   }
   
+  /* Connect CTA Button */
+  .connect-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.875rem 1.25rem;
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+    background: linear-gradient(135deg, var(--surface0) 0%, var(--surface1) 100%);
+    border: 1px solid var(--surface1);
+    border-radius: var(--radius-md);
+    transition: all 0.25s ease;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .connect-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--mauve) 100%);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    z-index: 0;
+  }
+  
+  .connect-cta-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .connect-cta-arrow {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.25s ease;
+  }
+  
+  .connect-cta:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .connect-cta:hover::before {
+    opacity: 0.15;
+  }
+  
+  .connect-cta:hover .connect-cta-arrow {
+    transform: translateX(4px);
+  }
+
   .social-link:active {
     transform: translateY(0);
   }

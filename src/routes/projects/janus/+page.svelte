@@ -545,7 +545,7 @@
     </div>
     
     <div class="hero-image">
-      <img src={project.image} alt="{project.title} preview" width="800" height="600" />
+      <img src={project.image} alt="{project.title} preview" width="800" height="600" loading="eager" fetchpriority="high" />
     </div>
   </header>
 
@@ -816,7 +816,7 @@
             View on GitHub
           </a>
         {/if}
-        <a href="/about" class="btn btn--ghost">Contact Me</a>
+        <a href="/connect" class="btn btn--ghost">Let's Connect</a>
       </div>
     </div>
   </section>
