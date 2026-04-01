@@ -475,7 +475,7 @@
   title="{project.title} - DJ"
   description="{project.tagline} - A project by Daljeet Singh Lotey"
   image={project.image}
-  canonical="https://djtsingh.github.io/projects/janus"
+  canonical="https://www.daljeetsingh.me/projects/janus"
   type="article"
 />
 

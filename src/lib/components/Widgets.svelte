@@ -358,9 +358,9 @@
             aria-label="Toggle between 12-hour and 24-hour time format"
           >
             {#if isDayTime}
-              <Sun size={14} class="time-icon" />
+                <span class="time-icon" aria-hidden="true"><Sun size={14} /></span>
             {:else}
-              <Moon size={14} class="time-icon" />
+                <span class="time-icon" aria-hidden="true"><Moon size={14} /></span>
             {/if}
             <span class="time-segment">{displayHours}</span>
             <span class="time-separator">:</span>
@@ -860,6 +860,7 @@
 
   /* svelte-ignore css-unused-selector - Used in time display component */
   .time-icon {
+    display: flex;
     color: var(--accent);
     flex-shrink: 0;
     margin-right: 0.5rem;

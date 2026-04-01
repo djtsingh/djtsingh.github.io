@@ -60,7 +60,7 @@
   title="{project.title} - DJ"
   description="{project.tagline} - A project by Daljeet Singh Lotey"
   image={project.image}
-  canonical="https://djtsingh.github.io/projects/market-prediction"
+  canonical="https://www.daljeetsingh.me/projects/market-prediction"
   type="article"
 />
 

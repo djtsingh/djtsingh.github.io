@@ -1,10 +1,10 @@
 import { dev } from '$app/environment';
-import { handleErrorWithSentry, init } from '@sentry/sveltekit';
+import { handleErrorWithSentry, init as initSentry } from '@sentry/sveltekit';
 import { PUBLIC_SENTRY_DSN } from '$env/static/public';
 
 // Only initialize Sentry if DSN is configured
 if (PUBLIC_SENTRY_DSN && PUBLIC_SENTRY_DSN !== 'https://your-sentry-dsn@sentry.io/project-id') {
-  init({
+  initSentry({
     dsn: PUBLIC_SENTRY_DSN,
     environment: dev ? 'development' : 'production',
     tracesSampleRate: dev ? 1.0 : 0.1,
@@ -28,3 +28,5 @@ if (PUBLIC_SENTRY_DSN && PUBLIC_SENTRY_DSN !== 'https://your-sentry-dsn@sentry.i
 
 // If you have a custom error handler, pass it to `handleErrorWithSentry`
 export const handleError = handleErrorWithSentry();
+
+export function init() {}

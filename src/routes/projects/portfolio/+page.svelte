@@ -68,7 +68,7 @@
   title="Djx Portfolio"
   description="{project.tagline} - A project by Daljeet Singh Lotey"
   image={project.image}
-  canonical="https://djtsingh.github.io/projects/portfolio"
+  canonical="https://www.daljeetsingh.me/projects/portfolio"
   type="article"
 />
 

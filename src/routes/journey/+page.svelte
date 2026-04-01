@@ -5,7 +5,7 @@
 <SEO 
   title="Daljeet Singh Lotey - Journey"
   description="Career timeline and educational journey of Daljeet Singh Lotey"
-  canonical="https://djtsingh.github.io/journey"
+  canonical="https://www.daljeetsingh.me/journey"
 />
 
 <div class="journey-page">

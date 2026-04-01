@@ -29,7 +29,7 @@
 <SEO 
   title="Blog - Daljeet Singh Lotey"
   description="Articles on software engineering, web development, data science, and technical experiments. Deep dives, tutorials, and insights from my journey."
-  canonical="https://djtsingh.github.io/posts"
+  canonical="https://www.daljeetsingh.me/posts"
   type="website"
 />
 

@@ -16,6 +16,7 @@
   if (IS_PROD && typeof window !== 'undefined') {
     function sendToGoogleAnalytics({ name, delta, value, id }) {
       // Send to Google Analytics
+      if (typeof window.gtag !== 'function') return;
       window.gtag('event', name, {
         event_category: 'Web Vitals',
         event_label: id,

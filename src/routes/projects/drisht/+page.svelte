@@ -117,7 +117,7 @@
   title="DrishT: Assistive Navigation Research | Daljeet Singh"
   description="{project.subtitle} - Bachelor's thesis research combining computer vision and deep learning for accessibility"
   image="/projects/drisht-cover.svg"
-  canonical="https://djtsingh.github.io/projects/drisht"
+  canonical="https://www.daljeetsingh.me/projects/drisht"
   type="article"
 />
 
@@ -1350,10 +1350,6 @@
 
   /* Responsive */
   @media (max-width: 768px) {
-    .research-page {
-      /* Matches other project pages - no extra padding needed */
-    }
-
     .paper-header {
       padding: 1.5rem 0 2rem;
     }

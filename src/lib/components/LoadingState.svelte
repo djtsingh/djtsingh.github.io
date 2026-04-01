@@ -2,27 +2,42 @@
   import { onMount } from 'svelte';
 
   export let type = 'spinner'; // 'spinner', 'skeleton', 'pulse', 'dots'
-  // svelte-ignore export_let_unused - Used in dynamic class bindings
   export let size = 'medium'; // 'small', 'medium', 'large'
-  // svelte-ignore export_let_unused - Used in dynamic class bindings
   export let color = 'accent'; // 'accent', 'text', 'subtext'
   export let text = ''; // Optional loading text
   export let overlay = false; // Whether to show as overlay
   export let fullScreen = false; // Full screen overlay
 
+  const sizeValues = {
+    small: '1.5rem',
+    medium: '2.5rem',
+    large: '4rem'
+  };
+
+  const colorValues = {
+    accent: 'var(--accent)',
+    text: 'var(--text)',
+    subtext: 'var(--subtext0)'
+  };
+
   let mounted = false;
+  let loadingSize = sizeValues.medium;
+  let loadingColor = colorValues.accent;
 
   onMount(() => {
     mounted = true;
   });
+
+  $: loadingSize = sizeValues[size] ?? sizeValues.medium;
+  $: loadingColor = colorValues[color] ?? colorValues.accent;
 </script>
 
 {#if mounted}
   <div
     class="loading-container {overlay ? 'overlay' : ''} {fullScreen ? 'fullscreen' : ''}"
-    class:size-{size}
-    class:color-{color}
     class:type-{type}
+    style:--size={loadingSize}
+    style:--loading-color={loadingColor}
   >
     {#if type === 'spinner'}
       <div class="spinner">
@@ -54,8 +69,6 @@
 {/if}
 
 <style>
-  /* eslint-disable css-unused-selector */
-  
   .loading-container {
     display: flex;
     flex-direction: column;
@@ -78,22 +91,6 @@
     background: var(--base);
     z-index: 9999;
   }
-
-  /* Size variants */
-  /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
-  .size-small { --size: 1.5rem; }
-  /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
-  .size-medium { --size: 2.5rem; }
-  /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
-  .size-large { --size: 4rem; }
-
-  /* Color variants */
-  /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
-  .color-accent { --loading-color: var(--accent); }
-  /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
-  .color-text { --loading-color: var(--text); }
-  /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
-  .color-subtext { --loading-color: var(--subtext0); }
 
   /* Spinner */
   .spinner {
@@ -211,11 +208,4 @@
     margin: 0;
   }
 
-  /* Responsive adjustments */
-  @media (max-width: 640px) {
-    /* svelte-ignore css-unused-selector - Used via dynamic class bindings */
-    .size-large { --size: 3rem; }
-  }
-  
-  /* eslint-enable css-unused-selector */
 </style>

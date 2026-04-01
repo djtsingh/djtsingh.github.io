@@ -96,7 +96,7 @@
 <!-- Interactive Widgets Section -->
 <div class="widgets-fullwidth-container">
   {#if showWidgets && Widgets}
-    <svelte:component this={Widgets} />
+    <Widgets />
   {/if}
 </div>
 
@@ -352,6 +352,7 @@
     line-height: 1.6;
     color: var(--subtext0);
     display: -webkit-box;
+    line-clamp: 2;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;

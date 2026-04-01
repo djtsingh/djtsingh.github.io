@@ -158,10 +158,6 @@
     transform: translateY(-2px);
   }
 
-  .earth-image-container.loading {
-    /* Container is always visible, loading overlay handles loading state */
-  }
-
   .map-loading-overlay,
   .map-error-overlay {
     position: absolute;

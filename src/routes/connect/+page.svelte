@@ -155,7 +155,7 @@
 <SEO 
   title="Connect | Daljeet Singh"
   description="Connect with Daljeet Singh across social media and coding platforms. Find me on GitHub, LinkedIn, LeetCode, Codeforces, and more."
-  canonical="https://djtsingh.github.io/connect"
+  canonical="https://www.daljeetsingh.me/connect"
   type="website"
 />
 

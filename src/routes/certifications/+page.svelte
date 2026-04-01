@@ -108,7 +108,7 @@
 <SEO 
   title="Daljeet Singh Lotey - Certifications"
   description="Professional certifications and credentials earned by Daljeet Singh Lotey in cloud computing, machine learning, and software development."
-  canonical="https://djtsingh.github.io/certifications"
+  canonical="https://www.daljeetsingh.me/certifications"
   type="website"
 />
 

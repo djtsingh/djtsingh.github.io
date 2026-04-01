@@ -6,7 +6,6 @@
 
   let canvasRef;
   let containerRef;
-  let hoveredCommit = null;
   let selectedBranch = 'main';
   let animationProgress = 0;
   let canvasWidth = 0;
@@ -254,7 +253,9 @@
   <!-- Header -->
   <div class="widget-header">
     <div class="title-row">
-      <GitBranch size={20} class="title-icon" />
+      <span class="title-icon" aria-hidden="true">
+        <GitBranch size={20} />
+      </span>
       <h2 class="title">Repository Activity</h2>
     </div>
     <div class="stats-grid">
@@ -304,11 +305,7 @@
         {@const branch = gitData.branches.find(b => b.name === commit.branch)}
         {@const timeAgo = getTimeAgo(commit.timestamp)}
         
-        <div 
-          class="commit-item"
-          on:mouseenter={() => hoveredCommit = commit}
-          on:mouseleave={() => hoveredCommit = null}
-        >
+        <div class="commit-item">
           <div 
             class="commit-dot" 
             style="background: {branch?.color}; box-shadow: 0 0 8px {branch?.color}"
@@ -361,6 +358,7 @@
   }
 
   .title-icon {
+    display: flex;
     color: var(--accent);
     flex-shrink: 0;
   }
