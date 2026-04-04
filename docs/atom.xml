@@ -5,7 +5,7 @@
   <subtitle>Daljeet Singh Lotey | Software Engineering and Data Science. Portfolio showcasing projects in AI, data visualization, and experiments.</subtitle>
   <link href="https://www.daljeetsingh.me/posts" rel="alternate" type="text/html"/>
   <link href="https://www.daljeetsingh.me/atom.xml" rel="self" type="application/atom+xml"/>
-  <updated>2026-01-10T00:00:00.000Z</updated>
+  <updated>2026-04-03T00:00:00.000Z</updated>
   <generator uri="https://kit.svelte.dev/" version="2.0">SvelteKit</generator>
   <icon>https://www.daljeetsingh.me/assets/favicon.ico</icon>
   <logo>https://www.daljeetsingh.me/assets/optimized/dj-web.webp</logo>
@@ -14,6 +14,176 @@
     <name>Daljeet Singh Lotey</name>
     <uri>https://www.daljeetsingh.me</uri>
   </author>
+  <entry>
+    <id>https://www.daljeetsingh.me/posts/claude-code-source-leak-npm-what-developers-should-know</id>
+    <title type="html">Claude Code Source Leak: What the NPM Incident Reveals About AI Tool Security</title>
+    <link href="https://www.daljeetsingh.me/posts/claude-code-source-leak-npm-what-developers-should-know" rel="alternate" type="text/html"/>
+    <published>2026-04-03T00:00:00.000Z</published>
+    <updated>2026-04-03T00:00:00.000Z</updated>
+    <author>
+      <name>Daljeet Singh Lotey</name>
+    </author>
+    <summary type="html">Anthropic accidentally leaked Claude Code&apos;s entire source code via an NPM package. Here&apos;s what happened, what was found, and what it means for developers relying on closed-source AI tools.</summary>
+    <category term="Security"/>
+    <category term="AI"/>
+    <category term="NPM"/>
+    <category term="Claude"/>
+    <category term="Supply Chain"/>
+    <link href="https://www.daljeetsingh.me/assets/blog/optimized/claude-leaked-lg.webp" rel="enclosure" type="image/webp"/>
+  </entry>
+  <entry>
+    <id>https://www.daljeetsingh.me/posts/axios-npm-supply-chain-attack-analysis</id>
+    <title type="html">Axios NPM Compromise: Anatomy of a Supply Chain Attack on 100M Weekly Downloads</title>
+    <link href="https://www.daljeetsingh.me/posts/axios-npm-supply-chain-attack-analysis" rel="alternate" type="text/html"/>
+    <published>2026-04-02T00:00:00.000Z</published>
+    <updated>2026-04-02T00:00:00.000Z</updated>
+    <author>
+      <name>Daljeet Singh Lotey</name>
+    </author>
+    <summary type="html">A comprehensive technical analysis of how attackers compromised the Axios npm package through social engineering, injected a cross-platform RAT, and what every JavaScript developer must do to protect their projects.</summary>
+    <category term="Security"/>
+    <category term="NPM"/>
+    <category term="Supply Chain"/>
+    <category term="JavaScript"/>
+    <category term="Malware"/>
+    <link href="https://www.daljeetsingh.me/assets/blog/optimized/axios-npm-supply-chain-attack-analysis-lg.webp" rel="enclosure" type="image/webp"/>
+  </entry>
+  <entry>
+    <id>https://www.daljeetsingh.me/posts/glassworm-supply-chain-attack-github-npm-vscode</id>
+    <title type="html">GlassWorm: How One Campaign Compromised 400+ Repos Across GitHub, npm, and VSCode</title>
+    <link href="https://www.daljeetsingh.me/posts/glassworm-supply-chain-attack-github-npm-vscode" rel="alternate" type="text/html"/>
+    <published>2026-04-01T00:00:00.000Z</published>
+    <updated>2026-04-01T00:00:00.000Z</updated>
+    <author>
+      <name>Daljeet Singh Lotey</name>
+    </author>
+    <summary type="html">The GlassWorm malware campaign contaminated 433 components across GitHub, npm, and VSCode/OpenVSX using invisible Unicode obfuscation and blockchain-based C2. Here&apos;s the full technical breakdown.</summary>
+    <category term="Security"/>
+    <category term="Supply Chain"/>
+    <category term="Malware"/>
+    <category term="GitHub"/>
+    <category term="VSCode"/>
+    <link href="https://www.daljeetsingh.me/assets/blog/optimized/glassworm-supply-chain-attack-github-npm-vscode-lg.webp" rel="enclosure" type="image/webp"/>
+  </entry>
+  <entry>
+    <id>https://www.daljeetsingh.me/posts/shai-hulud-npm-malware-developer-secrets-exposed</id>
+    <title type="html">Shai-Hulud: The npm Worm That Exposed 400,000 Developer Secrets</title>
+    <link href="https://www.daljeetsingh.me/posts/shai-hulud-npm-malware-developer-secrets-exposed" rel="alternate" type="text/html"/>
+    <published>2026-03-30T00:00:00.000Z</published>
+    <updated>2026-03-30T00:00:00.000Z</updated>
+    <author>
+      <name>Daljeet Singh Lotey</name>
+    </author>
+    <summary type="html">The Shai-Hulud supply chain campaign infected hundreds of npm packages across multiple waves, exfiltrated 400,000 secrets, and published them to GitHub. A full breakdown of the attack and how to defend against it.</summary>
+    <category term="Security"/>
+    <category term="NPM"/>
+    <category term="Supply Chain"/>
+    <category term="DevSecOps"/>
+    <category term="JavaScript"/>
+    <link href="https://www.daljeetsingh.me/assets/blog/optimized/shai-hulud-npm-malware-developer-secrets-exposed-lg.webp" rel="enclosure" type="image/webp"/>
+  </entry>
+  <entry>
+    <id>https://www.daljeetsingh.me/posts/securing-ai-agents-new-attack-surface-developers</id>
+    <title type="html">Securing AI Agents: The New Attack Surface Developers Can&apos;t Ignore</title>
+    <link href="https://www.daljeetsingh.me/posts/securing-ai-agents-new-attack-surface-developers" rel="alternate" type="text/html"/>
+    <published>2026-03-28T00:00:00.000Z</published>
+    <updated>2026-03-28T00:00:00.000Z</updated>
+    <author>
+      <name>Daljeet Singh Lotey</name>
+    </author>
+    <summary type="html">AI agents are shipping to production faster than teams can secure them. From prompt injection to tool poisoning, here&apos;s the threat landscape and how to build defenses that actually work.</summary>
+    <category term="AI"/>
+    <category term="Security"/>
+    <category term="LLM"/>
+    <category term="Prompt Injection"/>
+    <category term="DevSecOps"/>
+    <link href="https://www.daljeetsingh.me/assets/blog/optimized/securing-ai-agents-new-attack-surface-developers-lg.webp" rel="enclosure" type="image/webp"/>
+  </entry>
+  <entry>
+    <id>https://www.daljeetsingh.me/posts/data-structures-algorithms-roadmap-zero-to-interview-ready</id>
+    <title type="html">Data Structures and Algorithms Roadmap: From Zero to Interview Ready</title>
+    <link href="https://www.daljeetsingh.me/posts/data-structures-algorithms-roadmap-zero-to-interview-ready" rel="alternate" type="text/html"/>
+    <published>2026-03-25T00:00:00.000Z</published>
+    <updated>2026-03-25T00:00:00.000Z</updated>
+    <author>
+      <name>Daljeet Singh Lotey</name>
+    </author>
+    <summary type="html">A complete, structured roadmap to master data structures and algorithms for coding interviews. Covers arrays, trees, graphs, dynamic programming, and proven study strategies with code examples.</summary>
+    <category term="Data Structures"/>
+    <category term="Algorithms"/>
+    <category term="Interview Prep"/>
+    <category term="Computer Science"/>
+    <category term="Tutorial"/>
+    <link href="https://www.daljeetsingh.me/assets/blog/optimized/data-structures-algorithms-roadmap-zero-to-interview-ready-lg.webp" rel="enclosure" type="image/webp"/>
+  </entry>
+  <entry>
+    <id>https://www.daljeetsingh.me/posts/rest-api-design-best-practices-complete-guide</id>
+    <title type="html">REST API Design Best Practices: The Complete Guide for Backend Developers</title>
+    <link href="https://www.daljeetsingh.me/posts/rest-api-design-best-practices-complete-guide" rel="alternate" type="text/html"/>
+    <published>2026-03-20T00:00:00.000Z</published>
+    <updated>2026-03-20T00:00:00.000Z</updated>
+    <author>
+      <name>Daljeet Singh Lotey</name>
+    </author>
+    <summary type="html">Build APIs that developers love consuming. Covers URL design, HTTP methods, status codes, pagination, versioning, authentication, error handling, and rate limiting with practical examples.</summary>
+    <category term="API Design"/>
+    <category term="REST"/>
+    <category term="Backend"/>
+    <category term="Web Development"/>
+    <category term="Tutorial"/>
+    <link href="https://www.daljeetsingh.me/assets/blog/optimized/rest-api-design-best-practices-complete-guide-lg.webp" rel="enclosure" type="image/webp"/>
+  </entry>
+  <entry>
+    <id>https://www.daljeetsingh.me/posts/git-commands-every-developer-should-know</id>
+    <title type="html">Git Commands Every Developer Should Know: From Beginner to Advanced</title>
+    <link href="https://www.daljeetsingh.me/posts/git-commands-every-developer-should-know" rel="alternate" type="text/html"/>
+    <published>2026-03-15T00:00:00.000Z</published>
+    <updated>2026-03-15T00:00:00.000Z</updated>
+    <author>
+      <name>Daljeet Singh Lotey</name>
+    </author>
+    <summary type="html">Master the Git commands you&apos;ll actually use daily. Covers branching, rebasing vs merging, undoing mistakes, stashing, cherry-picking, bisecting, and advanced workflows with practical examples.</summary>
+    <category term="Git"/>
+    <category term="Version Control"/>
+    <category term="Developer Tools"/>
+    <category term="Tutorial"/>
+    <category term="Productivity"/>
+    <link href="https://www.daljeetsingh.me/assets/blog/optimized/git-commands-every-developer-should-know-lg.webp" rel="enclosure" type="image/webp"/>
+  </entry>
+  <entry>
+    <id>https://www.daljeetsingh.me/posts/system-design-interview-guide-distributed-systems</id>
+    <title type="html">System Design Interview Guide: From Zero to Designing Distributed Systems</title>
+    <link href="https://www.daljeetsingh.me/posts/system-design-interview-guide-distributed-systems" rel="alternate" type="text/html"/>
+    <published>2026-03-10T00:00:00.000Z</published>
+    <updated>2026-03-10T00:00:00.000Z</updated>
+    <author>
+      <name>Daljeet Singh Lotey</name>
+    </author>
+    <summary type="html">A structured approach to system design interviews. Covers the framework, scaling fundamentals, load balancing, caching, database design, message queues, and walkthroughs of classic problems like URL shortener and chat system.</summary>
+    <category term="System Design"/>
+    <category term="Interview Prep"/>
+    <category term="Distributed Systems"/>
+    <category term="Architecture"/>
+    <category term="Backend"/>
+    <link href="https://www.daljeetsingh.me/assets/blog/optimized/system-design-interview-guide-distributed-systems-lg.webp" rel="enclosure" type="image/webp"/>
+  </entry>
+  <entry>
+    <id>https://www.daljeetsingh.me/posts/web-performance-optimization-core-web-vitals-guide</id>
+    <title type="html">Web Performance Optimization: A Practical Guide to Core Web Vitals and Beyond</title>
+    <link href="https://www.daljeetsingh.me/posts/web-performance-optimization-core-web-vitals-guide" rel="alternate" type="text/html"/>
+    <published>2026-03-05T00:00:00.000Z</published>
+    <updated>2026-03-05T00:00:00.000Z</updated>
+    <author>
+      <name>Daljeet Singh Lotey</name>
+    </author>
+    <summary type="html">Ship faster websites with this hands-on guide to Core Web Vitals, image optimization, code splitting, caching, lazy loading, font loading, and critical rendering path optimization with measurable before/after improvements.</summary>
+    <category term="Web Performance"/>
+    <category term="Core Web Vitals"/>
+    <category term="Frontend"/>
+    <category term="Optimization"/>
+    <category term="Tutorial"/>
+    <link href="https://www.daljeetsingh.me/assets/blog/optimized/web-performance-optimization-core-web-vitals-guide-lg.webp" rel="enclosure" type="image/webp"/>
+  </entry>
   <entry>
     <id>https://www.daljeetsingh.me/posts/building-modern-blog-sveltekit</id>
     <title type="html">Building a Modern Blog with SvelteKit</title>

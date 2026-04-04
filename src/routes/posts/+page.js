@@ -1,12 +1,18 @@
 /**
  * Blog posts page loader
- * Loads all markdown posts at build time
+ * Loads all markdown posts at build time (updated to rescan glob)
  */
 import { calculateReadingTime } from '$lib/utils/blog.js';
 
 export async function load() {
   // Import all markdown files from the posts directory
   const postModules = import.meta.glob('/src/posts/*.md', { eager: true });
+  
+  console.log('[DEBUG] Post module paths:', Object.keys(postModules));
+  
+  for (const [path, mod] of Object.entries(postModules)) {
+    console.log('[DEBUG]', path, '-> has metadata:', !!mod.metadata, '-> keys:', Object.keys(mod || {}));
+  }
   
   const posts = [];
   

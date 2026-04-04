@@ -9,13 +9,143 @@
     <link>https://www.daljeetsingh.me/posts</link>
     <atom:link href="https://www.daljeetsingh.me/rss.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Apr 2026 05:56:11 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2026 06:02:50 GMT</lastBuildDate>
     <generator>SvelteKit</generator>
     <image>
       <url>https://www.daljeetsingh.me/assets/optimized/dj-web.webp</url>
       <title>Daljeet Singh Lotey</title>
       <link>https://www.daljeetsingh.me</link>
     </image>
+    <item>
+      <title>Claude Code Source Leak: What the NPM Incident Reveals About AI Tool Security</title>
+      <description>Anthropic accidentally leaked Claude Code&apos;s entire source code via an NPM package. Here&apos;s what happened, what was found, and what it means for developers relying on closed-source AI tools.</description>
+      <link>https://www.daljeetsingh.me/posts/claude-code-source-leak-npm-what-developers-should-know</link>
+      <guid isPermaLink="true">https://www.daljeetsingh.me/posts/claude-code-source-leak-npm-what-developers-should-know</guid>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
+      <category>Security</category>
+      <category>AI</category>
+      <category>NPM</category>
+      <category>Claude</category>
+      <category>Supply Chain</category>
+      <media:content url="https://www.daljeetsingh.me/assets/blog/optimized/claude-leaked-lg.webp" medium="image"/>
+    </item>
+    <item>
+      <title>Axios NPM Compromise: Anatomy of a Supply Chain Attack on 100M Weekly Downloads</title>
+      <description>A comprehensive technical analysis of how attackers compromised the Axios npm package through social engineering, injected a cross-platform RAT, and what every JavaScript developer must do to protect their projects.</description>
+      <link>https://www.daljeetsingh.me/posts/axios-npm-supply-chain-attack-analysis</link>
+      <guid isPermaLink="true">https://www.daljeetsingh.me/posts/axios-npm-supply-chain-attack-analysis</guid>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
+      <category>Security</category>
+      <category>NPM</category>
+      <category>Supply Chain</category>
+      <category>JavaScript</category>
+      <category>Malware</category>
+      <media:content url="https://www.daljeetsingh.me/assets/blog/optimized/axios-npm-supply-chain-attack-analysis-lg.webp" medium="image"/>
+    </item>
+    <item>
+      <title>GlassWorm: How One Campaign Compromised 400+ Repos Across GitHub, npm, and VSCode</title>
+      <description>The GlassWorm malware campaign contaminated 433 components across GitHub, npm, and VSCode/OpenVSX using invisible Unicode obfuscation and blockchain-based C2. Here&apos;s the full technical breakdown.</description>
+      <link>https://www.daljeetsingh.me/posts/glassworm-supply-chain-attack-github-npm-vscode</link>
+      <guid isPermaLink="true">https://www.daljeetsingh.me/posts/glassworm-supply-chain-attack-github-npm-vscode</guid>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
+      <category>Security</category>
+      <category>Supply Chain</category>
+      <category>Malware</category>
+      <category>GitHub</category>
+      <category>VSCode</category>
+      <media:content url="https://www.daljeetsingh.me/assets/blog/optimized/glassworm-supply-chain-attack-github-npm-vscode-lg.webp" medium="image"/>
+    </item>
+    <item>
+      <title>Shai-Hulud: The npm Worm That Exposed 400,000 Developer Secrets</title>
+      <description>The Shai-Hulud supply chain campaign infected hundreds of npm packages across multiple waves, exfiltrated 400,000 secrets, and published them to GitHub. A full breakdown of the attack and how to defend against it.</description>
+      <link>https://www.daljeetsingh.me/posts/shai-hulud-npm-malware-developer-secrets-exposed</link>
+      <guid isPermaLink="true">https://www.daljeetsingh.me/posts/shai-hulud-npm-malware-developer-secrets-exposed</guid>
+      <pubDate>Mon, 30 Mar 2026 00:00:00 GMT</pubDate>
+      <category>Security</category>
+      <category>NPM</category>
+      <category>Supply Chain</category>
+      <category>DevSecOps</category>
+      <category>JavaScript</category>
+      <media:content url="https://www.daljeetsingh.me/assets/blog/optimized/shai-hulud-npm-malware-developer-secrets-exposed-lg.webp" medium="image"/>
+    </item>
+    <item>
+      <title>Securing AI Agents: The New Attack Surface Developers Can&apos;t Ignore</title>
+      <description>AI agents are shipping to production faster than teams can secure them. From prompt injection to tool poisoning, here&apos;s the threat landscape and how to build defenses that actually work.</description>
+      <link>https://www.daljeetsingh.me/posts/securing-ai-agents-new-attack-surface-developers</link>
+      <guid isPermaLink="true">https://www.daljeetsingh.me/posts/securing-ai-agents-new-attack-surface-developers</guid>
+      <pubDate>Sat, 28 Mar 2026 00:00:00 GMT</pubDate>
+      <category>AI</category>
+      <category>Security</category>
+      <category>LLM</category>
+      <category>Prompt Injection</category>
+      <category>DevSecOps</category>
+      <media:content url="https://www.daljeetsingh.me/assets/blog/optimized/securing-ai-agents-new-attack-surface-developers-lg.webp" medium="image"/>
+    </item>
+    <item>
+      <title>Data Structures and Algorithms Roadmap: From Zero to Interview Ready</title>
+      <description>A complete, structured roadmap to master data structures and algorithms for coding interviews. Covers arrays, trees, graphs, dynamic programming, and proven study strategies with code examples.</description>
+      <link>https://www.daljeetsingh.me/posts/data-structures-algorithms-roadmap-zero-to-interview-ready</link>
+      <guid isPermaLink="true">https://www.daljeetsingh.me/posts/data-structures-algorithms-roadmap-zero-to-interview-ready</guid>
+      <pubDate>Wed, 25 Mar 2026 00:00:00 GMT</pubDate>
+      <category>Data Structures</category>
+      <category>Algorithms</category>
+      <category>Interview Prep</category>
+      <category>Computer Science</category>
+      <category>Tutorial</category>
+      <media:content url="https://www.daljeetsingh.me/assets/blog/optimized/data-structures-algorithms-roadmap-zero-to-interview-ready-lg.webp" medium="image"/>
+    </item>
+    <item>
+      <title>REST API Design Best Practices: The Complete Guide for Backend Developers</title>
+      <description>Build APIs that developers love consuming. Covers URL design, HTTP methods, status codes, pagination, versioning, authentication, error handling, and rate limiting with practical examples.</description>
+      <link>https://www.daljeetsingh.me/posts/rest-api-design-best-practices-complete-guide</link>
+      <guid isPermaLink="true">https://www.daljeetsingh.me/posts/rest-api-design-best-practices-complete-guide</guid>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 GMT</pubDate>
+      <category>API Design</category>
+      <category>REST</category>
+      <category>Backend</category>
+      <category>Web Development</category>
+      <category>Tutorial</category>
+      <media:content url="https://www.daljeetsingh.me/assets/blog/optimized/rest-api-design-best-practices-complete-guide-lg.webp" medium="image"/>
+    </item>
+    <item>
+      <title>Git Commands Every Developer Should Know: From Beginner to Advanced</title>
+      <description>Master the Git commands you&apos;ll actually use daily. Covers branching, rebasing vs merging, undoing mistakes, stashing, cherry-picking, bisecting, and advanced workflows with practical examples.</description>
+      <link>https://www.daljeetsingh.me/posts/git-commands-every-developer-should-know</link>
+      <guid isPermaLink="true">https://www.daljeetsingh.me/posts/git-commands-every-developer-should-know</guid>
+      <pubDate>Sun, 15 Mar 2026 00:00:00 GMT</pubDate>
+      <category>Git</category>
+      <category>Version Control</category>
+      <category>Developer Tools</category>
+      <category>Tutorial</category>
+      <category>Productivity</category>
+      <media:content url="https://www.daljeetsingh.me/assets/blog/optimized/git-commands-every-developer-should-know-lg.webp" medium="image"/>
+    </item>
+    <item>
+      <title>System Design Interview Guide: From Zero to Designing Distributed Systems</title>
+      <description>A structured approach to system design interviews. Covers the framework, scaling fundamentals, load balancing, caching, database design, message queues, and walkthroughs of classic problems like URL shortener and chat system.</description>
+      <link>https://www.daljeetsingh.me/posts/system-design-interview-guide-distributed-systems</link>
+      <guid isPermaLink="true">https://www.daljeetsingh.me/posts/system-design-interview-guide-distributed-systems</guid>
+      <pubDate>Tue, 10 Mar 2026 00:00:00 GMT</pubDate>
+      <category>System Design</category>
+      <category>Interview Prep</category>
+      <category>Distributed Systems</category>
+      <category>Architecture</category>
+      <category>Backend</category>
+      <media:content url="https://www.daljeetsingh.me/assets/blog/optimized/system-design-interview-guide-distributed-systems-lg.webp" medium="image"/>
+    </item>
+    <item>
+      <title>Web Performance Optimization: A Practical Guide to Core Web Vitals and Beyond</title>
+      <description>Ship faster websites with this hands-on guide to Core Web Vitals, image optimization, code splitting, caching, lazy loading, font loading, and critical rendering path optimization with measurable before/after improvements.</description>
+      <link>https://www.daljeetsingh.me/posts/web-performance-optimization-core-web-vitals-guide</link>
+      <guid isPermaLink="true">https://www.daljeetsingh.me/posts/web-performance-optimization-core-web-vitals-guide</guid>
+      <pubDate>Thu, 05 Mar 2026 00:00:00 GMT</pubDate>
+      <category>Web Performance</category>
+      <category>Core Web Vitals</category>
+      <category>Frontend</category>
+      <category>Optimization</category>
+      <category>Tutorial</category>
+      <media:content url="https://www.daljeetsingh.me/assets/blog/optimized/web-performance-optimization-core-web-vitals-guide-lg.webp" medium="image"/>
+    </item>
     <item>
       <title>Building a Modern Blog with SvelteKit</title>
       <description>A deep dive into creating a feature-rich, performant blog system using SvelteKit, mdsvex, and modern web technologies.</description>

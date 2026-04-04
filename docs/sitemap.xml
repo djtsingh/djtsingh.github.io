@@ -8,7 +8,7 @@
   <!-- Static Pages -->
   <url>
     <loc>https://www.daljeetsingh.me</loc>
-    <lastmod>2026-04-01T05:56:11.623Z</lastmod>
+    <lastmod>2026-04-04T06:02:50.297Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1</priority>
   </url>
@@ -22,7 +22,7 @@
 
   <url>
     <loc>https://www.daljeetsingh.me/posts</loc>
-    <lastmod>2026-01-10</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -84,6 +84,116 @@
   </url>
 
   <!-- Blog Posts -->
+  <url>
+    <loc>https://www.daljeetsingh.me/posts/claude-code-source-leak-npm-what-developers-should-know</loc>
+    <lastmod>2026-04-03T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.daljeetsingh.me/assets/blog/optimized/claude-leaked-lg.webp</image:loc>
+      <image:title>Claude Code Source Leak: What the NPM Incident Reveals About AI Tool Security</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.daljeetsingh.me/posts/axios-npm-supply-chain-attack-analysis</loc>
+    <lastmod>2026-04-02T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.daljeetsingh.me/assets/blog/optimized/axios-npm-supply-chain-attack-analysis-lg.webp</image:loc>
+      <image:title>Axios NPM Compromise: Anatomy of a Supply Chain Attack on 100M Weekly Downloads</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.daljeetsingh.me/posts/glassworm-supply-chain-attack-github-npm-vscode</loc>
+    <lastmod>2026-04-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.daljeetsingh.me/assets/blog/optimized/glassworm-supply-chain-attack-github-npm-vscode-lg.webp</image:loc>
+      <image:title>GlassWorm: How One Campaign Compromised 400+ Repos Across GitHub, npm, and VSCode</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.daljeetsingh.me/posts/shai-hulud-npm-malware-developer-secrets-exposed</loc>
+    <lastmod>2026-03-30T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.daljeetsingh.me/assets/blog/optimized/shai-hulud-npm-malware-developer-secrets-exposed-lg.webp</image:loc>
+      <image:title>Shai-Hulud: The npm Worm That Exposed 400,000 Developer Secrets</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.daljeetsingh.me/posts/securing-ai-agents-new-attack-surface-developers</loc>
+    <lastmod>2026-03-28T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.daljeetsingh.me/assets/blog/optimized/securing-ai-agents-new-attack-surface-developers-lg.webp</image:loc>
+      <image:title>Securing AI Agents: The New Attack Surface Developers Can&apos;t Ignore</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.daljeetsingh.me/posts/data-structures-algorithms-roadmap-zero-to-interview-ready</loc>
+    <lastmod>2026-03-25T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.daljeetsingh.me/assets/blog/optimized/data-structures-algorithms-roadmap-zero-to-interview-ready-lg.webp</image:loc>
+      <image:title>Data Structures and Algorithms Roadmap: From Zero to Interview Ready</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.daljeetsingh.me/posts/rest-api-design-best-practices-complete-guide</loc>
+    <lastmod>2026-03-20T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.daljeetsingh.me/assets/blog/optimized/rest-api-design-best-practices-complete-guide-lg.webp</image:loc>
+      <image:title>REST API Design Best Practices: The Complete Guide for Backend Developers</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.daljeetsingh.me/posts/git-commands-every-developer-should-know</loc>
+    <lastmod>2026-03-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.daljeetsingh.me/assets/blog/optimized/git-commands-every-developer-should-know-lg.webp</image:loc>
+      <image:title>Git Commands Every Developer Should Know: From Beginner to Advanced</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.daljeetsingh.me/posts/system-design-interview-guide-distributed-systems</loc>
+    <lastmod>2026-03-10T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.daljeetsingh.me/assets/blog/optimized/system-design-interview-guide-distributed-systems-lg.webp</image:loc>
+      <image:title>System Design Interview Guide: From Zero to Designing Distributed Systems</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.daljeetsingh.me/posts/web-performance-optimization-core-web-vitals-guide</loc>
+    <lastmod>2026-03-05T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.daljeetsingh.me/assets/blog/optimized/web-performance-optimization-core-web-vitals-guide-lg.webp</image:loc>
+      <image:title>Web Performance Optimization: A Practical Guide to Core Web Vitals and Beyond</image:title>
+    </image:image>
+  </url>
+
   <url>
     <loc>https://www.daljeetsingh.me/posts/building-modern-blog-sveltekit</loc>
     <lastmod>2026-01-10T00:00:00.000Z</lastmod>
