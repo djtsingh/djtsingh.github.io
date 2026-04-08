@@ -66,6 +66,7 @@
   let selectedShowcase = $state(0);
   let isLoading = $state(true);
   let iframeReady = $state(false);
+  let iframeError = $state(false);
 
   onMount(() => {
     isLoading = false;
@@ -74,10 +75,17 @@
   function handleShowcaseChange(index) {
     selectedShowcase = index;
     iframeReady = false;
+    iframeError = false;
   }
 
   function handleIframeLoad() {
     iframeReady = true;
+    iframeError = false;
+  }
+
+  function handleIframeError() {
+    iframeError = true;
+    iframeReady = false;
   }
 </script>
 
@@ -191,18 +199,40 @@
                 <span class="preview-url">{showcase.url.replace('https://', '')}</span>
               </div>
               <div class="preview-container">
-                <iframe
-                  src={showcase.url}
-                  title={showcase.title}
-                  class="showcase-iframe {iframeReady ? 'ready' : ''}"
-                  sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-                  onload={handleIframeLoad}
-                ></iframe>
-                {#if !iframeReady}
-                  <div class="iframe-loading">
-                    <div class="loader"></div>
-                    <p>Loading {showcase.title}...</p>
+                {#if iframeError}
+                  <div class="iframe-error">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--subtext0);">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="8" x2="12" y2="12"></line>
+                      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <h4 class="error-title">Cannot Embed {showcase.title}</h4>
+                    <p class="error-message">This site restricts embedding in iframes for security reasons</p>
+                    <p class="error-hint">Visit the live site using the button below to explore it</p>
+                    <a
+                      href={showcase.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="error-cta"
+                    >
+                      Visit Live Site →
+                    </a>
                   </div>
+                {:else}
+                  <iframe
+                    src={showcase.url}
+                    title={showcase.title}
+                    class="showcase-iframe {iframeReady ? 'ready' : ''}"
+                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                    onload={handleIframeLoad}
+                    onerror={handleIframeError}
+                  ></iframe>
+                  {#if !iframeReady}
+                    <div class="iframe-loading">
+                      <div class="loader"></div>
+                      <p>Loading {showcase.title}...</p>
+                    </div>
+                  {/if}
                 {/if}
               </div>
             </div>
@@ -316,13 +346,13 @@
 
   /* === SHOWCASE DISPLAY === */
   .showcase-display {
-    padding: 2rem;
+    padding: 2.5rem;
   }
 
   .showcase-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
+    gap: 3rem;
     align-items: start;
   }
 
@@ -565,6 +595,61 @@
     flex: 1;
     min-height: 400px;
     background: var(--base);
+    padding: 1rem;
+  }
+
+  .iframe-error {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: var(--base);
+    color: var(--subtext0);
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .error-title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .error-message {
+    margin: 0.5rem 0 0;
+    font-size: 0.875rem;
+    color: var(--subtext0);
+  }
+
+  .error-hint {
+    margin: 0.25rem 0 1rem;
+    font-size: 0.8125rem;
+    color: var(--subtext1);
+  }
+
+  .error-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, var(--accent) 0%, rgba(var(--blue-rgb), 0.8) 100%);
+    color: var(--mantle);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .error-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(var(--blue-rgb), 0.3);
+    filter: brightness(1.1);
   }
 
   .showcase-iframe {
@@ -627,7 +712,11 @@
 
   @media (max-width: 768px) {
     .showcase-display {
-      padding: 1.5rem;
+      padding: 1.75rem;
+    }
+
+    .preview-container {
+      padding: 0.75rem;
     }
 
     .showcase-tabs {
