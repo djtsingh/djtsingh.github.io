@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import SEO from '$lib/components/SEO.svelte';
+  import LiveShowcases from '$lib/components/LiveShowcases.svelte';
   import { projects } from '$lib/data/projects.js';
   
   const featuredProjects = projects.filter(p => p.featured);
@@ -92,6 +93,8 @@
     </a>
   </div>
 </section>
+
+<LiveShowcases />
 
 <!-- Interactive Widgets Section -->
 <div class="widgets-fullwidth-container">
@@ -233,22 +236,23 @@
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.875rem 1.5rem;
+    padding: 0.95rem 1.75rem;
     font-size: 0.95rem;
     font-weight: 600;
-    color: var(--text);
-    background: transparent;
-    border: 1px solid var(--surface1);
+    color: var(--mantle);
+    background: linear-gradient(135deg, var(--accent) 0%, rgba(var(--blue-rgb), 0.8) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: var(--radius-full);
     text-decoration: none;
     position: relative;
-    overflow: hidden;
-    transition: all var(--duration-normal) var(--ease-smooth);
+    overflow: visible;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(var(--accent-rgb), 0.3);
   }
   
   @media (max-width: 768px) {
     .view-all-btn {
-      padding: 0.75rem 1.25rem;
+      padding: 0.85rem 1.5rem;
       font-size: 0.875rem;
       gap: 0.5rem;
     }
@@ -258,10 +262,11 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--accent);
+    background: rgba(255, 255, 255, 0.2);
     opacity: 0;
-    transition: opacity var(--duration-normal) var(--ease-smooth);
+    transition: opacity 0.3s ease;
     z-index: 0;
+    border-radius: var(--radius-full);
   }
   
   .view-all-btn span,
@@ -271,21 +276,25 @@
   }
   
   .view-all-btn svg {
-    transition: transform var(--duration-normal) var(--ease-smooth);
+    transition: transform 0.3s ease;
   }
   
   .view-all-btn:hover {
-    border-color: var(--accent);
     transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 24px rgba(var(--accent-rgb), 0.5);
+    filter: brightness(1.1);
   }
   
   .view-all-btn:hover::before {
-    opacity: 0.1;
+    opacity: 1;
   }
   
   .view-all-btn:hover svg {
-    transform: translateX(4px);
+    transform: translateX(6px);
+  }
+
+  .view-all-btn:active {
+    transform: translateY(0);
   }
   
   .section-header h2 {
