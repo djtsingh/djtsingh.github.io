@@ -34,11 +34,13 @@
   $: shortDisplayName = displayName ? '/' + displayName + '/' : '';
 </script>
 
-<header class="header">
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<header class="header" role="banner">
   <div class="container header-inner">
     <!-- Terminal nav -->
-    <nav class="terminal-nav" aria-label="Breadcrumb navigation">
-      <a href="/" class="tilde" aria-label="Go to home page">$</a>
+    <nav class="terminal-nav" aria-label="Site breadcrumb">
+      <a href="/" class="tilde" aria-label="Daljeet Singh - Home">$</a>
       {#if pageName}
         <!-- Full path for wide screens -->
         <span class="current-path full-path" aria-hidden="true">{fullPath}</span>
@@ -49,7 +51,7 @@
     </nav>
     
     <!-- Desktop nav -->
-    <nav class="desktop-nav" aria-label="Main navigation" id="site-navigation">
+    <nav class="desktop-nav" aria-label="Main site navigation" id="site-navigation">
       {#each mainNavItems as item}
         <a 
           href={item.href} 
@@ -68,7 +70,7 @@
         on:click={toggleMenu} 
         aria-expanded={menuOpen}
         aria-controls="unified-menu"
-        aria-label="Open additional navigation menu"
+        aria-label={menuOpen ? "Close additional navigation" : "View additional navigation"}
       >
         More...
       </button>
@@ -195,6 +197,12 @@
   .desktop-nav a.active {
     color: var(--accent);
   }
+
+  .desktop-nav a:focus, .desktop-nav button:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    background-color: rgba(var(--accent-rgb), 0.1);
+  }
   
   .mobile-menu-btn {
     display: flex;
@@ -224,7 +232,28 @@
     }
   }
 
-  /* Screen reader only text */
+  /* Screen reader only text and skip links */
+  .skip-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+    padding: 0.75rem 1rem;
+    background-color: var(--accent);
+    color: var(--mantle);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 0 0 var(--radius-md) 0;
+    transform: translateY(-100%);
+    transition: transform 0.2s ease;
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+    outline: 3px solid var(--text);
+    outline-offset: 2px;
+  }
+
   .sr-only {
     position: absolute;
     width: 1px;

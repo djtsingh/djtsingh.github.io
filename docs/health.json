@@ -1,0 +1,17 @@
+{
+  "status": "healthy",
+  "timestamp": "2026-04-27T00:00:00Z",
+  "checks": {
+    "serviceWorker": "enabled",
+    "performanceMonitoring": "enabled",
+    "imageOptimization": "enabled",
+    "staticGeneration": "enabled"
+  },
+  "notes": "Static site deployed via GitHub Pages. Client-side monitoring only. No backend health checks available.",
+  "deployment": {
+    "type": "GitHub Pages",
+    "framework": "SvelteKit",
+    "adapter": "@sveltejs/adapter-static",
+    "buildType": "Static Generation (SSG)"
+  }
+}

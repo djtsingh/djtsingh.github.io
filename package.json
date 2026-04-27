@@ -36,6 +36,7 @@
     "leaflet": "^1.9.4",
     "lucide-svelte": "^0.562.0",
     "reading-time": "^1.5.0",
-    "web-vitals": "^5.1.0"
+    "web-vitals": "^5.1.0",
+    "zod": "^3.22.4"
   }
 }

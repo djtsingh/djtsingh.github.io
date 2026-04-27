@@ -1,41 +1,70 @@
 /**
  * Blog posts page loader
- * Loads all markdown posts at build time (updated to rescan glob)
+ * Loads and validates all markdown posts at build time
  */
 import { calculateReadingTime } from '$lib/utils/blog.js';
+import { validateBlogMetadata } from '$lib/schemas/blog.ts';
 
 export async function load() {
   // Import all markdown files from the posts directory
   const postModules = import.meta.glob('/src/posts/*.md', { eager: true });
   
-  console.log('[DEBUG] Post module paths:', Object.keys(postModules));
+  const posts = [];
+  const errors = [];
   
   for (const [path, mod] of Object.entries(postModules)) {
-    console.log('[DEBUG]', path, '-> has metadata:', !!mod.metadata, '-> keys:', Object.keys(mod || {}));
-  }
-  
-  const posts = [];
-  
-  for (const path in postModules) {
-    const post = postModules[path];
     const slug = path.split('/').pop()?.replace('.md', '');
     
-    if (post.metadata) {
+    if (!slug) {
+      errors.push({ path, error: 'Could not extract slug from path' });
+      continue;
+    }
+    
+    if (!mod.metadata) {
+      errors.push({ slug, error: 'Post has no metadata/frontmatter' });
+      continue;
+    }
+    
+    try {
+      // Validate metadata against schema
+      const validatedMetadata = validateBlogMetadata(mod.metadata, slug);
+      
       posts.push({
         slug,
-        ...post.metadata,
-        // Add reading time if not provided
-        readingTime: post.metadata.readingTime || 5
+        ...validatedMetadata,
+        // Ensure reading time is set (fallback to calculated value)
+        readingTime: validatedMetadata.readingTime || calculateReadingTime(mod.default?.raw || '')
+      });
+    } catch (error) {
+      errors.push({
+        slug,
+        error: error instanceof Error ? error.message : String(error)
       });
     }
   }
   
-  // Sort by date (newest first) and filter published
+  // Log validation errors in development
+  if (errors.length > 0) {
+    console.error('[Blog Validation Errors]');
+    errors.forEach(({ slug, error }) => {
+      console.error(`  ${slug}: ${error}`);
+    });
+    
+    // In production, fail the build if there are validation errors
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error(
+        `Blog validation failed with ${errors.length} error(s). Check logs above.`
+      );
+    }
+  }
+  
+  // Sort by date (newest first)
   const sortedPosts = posts
     .filter(post => post.published !== false)
     .sort((a, b) => new Date(b.date) - new Date(a.date));
-  
+
   return {
-    posts: sortedPosts
+    posts: sortedPosts,
+    validationWarnings: errors.length
   };
 }

@@ -1,5 +1,6 @@
 <script>
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
+  import { browser } from '$app/environment';
   import { performanceMetrics } from '$lib/stores/performance.js';
 
   let metrics = {
@@ -11,6 +12,11 @@
     memoryUsage: null,
     loadTime: null
   };
+
+  // Store references for cleanup
+  let observers = [];
+  let memoryInterval = null;
+  let loadListener = null;
 
   // Send performance data to Google Analytics
   function sendToAnalytics(metric, value, additionalData = {}) {
@@ -27,19 +33,27 @@
     }
   }
 
+  // Create and track observer
+  function createObserver(callback, entryTypes) {
+    const observer = new PerformanceObserver(callback);
+    observer.observe({ entryTypes });
+    observers.push(observer);
+    return observer;
+  }
+
   // Enhanced Web Vitals monitoring with GA tracking
   function initWebVitals() {
     // Largest Contentful Paint
-    new PerformanceObserver((list) => {
+    createObserver((list) => {
       const entries = list.getEntries();
       const lastEntry = entries[entries.length - 1];
       metrics.lcp = lastEntry.startTime;
       performanceMetrics.update(m => ({ ...m, lcp: metrics.lcp }));
       sendToAnalytics('LCP', metrics.lcp, { element: lastEntry.element?.tagName });
-    }).observe({ entryTypes: ['largest-contentful-paint'] });
+    }, ['largest-contentful-paint']);
 
     // First Input Delay
-    new PerformanceObserver((list) => {
+    createObserver((list) => {
       const entries = list.getEntries();
       entries.forEach((entry) => {
         if (entry.processingStart > 0) {
@@ -48,11 +62,11 @@
           sendToAnalytics('FID', metrics.fid);
         }
       });
-    }).observe({ entryTypes: ['first-input'] });
+    }, ['first-input']);
 
     // Cumulative Layout Shift
     let clsValue = 0;
-    new PerformanceObserver((list) => {
+    createObserver((list) => {
       const entries = list.getEntries();
       entries.forEach((entry) => {
         if (!entry.hadRecentInput) {
@@ -62,10 +76,10 @@
       metrics.cls = clsValue;
       performanceMetrics.update(m => ({ ...m, cls: metrics.cls }));
       sendToAnalytics('CLS', metrics.cls * 1000); // Convert to milliseconds for GA
-    }).observe({ entryTypes: ['layout-shift'] });
+    }, ['layout-shift']);
 
     // First Contentful Paint
-    new PerformanceObserver((list) => {
+    createObserver((list) => {
       const entries = list.getEntries();
       entries.forEach((entry) => {
         if (entry.name === 'first-contentful-paint') {
@@ -74,13 +88,13 @@
           sendToAnalytics('FCP', metrics.fcp);
         }
       });
-    }).observe({ entryTypes: ['paint'] });
+    }, ['paint']);
   }
 
   // Memory usage monitoring
   function monitorMemoryUsage() {
     if ('memory' in performance) {
-      setInterval(() => {
+      memoryInterval = setInterval(() => {
         const memInfo = performance.memory;
         metrics.memoryUsage = {
           used: memInfo.usedJSHeapSize,
@@ -111,37 +125,39 @@
     }
   }
 
-  // Performance issue detection
-  function detectPerformanceIssues() {
-    // Check for large layout shifts (only warn about significant ones without recent input)
-    new PerformanceObserver((list) => {
-      const entries = list.getEntries();
-      entries.forEach((entry) => {
-        // Only warn about layout shifts > 0.25 without recent user input (Core Web Vitals relevant)
-        if (entry.value > 0.25 && !entry.hadRecentInput) {
-          console.warn('Significant layout shift (no recent input):', entry);
-        }
-        // For shifts with recent input, only log if they're very large (> 0.5)
-        else if (entry.value > 0.5 && entry.hadRecentInput) {
-          console.debug('Large layout shift with recent input:', entry.value, entry);
-        }
-      });
-    }).observe({ entryTypes: ['layout-shift'] });
-  }
-
   onMount(() => {
+    if (!browser) return;
+
     // Initialize all monitoring
     initWebVitals();
     monitorMemoryUsage();
     measureLoadTime();
-    detectPerformanceIssues();
 
     // Log performance summary after page load
-    window.addEventListener('load', () => {
+    loadListener = () => {
       setTimeout(() => {
         console.log('Performance Metrics:', metrics);
       }, 1000);
-    });
+    };
+    window.addEventListener('load', loadListener);
+  });
+
+  onDestroy(() => {
+    // Clean up all observers
+    observers.forEach(observer => observer.disconnect());
+    observers = [];
+
+    // Clear memory monitoring interval
+    if (memoryInterval) {
+      clearInterval(memoryInterval);
+      memoryInterval = null;
+    }
+
+    // Remove event listener
+    if (loadListener) {
+      window.removeEventListener('load', loadListener);
+      loadListener = null;
+    }
   });
 </script>
 

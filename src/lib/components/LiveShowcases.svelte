@@ -246,7 +246,7 @@
 <style>
   .live-showcases {
     margin-top: 3rem;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
   }
 
   .section-header {

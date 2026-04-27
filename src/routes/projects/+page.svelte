@@ -1,5 +1,6 @@
 <script>
   import SEO from '$lib/components/SEO.svelte';
+  import OptimizedImage from '$lib/components/OptimizedImage.svelte';
   import { projects } from '$lib/data/projects.js';
   
   let searchQuery = '';
@@ -61,7 +62,7 @@
       <article class="project-card" class:featured={project.featured}>
         {#if project.slug}
           <a href="/projects/{project.slug}" class="project-link">
-            <img src={project.image} alt="{project.title} screenshot" class="project-img" />
+            <OptimizedImage src={project.image} alt="{project.title} screenshot" class="project-img" />
             <div class="project-content">
               <h3 class="project-title">
                 {project.title}
@@ -79,7 +80,7 @@
             </div>
           </a>
         {:else}
-          <img src={project.image} alt="{project.title} screenshot" class="project-img" />
+          <OptimizedImage src={project.image} alt="{project.title} screenshot" class="project-img" />
           <div class="project-content">
             <h3 class="project-title">
               {project.title}
@@ -248,12 +249,6 @@
     border-color: rgba(var(--accent-rgb), 0.3);
   }
   
-  .project-img {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-  }
-  
   .project-content {
     flex: 1;
     padding: 1.25rem;
@@ -276,6 +271,7 @@
     color: var(--subtext0);
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }

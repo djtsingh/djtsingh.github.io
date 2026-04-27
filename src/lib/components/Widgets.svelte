@@ -5,9 +5,7 @@
   import Coffee from 'lucide-svelte/icons/coffee';
   import Code from 'lucide-svelte/icons/code';
   import Bug from 'lucide-svelte/icons/bug';
-  import GitBranch from 'lucide-svelte/icons/git-branch';
   import Zap from 'lucide-svelte/icons/zap';
-  import Activity from 'lucide-svelte/icons/activity';
   import CloudSun from 'lucide-svelte/icons/cloud-sun';
   import RefreshCw from 'lucide-svelte/icons/refresh-cw';
   import MapPin from 'lucide-svelte/icons/map-pin';
@@ -15,7 +13,6 @@
   import Mail from 'lucide-svelte/icons/mail';
   import Terminal from 'lucide-svelte/icons/terminal';
   import Package from 'lucide-svelte/icons/package';
-  import Github from 'lucide-svelte/icons/github';
   import Sun from 'lucide-svelte/icons/sun';
   import Moon from 'lucide-svelte/icons/moon';
   // Import LazyMap directly for now to test
@@ -25,10 +22,6 @@
   let showMap = $state(false);
 
   let widgetElement; // For intersection observer
-
-  // Lazy-load heavy widget
-  let GitGraph = $state(null);
-  let gitGraphLoaded = $state(false);
 
   // Stats State
   let stats = $state({
@@ -119,17 +112,7 @@
     isDayTime = hour >= 6 && hour < 18; // Day: 6 AM - 6 PM, Night: 6 PM - 6 AM
   });
 
-  // Git State
-  let gitData = $state({
-    stats: {
-      totalCommits: 0,
-      activeBranches: 0,
-      contributors: 0,
-      lastCommit: null
-    }
-  });
-  let isLoading = $state(true);
-  let hoveredCommit = $state(null);
+
 
   // Animate stats
   onMount(async () => {
@@ -186,15 +169,6 @@
         }, 1000);
       }
 
-      // Dynamically import the heavy Git graph widget to reduce initial bundle
-      try {
-        const mod = await import('$lib/components/GitGraphWidget.svelte');
-        GitGraph = mod.default;
-        gitGraphLoaded = true;
-      } catch (err) {
-        console.error('Failed to load GitGraphWidget dynamically', err);
-      }
-
       return () => {
         intervals.forEach(clearInterval);
         if (widgetElement) {
@@ -219,97 +193,23 @@
     }
   }
 
-  async function fetchGitHubData() {
-    if (!browser) return;
 
-    try {
-      isLoading = true;
-      const response = await fetch(
-        'https://api.github.com/repos/djtsingh/djtsingh.github.io/commits?per_page=100'
-      );
-      
-      if (response.ok) {
-        const commits = await response.json();
-        const contributors = new Set(commits.map(c => c.commit.author.name)).size;
-
-        // Process commits for recent-activity widget
-        const processedCommits = commits.map(c => ({
-          id: c.sha.substring(0,7),
-          branch: 'main',
-          timestamp: new Date(c.commit.author.date).getTime(),
-          message: c.commit.message.split('\n')[0],
-          additions: Math.floor(Math.random() * 100) + 1,
-          deletions: Math.floor(Math.random() * 50),
-          author: c.commit.author.name,
-          type: 'feat',
-          url: c.html_url
-        }));
-
-        gitData.commits = processedCommits;
-        gitData.branches = [ { name: 'main', color: '#89b4fa', commits: processedCommits.length, merges: 0 } ];
-
-        gitData.stats = {
-          totalCommits: commits.length,
-          activeBranches: 1,
-          contributors,
-          lastCommit: commits.length > 0 ? new Date(commits[0].commit.author.date) : null
-        };
-      }
-    } catch (err) {
-      console.error('GitHub fetch failed:', err);
-      gitData.stats = {
-        totalCommits: 143,
-        activeBranches: 2,
-        contributors: 1,
-        lastCommit: new Date()
-      };
-    } finally {
-      isLoading = false;
-    }
-  }
-
-  function getRelativeTime(timestamp) {
-    const now = Date.now();
-    const diff = now - timestamp;
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-    if (hours < 1) return 'just now';
-    if (hours < 24) return `${hours}h ago`;
-    return `${days}d ago`;
-  }
 </script>
 
-<div class="widgets-container">
-  <!-- Git Graph Widget - Full width above column widgets -->
-  {#if gitGraphLoaded}
-    <GitGraph {stats} />
-  {:else}
-    <div class="graph-placeholder">
-      <div class="widget-header">
-        <GitBranch size={20} />
-        <h3>Repository Activity</h3>
-      </div>
-      <div class="loading-state">
-        <div class="loading-spinner"></div>
-        <p>Loading repository graph...</p>
-      </div>
-    </div>
-  {/if}
-
+<div class="widgets-container" role="region" aria-label="Information widgets displaying code weather, location, and contact details">
   <div class="widget-row responsive-widget-row">
     <!-- Weather Widget -->
-    <div class="widget weather-widget">
+    <div class="widget weather-widget" role="region" aria-label="Code weather widget">
       <div class="widget-header">
-        <CloudSun size={20} weight="duotone" />
+        <CloudSun size={20} weight="duotone" aria-hidden="true" />
         <h3>Code Weather</h3>
-        <button class="icon-btn weather-refresh" onclick={changeWeather}>
-          <RefreshCw size={16} />
+        <button class="icon-btn weather-refresh" onclick={changeWeather} aria-label="Refresh code weather condition">
+          <RefreshCw size={16} aria-hidden="true" />
         </button>
       </div>
       <div class="weather-content">
         <div class="weather-visual">
-            <div class="weather-icon-container" style="--weather-color: {weather.color}">
+            <div class="weather-icon-container" style="--weather-color: {weather.color}" aria-hidden="true">
             <div class="weather-icon-bg"></div>
             <CloudSun size={24} weight="duotone" class="weather-main-icon" />
           </div>
@@ -321,7 +221,7 @@
         <div class="weather-forecast">{weather.forecast}</div>
         <div class="weather-details">
           <div class="weather-detail">
-            <span class="detail-icon">🌬️</span>
+            <span class="detail-icon" aria-hidden="true">🌬️</span>
             <span class="detail-label">Wind:</span>
             <span class="detail-value">{weather.wind}</span>
           </div>
@@ -330,9 +230,9 @@
     </div>
 
     <!-- Location & Time Widget -->
-    <div class="widget location-widget" bind:this={widgetElement}>
+    <div class="widget location-widget" bind:this={widgetElement} role="region" aria-label="Location and time widget">
       <div class="widget-header">
-        <MapPin size={20} weight="duotone" />
+        <MapPin size={20} weight="duotone" aria-hidden="true" />
         <h3>Currently based in</h3>
       </div>
       <div class="location-content">
@@ -342,7 +242,7 @@
         {:else}
           <!-- Placeholder while waiting for intersection -->
           <div class="map-placeholder">
-            <div class="placeholder-spinner"></div>
+            <div class="placeholder-spinner" aria-label="Loading map..."></div>
           </div>
         {/if}
 
@@ -355,7 +255,7 @@
             onkeydown={handleTimeKeydown}
             role="button" 
             tabindex="0"
-            aria-label="Toggle between 12-hour and 24-hour time format"
+            aria-label="Current time: {displayHours}:{minutes}:{seconds}. Click to toggle between 12-hour and 24-hour format"
           >
             {#if isDayTime}
                 <span class="time-icon" aria-hidden="true"><Sun size={14} /></span>
@@ -363,9 +263,9 @@
                 <span class="time-icon" aria-hidden="true"><Moon size={14} /></span>
             {/if}
             <span class="time-segment">{displayHours}</span>
-            <span class="time-separator">:</span>
+            <span class="time-separator" aria-hidden="true">:</span>
             <span class="time-segment">{minutes}</span>
-            <span class="time-separator">:</span>
+            <span class="time-separator" aria-hidden="true">:</span>
             <span class="time-segment seconds">{seconds}</span>
           </div>
         </div>
@@ -373,35 +273,19 @@
     </div>
 
     <!-- Contact Widget (moved to last) -->
-    <div class="widget contact-widget">
+    <div class="widget contact-widget" role="region" aria-label="Contact and collaboration widget">
       <div class="widget-header">
-        <Mail size={20} weight="duotone" />
+        <Mail size={20} weight="duotone" aria-hidden="true" />
         <h3>Let's Connect</h3>
       </div>
       <div class="contact-content">
         <p class="contact-description">Always open to opportunities and new collaborations. Let's talk</p>
-        <a href="https://cal.com/djtsingh/15min" target="_blank" class="book-chat-btn">
-          <span class="btn-icon">💬</span>
+        <a href="https://cal.com/djtsingh/15min" target="_blank" rel="noopener noreferrer" class="book-chat-btn" aria-label="Book a 15-minute chat on Cal.com (opens in new tab)">
+          <span class="btn-icon" aria-hidden="true">💬</span>
           <span class="btn-text">Book a Chat</span>
         </a>
       </div>
     </div>
-  {#if hoveredCommit}
-    <div class="commit-tooltip">
-      <div class="tooltip-header">
-        <strong>{hoveredCommit.type}:</strong> {hoveredCommit.message}
-      </div>
-      <div class="tooltip-meta">
-        <span>By {hoveredCommit.author}</span>
-        <span>Branch: {hoveredCommit.branch}</span>
-      </div>
-      <div class="tooltip-changes">
-        <span class="additions">+{hoveredCommit.additions} additions</span>
-        <span class="deletions">-{hoveredCommit.deletions} deletions</span>
-      </div>
-    </div>
-  {/if}
-
 </div>
 </div>
 
@@ -411,10 +295,10 @@
     width: 100%;
     /* Removed max-width to expand fully like footer */
     margin: 0;
-    padding: 34px 0 0 0; /* Consistent padding: 34px top, no bottom padding */
+    padding: 2rem 0 3rem 0;
     display: flex;
     flex-direction: column;
-    gap: 2rem; /* Increased vertical gap for more space */
+    gap: 2rem; /* Vertical gap between widget rows */
   }
 
   /* Leaflet map styles */
@@ -472,20 +356,6 @@
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   }
 
-  .graph-placeholder {
-    background: linear-gradient(135deg, var(--base) 0%, var(--mantle) 100%);
-    border: 1px solid var(--surface0);
-    border-radius: 20px;
-    padding: clamp(1rem, 2vw, 1.5rem);
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  }
-
-
-
   .widget-header {
     display: flex;
     align-items: center;
@@ -521,6 +391,11 @@
   .icon-btn:hover {
     background: rgba(137, 180, 250, 0.2);
     transform: rotate(180deg);
+  }
+
+  .icon-btn:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
 
   /* Weather Widget */
@@ -662,23 +537,7 @@
     font-weight: 500;
   }
 
-  .commit-tooltip {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: var(--base);
-    border: 1px solid var(--surface1);
-    border-radius: 12px;
-    padding: 1rem;
-    max-width: 420px;
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-  }
 
-  .tooltip-header { font-size: 1rem; color: var(--text); margin-bottom: 0.5rem; }
-  .tooltip-meta { display:flex; gap: 1rem; font-size: 0.9rem; color: var(--subtext1); margin-bottom: 0.5rem; }
-  .tooltip-changes { display:flex; gap: 1rem; font-size: 0.9rem; }
 
   /* Contact Widget */
   .contact-content {
@@ -737,6 +596,11 @@
     color: #1e1e2e;
     transform: translateY(-1px);
     box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 50%, transparent);
+  }
+
+  .book-chat-btn:focus {
+    outline: 2px solid white;
+    outline-offset: 2px;
   }
 
   .book-chat-btn:hover::before {
