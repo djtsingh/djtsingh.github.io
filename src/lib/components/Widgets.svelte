@@ -18,11 +18,6 @@
   // Import LazyMap directly for now to test
   import LazyMap from '$lib/components/LazyMap.svelte';
 
-  // Map variables - now for lazy loading
-  let showMap = $state(false);
-
-  let widgetElement; // For intersection observer
-
   // Stats State
   let stats = $state({
     coffee: 0,
@@ -115,7 +110,7 @@
 
 
   // Animate stats
-  onMount(async () => {
+  onMount(() => {
     const intervals = [
       setInterval(() => stats.coffee = Math.min(stats.coffee + 23, 847), 30),
       setInterval(() => stats.code = Math.min(stats.code + 3847, 128943), 25),
@@ -130,50 +125,8 @@
       }, 1000);
       intervals.push(timeInterval);
 
-      fetchGitHubData();
-
-      // Set up intersection observer for lazy loading the map
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-              if (entry.isIntersecting && !showMap) {
-                showMap = true;
-              }
-            });
-          },
-        { rootMargin: '50px' } // Start loading 50px before it comes into view
-      );
-
-      if (widgetElement) {
-        observer.observe(widgetElement);
-
-        // Check if element is already visible
-        const rect = widgetElement.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-
-        if (isVisible) {
-          showMap = true;
-        }
-
-        // Fallback: load after 3 seconds if not loaded yet
-        setTimeout(() => {
-          if (!showMap) {
-            showMap = true;
-          }
-        }, 3000);
-
-      } else {
-        // Fallback: load immediately if binding failed
-        setTimeout(() => {
-          showMap = true;
-        }, 1000);
-      }
-
       return () => {
         intervals.forEach(clearInterval);
-        if (widgetElement) {
-          observer.unobserve(widgetElement);
-        }
       };
     }
   });
@@ -230,21 +183,13 @@
     </div>
 
     <!-- Location & Time Widget -->
-    <div class="widget location-widget" bind:this={widgetElement} role="region" aria-label="Location and time widget">
+    <div class="widget location-widget" role="region" aria-label="Location and time widget">
       <div class="widget-header">
         <MapPin size={20} weight="duotone" aria-hidden="true" />
         <h3>Currently based in</h3>
       </div>
       <div class="location-content">
-        <!-- Lazy loaded map -->
-        {#if showMap}
-          <LazyMap />
-        {:else}
-          <!-- Placeholder while waiting for intersection -->
-          <div class="map-placeholder">
-            <div class="placeholder-spinner" aria-label="Loading map..."></div>
-          </div>
-        {/if}
+        <LazyMap />
 
         <!-- Bottom Row: Mumbai Label + Time Display -->
         <div class="location-footer">
@@ -668,27 +613,6 @@
     justify-content: space-between;
     width: 100%;
     gap: 1rem;
-  }
-
-  .map-placeholder {
-    width: 100%;
-    max-width: 400px;
-    height: 180px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, var(--base) 0%, var(--mantle) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-  }
-
-  .placeholder-spinner {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    border: 3px solid rgba(137, 180, 250, 0.2);
-    border-top: 3px solid #89b4fa;
-    animation: spin 1s linear infinite;
   }
 
   .time-display {

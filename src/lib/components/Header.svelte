@@ -36,7 +36,7 @@
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<header class="header" role="banner">
+<header class="header">
   <div class="container header-inner">
     <!-- Terminal nav -->
     <nav class="terminal-nav" aria-label="Site breadcrumb">

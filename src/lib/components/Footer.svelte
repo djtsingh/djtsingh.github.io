@@ -37,7 +37,7 @@
   });
 </script>
 
-<footer class="footer" role="contentinfo">
+<footer class="footer">
   <div class="footer-card">
     <div class="footer-section footer-left">
       <p class="copyright">© {year} Daljeet Singh Lotey</p>

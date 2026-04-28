@@ -8,14 +8,21 @@
 
   onMount(async () => {
     try {
+      // Ensure the container exists before initializing
+      if (!mapContainer) {
+        console.warn('Map container not ready, waiting...');
+        // Wait for container to be ready
+        await new Promise(resolve => setTimeout(resolve, 100));
+        if (!mapContainer) {
+          throw new Error('Map container still not available');
+        }
+      }
+
       // Dynamically import Leaflet CSS and JS only when component mounts
       await import('leaflet/dist/leaflet.css');
       const leafletModule = await import('leaflet');
 
       const L = leafletModule.default;
-
-      // Small delay to ensure everything is ready
-      await new Promise(resolve => setTimeout(resolve, 50));
 
       const mumbaiCoords = [19.0760, 72.8777];
 
@@ -32,9 +39,13 @@
         zoomAnimation: true
       });
 
+      // Trigger initial map render
+      map.invalidateSize();
+
       // Satellite imagery
       const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        maxZoom: 19
+        maxZoom: 19,
+        minZoom: 0
       });
 
       satelliteLayer.addTo(map);
@@ -43,6 +54,7 @@
       const labelsLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
         subdomains: 'abcd',
         maxZoom: 19,
+        minZoom: 0,
         opacity: 0.7
       });
 
@@ -63,17 +75,31 @@
 
       L.marker(mumbaiCoords, { icon: customIcon }).addTo(map);
 
-      // Wait for tiles to load before hiding loading spinner
-      satelliteLayer.on('load', () => {
+      // Track tile loading - hide spinner once tiles start rendering
+      let tileLoadCount = 0;
+      const handleTileLoad = () => {
+        tileLoadCount++;
+        // Hide loading after first tiles load
+        if (tileLoadCount > 0) {
+          isLoading = false;
+        }
+      };
+
+      satelliteLayer.on('load', handleTileLoad);
+      labelsLayer.on('load', handleTileLoad);
+
+      // Also listen for individual tile load events
+      map.on('tileload', () => {
         isLoading = false;
       });
 
-      // Fallback: hide loading after 2 seconds even if tiles haven't loaded
-      setTimeout(() => {
-        if (isLoading) {
-          isLoading = false;
-        }
+      // Aggressive fallback: hide loading after 2 seconds to prevent indefinite buffering
+      const timeoutId = setTimeout(() => {
+        isLoading = false;
       }, 2000);
+
+      // Clean up timeout on destroy
+      return () => clearTimeout(timeoutId);
 
     } catch (error) {
       console.error('Failed to load map:', error);
