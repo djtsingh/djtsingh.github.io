@@ -18,11 +18,13 @@ export const siteConfig = {
   twitterHandle: '@djt5ingh',
   githubHandle: 'djtsingh',
   linkedinHandle: 'djtsingh',
+  instagramHandle: 'dj5ingh',
   
   socials: {
     github: 'https://github.com/djtsingh',
     linkedin: 'https://www.linkedin.com/in/djtsingh/',
-    twitter: 'https://x.com/djt5ingh'
+    twitter: 'https://x.com/djt5ingh',
+    instagram: 'https://instagram.com/dj5ingh'
   },
   
   alumniOf: 'Amity University Computer Science Graduate',

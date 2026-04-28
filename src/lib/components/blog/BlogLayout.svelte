@@ -24,35 +24,64 @@
   let articleElement;
   let headings = [];
   let scrollY = 0;
+  let wordCount = 0;
   
-  // Generate article schema
+  // Function to extract word count from article text
+  function extractWordCount(element) {
+    if (!element) return 0;
+    const text = element.innerText || element.textContent;
+    const words = text.trim().split(/\s+/).length;
+    return Math.max(words, metadata.readingTime ? metadata.readingTime * 200 : 1000); // Fallback estimate
+  }
+  
+  // Generate enhanced article schema for Google rich results
   $: articleSchema = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     '@id': `${siteConfig.url}/posts/${metadata.slug}`,
     headline: metadata.title,
+    alternativeHeadline: metadata.description,
     description: metadata.description,
-    image: metadata.coverImage ? `${siteConfig.url}${metadata.coverImage}` : `${siteConfig.url}${siteConfig.image}`,
+    image: [
+      metadata.coverImage ? `${siteConfig.url}${metadata.coverImage}` : `${siteConfig.url}${siteConfig.image}`
+    ],
     datePublished: metadata.date,
     dateModified: metadata.updated || metadata.date,
     author: {
       '@type': 'Person',
       '@id': `${siteConfig.url}/#person`,
-      name: siteConfig.name
+      name: siteConfig.name,
+      url: siteConfig.url
     },
     publisher: {
       '@type': 'Organization',
-      '@id': `${siteConfig.url}/#organization`
+      '@id': `${siteConfig.url}/#organization`,
+      name: siteConfig.name,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteConfig.url}/assets/optimized/dj-web.jpg`
+      }
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `${siteConfig.url}/posts/${metadata.slug}`
     },
-    keywords: metadata.tags?.join(', ')
+    keywords: metadata.tags?.join(', '),
+    wordCount: wordCount || (metadata.readingTime ? metadata.readingTime * 200 : 1000),
+    articleSection: metadata.tags?.[0] || 'Technology',
+    inLanguage: 'en-US',
+    isAccessibleForFree: true,
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['h1', 'h2', 'p']
+    }
   });
   
   onMount(() => {
     if (!browser) return;
+    
+    // Calculate word count
+    wordCount = extractWordCount(articleElement);
     
     // Extract headings from article
     const headingElements = articleElement?.querySelectorAll('h2, h3, h4');
@@ -123,6 +152,13 @@
       <meta property="article:tag" content={tag} />
     {/each}
   {/if}
+  
+  <!-- Google News specific meta tags -->
+  <meta name="news_keywords" content={metadata.tags?.join(', ')} />
+  
+  <!-- Enhanced SEO meta tags for Google -->
+  <meta name="article:published_time" content={metadata.date} />
+  <meta name="article:author" content={siteConfig.name} />
   
   <!-- Structured data -->
   {@html `<script type="application/ld+json">${articleSchema}</script>`}

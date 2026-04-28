@@ -44,7 +44,8 @@
     sameAs: [
       siteConfig.socials.github,
       siteConfig.socials.linkedin,
-      siteConfig.socials.twitter
+      siteConfig.socials.twitter,
+      siteConfig.socials.instagram
     ],
     knowsAbout: siteConfig.knowsAbout,
     alumniOf: {
@@ -65,7 +66,8 @@
     sameAs: [
       siteConfig.socials.github,
       siteConfig.socials.linkedin,
-      siteConfig.socials.twitter
+      siteConfig.socials.twitter,
+      siteConfig.socials.instagram
     ]
   });
 
@@ -106,6 +108,7 @@
   <link rel="me" href={siteConfig.socials.github} />
   <link rel="me" href={siteConfig.socials.linkedin} />
   <link rel="me" href={siteConfig.socials.twitter} />
+  <link rel="me" href={siteConfig.socials.instagram} />
   
   <!-- Open Graph -->
   <meta property="og:site_name" content={siteConfig.name} />
