@@ -17,7 +17,7 @@
     { href: '/about', label: 'About' },
     { href: '/projects', label: 'Projects' },
     { href: '/posts', label: 'Posts' },
-    { href: '/assets/dj-web.pdf', label: 'Resume', external: true }
+    { href: '/resume.pdf', label: 'Resume', external: true }
   ];
   
   const moreNavItems = [
