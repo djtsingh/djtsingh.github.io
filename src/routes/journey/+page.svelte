@@ -39,16 +39,6 @@
       <div class="timeline-item current">
         <div class="timeline-marker pulse"></div>
         <div class="timeline-content">
-          <span class="timeline-date">2024 - Present</span>
-          <h3>Software Engineer</h3>
-          <p class="timeline-company"></p>
-          <p>Working on scalable systems and full-stack applications. Focus on data engineering and ML integration.</p>
-        </div>
-      </div>
-      
-      <div class="timeline-item">
-        <div class="timeline-marker"></div>
-        <div class="timeline-content">
           <span class="timeline-date">2025</span>
           <h3>Bachelor of Science, Information Technology</h3>
           <p class="timeline-company">Amity University, Mumbai</p>
@@ -59,8 +49,18 @@
       <div class="timeline-item">
         <div class="timeline-marker"></div>
         <div class="timeline-content">
+          <span class="timeline-date">2024 - 2025</span>
+          <h3>Digital Systems & Growth</h3>
+          <p class="timeline-company"></p>
+          <p>Scaled a multi-channel digital portfolio to 2M+ aggregate views leveraging data-driven SEO, metadata schemas, and targeted technical content, while using Generative AI to reduce time-to-market for new content by 50%.</p>
+        </div>
+      </div>
+      
+      <div class="timeline-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
           <span class="timeline-date">2023</span>
-          <h3>Research Assistant</h3>
+          <h3><a href="/projects/drisht" class="research-link">Research Assistant</a></h3>
           <p class="timeline-company">Amity Institute of Information technology</p>
           <p>Computer vision research on adversarial detection systems and browser fingerprinting techniques.</p>
         </div>
@@ -272,6 +272,32 @@
     color: var(--text);
     margin: 0.5rem 0 0.25rem;
     line-height: 1.3;
+  }
+
+  .timeline-content h3 .research-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  .timeline-content h3 .research-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+  }
+
+  .timeline-content h3 .research-link:hover {
+    color: var(--accent);
+  }
+
+  .timeline-content h3 .research-link:hover::after {
+    width: 100%;
   }
   
   .timeline-company {
